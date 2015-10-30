@@ -1,0 +1,14 @@
+<div class = "box">
+  <div ng-repeat = "objective in learningObjectives track by $index" class = "row" >
+    <div class  ="col s6 learning-objective-text">
+        <div class = "col s1">{{$index +1}}</div><div class = "col s11">{{objective.title}}</div>
+    </div>
+    <div class = "col s6">
+      <form action = "#">
+        <p class="range-field">
+          <input ng-model = "test" type="range" id="test5" min="0" max="100" />
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
