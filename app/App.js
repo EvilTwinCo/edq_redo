@@ -1,4 +1,4 @@
-var app = angular.module('dateABook', ['ngRoute','ngMaterial'])
+var app = angular.module('theQ', ['ngRoute','ngMaterial'])
 .config(function($routeProvider, $mdThemingProvider){
 
 
