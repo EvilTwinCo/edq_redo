@@ -1,13 +1,13 @@
-<div>
-  <p>TEST</p>
-  <div ng-class = "feedContainer" ng-repeat = "part in lF.props">
-<p>TEST</p>
+
+
+<div class = "feedContainer liveFeedBackground">
+  <div ng-repeat = "part in lF.props">
     <div class="row">
-      <div class="col s12 m6">
-        <div class="card">
-          <div class="card-content black-text">
-            <span class="card-title">{{part.question}}</span>
-            <p>{{question.solution}}</p>
+      <div class="col s6 m6">
+        <div class="cardsBackground">
+          <div class="white-text">
+            <span class="">{{part.question}}</span>
+            <p>{{part.solution}}</p>
           </div>
         </div>
       </div>
