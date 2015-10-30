@@ -1,6 +1,14 @@
 .feedContainer {
-  height: 500px;
+  height: 250px;
   overflow: scroll;
-  width: 200px;
 
+
+}
+.liveFeedBackground{
+background-color: #2AB27B;
+
+}
+
+.cardsBackground{
+  background-color: grey;
 }
