@@ -1,4 +1,4 @@
-/** {
+/* * {
   outline:1px solid red;
 }/**/
 
@@ -20,6 +20,10 @@ learning-objective .learning-objective-text .col {
 learning-objective .row{
   margin-bottom: 2px;
   display:flex;
+}
+
+learning-objective {
+  background-color: mintcream;
 }
 
 learning-objective .box{
