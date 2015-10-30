@@ -1,0 +1,31 @@
+/** {
+  outline:1px solid red;
+}/**/
+
+learning-objective .range-field {
+  margin: 0px;
+  margin-top: -4px;
+  margin-bottom: -4px;
+}
+
+learning-objective .learning-objective-text{
+  align-self: center;
+  display:flex
+}
+
+learning-objective .learning-objective-text .col {
+  align-self: center;
+}
+
+learning-objective .row{
+  margin-bottom: 2px;
+  display:flex;
+}
+
+learning-objective {
+  background-color: mintcream;
+}
+
+learning-objective .box{
+  border:1px solid black;
+}
