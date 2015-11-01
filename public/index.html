@@ -31,74 +31,82 @@
 <!-- ======= -->
 
 <html lang="en" ng-app="theQ">
-    <head>
-      <meta charset="UTF-8">
-      <title>The Q</title>
 
-      <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.css">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link rel = "stylesheet" href = "app/styles/liveFeed.css">
-    </head>
-    <body>
+<head>
+  <meta charset="UTF-8">
+  <title>The Q</title>
 
-      <nav>
-        <div class="nav-wrapper ">
-          <a href="" class="brand-logo"><img class = ""/></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="">Home</a></li>
-            <li><a href="">Login</a></li>
-            <li><a href="">Large Feed?</a></li>
-          </ul>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="app/styles/liveFeed.css">
+  <link href='https://fonts.googleapis.com/css?family=Amiri:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+</head>
 
-          <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#!">Home</a></li>
-            <li><a href="#!">Login</a></li>
-            <li class="divider"></li>
-            <li><a href="#!">Large Feed?</a></li>
-          </ul>
+<body>
 
-          <ul id="nav-mobile" class="right hide-on-large-only">
-            <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons right">toc</i></a></li>
-          </ul>
-        </div>
-      </nav>
+  <nav>
+    <div class="nav-wrapper ">
+      <a href="" class="brand-logo">
+        <img src="css/photos/devmountain-logo.jpg" />
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/">Login</a></li>
+        <li><a href="/#studentDashboard">Students</a></li>
+        <li><a href="#/adminDashboard">Admin</a></li>
+      </ul>
 
-    <ng-view></ng-view>
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/">Login</a></li>
+        <li class="divider"></li>
+        <li><a href="/#studentDashboard">Students</a></li>
+        <li><a href="#/adminDashboard">Admin</a></li>
+      </ul>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.js"></script>
+      <ul id="nav-mobile" class="right hide-on-large-only">
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons right">toc</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ng-view></ng-view>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.js"></script>
 
 
 
-    <script src="app/App.js"></script>
+  <script src="app/App.js"></script>
 
-    <script src="app/features/dayNotes/dayNotes.js"></script>
-    <script src="app/features/dayNotes/dayNotesCtrl.js"></script>
-    <script src="app/features/liveFeedDirective/liveFeedDirective.js"></script>
-    <script src="app/features/liveFeedDirective/liveFeedCtrl.js"></script>
-    <script src="app/features/learning-objective/learningObjectiveCtrl.js"></script>
-    <script src="app/features/learning-objective/learningObjectiveDirective.js"></script>
-    <script src='app/features/qInput/qInputCtrl.js'></script>
-    <script src='app/features/qInput/qInput.js'></script>
+  <script src="app/features/dayNotes/dayNotes.js"></script>
+  <script src="app/features/dayNotes/dayNotesCtrl.js"></script>
+  <script src="app/features/liveFeedDirective/liveFeedDirective.js"></script>
+  <script src="app/features/liveFeedDirective/liveFeedCtrl.js"></script>
+  <script src="app/features/learning-objective/learningObjectiveCtrl.js"></script>
+  <script src="app/features/learning-objective/learningObjectiveDirective.js"></script>
+  <script src='app/features/qInput/qInputCtrl.js'></script>
+  <script src='app/features/qInput/qInput.js'></script>
 
-    <script src="app/views/adminDashboard/adminDashboard.js"></script>
-    <script src="app/views/adminDashboard/adminDashboardCtrl.js"></script>
-    <script src="app/views/studentDashboard/studentDashboard.js"></script>
-    <script src="app/views/studentDashboard/studentDashboardCtrl.js"></script>
-    <script src="app/views/login/login.js"></script>
-    <script src="app/views/login/loginCtrl.js"></script>
-    <script src="app/views/logout/logout.js"></script>
-    <script src="app/views/logout/logoutCtrl.js"></script>
-    <script src="app/views/calendar/calendar.js"></script>
-    <script src="app/views/calendar/calendarCtrl.js"></script>
+  <script src="app/views/adminDashboard/adminDashboard.js"></script>
+  <script src="app/views/adminDashboard/adminDashboardCtrl.js"></script>
+  <script src="app/views/studentDashboard/studentDashboard.js"></script>
+  <script src="app/views/studentDashboard/studentDashboardCtrl.js"></script>
+  <script src="app/views/login/login.js"></script>
+  <script src="app/views/login/loginCtrl.js"></script>
+  <script src="app/views/logout/logout.js"></script>
+  <script src="app/views/logout/logoutCtrl.js"></script>
+  <script src="app/views/calendar/calendar.js"></script>
+  <script src="app/views/calendar/calendarCtrl.js"></script>
 
-    <script src="app/services/learningObjSrvc.js"></script>
-    </body>
+  <script src="app/services/learningObjSrvc.js"></script>
+</body>
 
 </html>

@@ -1,8 +1,4 @@
-<!-- <script type="text/javascript">
-  $(document).ready(function() {
-    $('.dropdown-button').material_select();
-  });
-</script> -->
+
 <script type="text/javascript">
 $('.dropdown-button').dropdown({
      inDuration: 300,
@@ -14,10 +10,14 @@ $('.dropdown-button').dropdown({
      alignment: 'left' // Displays dropdown with edge aligned to the left of button
    }
  );
+
+ //Makes dropdown disappear when selection is clicked
  $('.dropdown-content-li').on('click', function() {
    $('.dropdown-content').removeAttr('style')
  })
 </script>
+
+
 <div id="queue">
   <!-- Dropdown Trigger -->
   <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
