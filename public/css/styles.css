@@ -22,6 +22,7 @@ div.nav-wrapper {
   font-family: "Amiri:700";
   font-size: 35em;
   opacity: .2;
+  z-index: 0;
 }
 
 /*Student Dashboard Styles*/
@@ -29,4 +30,15 @@ div.nav-wrapper {
   height: 100%;
   width: 100%;
   background-color: #2699d9;
+}
+
+#queue {
+  margin-top: 40%;
+}
+
+.box {
+  background-color: white;
+  margin-top: 20px;
+  border: 2px solid #1b75bb;
+  margin-left: 5px;
 }
