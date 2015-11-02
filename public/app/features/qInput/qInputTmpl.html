@@ -1,43 +1,42 @@
-
 <script type="text/javascript">
-$('.dropdown-button').dropdown({
-     inDuration: 300,
-     outDuration: 225,
-     constrain_width: true, // Does not change width of dropdown to that of the activator
-     gutter: 0, // Spacing from edge
-     hover: true,
-     belowOrigin: true, // Displays dropdown below the button
-     alignment: 'left' // Displays dropdown with edge aligned to the left of button
-   }
- );
+  $('.dropdown-button').dropdown({
+    inDuration: 300,
+    outDuration: 225,
+    constrain_width: true, // Does not change width of dropdown to that of the activator
+    gutter: 0, // Spacing from edge
+    hover: true,
+    belowOrigin: true, // Displays dropdown below the button
+    alignment: 'left' // Displays dropdown with edge aligned to the left of button
+  });
 
- //Makes dropdown disappear when selection is clicked
- $('.dropdown-content-li').on('click', function() {
-   $('.dropdown-content').removeAttr('style')
- })
+  //Makes dropdown disappear when selection is clicked
+  $('.dropdown-content-li').on('click', function() {
+    $('.dropdown-content').removeAttr('style')
+  })
 </script>
 
 
 <div id="queue">
-  <!-- Dropdown Trigger -->
-  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
-  <!-- Dropdown Structure -->
-  <ul id='dropdown1' class='dropdown-content'>
-    <li class='dropdown-content-li'><a href="#!">one</a></li>
-    <li class='dropdown-content-li'><a href="#!">two</a></li>
-    <li class="divider"></li>
-    <li class='dropdown-content-li'><a href="#!">three</a></li>
-  </ul>
-
-  <div class="inputBox ">
-
+  <div class="dropdownBtn">
+    <!-- Dropdown Trigger -->
+    <a class='dropdown-button btn grey darken-1' href='#' data-activates='dropdown1'>Select Objective</a>
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+      <li class='dropdown-content-li grey darken-1'><a href="#!">Creating a Folder</a></li>
+      <li class='dropdown-content-li'><a href="#!">Creating a File</a></li>
+      <li class='dropdown-content-li'><a href="#!">Editing a File</a></li>
+      <li class='dropdown-content-li'><a href="#!">Changing Directories</a></li>
+    </ul>
   </div>
-  <div class="textArea">
-    <textarea rows="20" cols="40"></textarea>
+
+
+  <div class="row">
+    <div class="textArea">
+      <textarea placeholder="Please enter question here" rows="20" cols="40"></textarea>
+    </div>
   </div>
   <div class="submitBtn">
-    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+    <button class="btn waves-effect waves-light grey darken-1" type="submit" name="action">Submit
       <i class="material-icons right">send</i>
     </button>
   </div>
-</div>
