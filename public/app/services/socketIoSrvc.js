@@ -2,16 +2,10 @@ angular.module('theQ').service('socketIoSrvc', function() {
 
     var socket = io();
     
-    // EVENT EMITS
-    this.submitConfidence = function(obj) {
-        socket.emit('submit confidence', obj);
+    this.getSocket = function() {
+        return socket;
     }
 
-    // EVENT CAPTURES
-    socket.on('report confidence', function(obj) {
-        console.log('report confidence received: ', obj);
-    });
-    
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {
         console.log('connected');
