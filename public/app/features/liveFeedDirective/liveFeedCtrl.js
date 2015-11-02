@@ -1,7 +1,19 @@
-angular.module('theQ').controller('liveFeedCtrl', function(){
+angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc){
 
-//in the controller it this.
 
-console.log("LFcontroller");
+var socket = socketIoSrvc.getSocket();
 
+this.feed = [];
+
+socket.on('liveFeed', function(data){
+  this.feed.push(data);
 })
+
+socket.on('serversLiveFeedStore', function(data){
+  this.feed = data;
+})
+
+
+// $broadcast
+
+});

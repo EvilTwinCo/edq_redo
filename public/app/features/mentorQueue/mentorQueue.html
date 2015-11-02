@@ -1,0 +1,29 @@
+
+
+<div class = 'column col s3'>
+  <ul class="collection col s3" ng-repeat = "part in mq.questions">
+      <li ng-if = "!part.solved" class="collection-item avatar"  ng-init = "mq.ObjectEntersQ(part)" ng-class-odd= "'grey lighten-2'">
+        <img ng-src = "{part.pictureUrl}" alt="studentPicture" class="circle">
+        <span class="title"><b>{{part.name}}</b></span>
+        <div><b>Question:</b> <p>{{part.question}} </p><br></div>
+        <a ng-if = "!part.mentorName" class="waves-effect waves-light btn" ng-click = "mq.mentorBegins(part)">Help</a>
+
+        <div ng-if = "part.mentorName" class = "green"><p>Being helped by {{part.mentorName}}</p></div>
+        <a class="waves-effect waves-light btn red" ng-click = "mq.questionResolve(part)">Remove from Queue</a>
+
+
+
+      <div class = 'row' ng-if= "part.removing">
+        <div class="input-field col s3">
+          <input id="question" type="text" class="validate" ng-model = "part.reviewedQuestion">
+          <label for="question">What was the question?</label>
+        </div>
+        <div class="input-field col s3">
+          <input id="solution" type="text" class="validate" ng-model = "part.reviewedAnswer">
+          <label for="solution">What was the solution?</label>
+        </div>
+                <a ng-if = "part.removing" class="waves-effect waves-light btn" ng-click = "mq.addingQuestionAndSolution(part)">Done!</a>
+      </div>
+      </li>
+</ul>
+</div>

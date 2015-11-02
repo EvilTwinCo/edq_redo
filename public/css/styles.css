@@ -1,0 +1,77 @@
+
+/*Navigation Styles*/
+a.brand-logo img {
+  width: 250px;
+  height: 55px;
+  padding: 5px;
+}
+
+div.nav-wrapper {
+  background-color: #fff;
+  z-index: 1;
+}
+
+.nav-wrapper a {
+  color: black;
+}
+
+.backgroundLogo {
+  text-align: center;
+  height: 50%;
+  line-height: 2;
+  font-family: "Amiri:700";
+  font-size: 35em;
+  opacity: .2;
+  z-index: 0;
+}
+
+/*Student Dashboard Styles*/
+#studentDashboard {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: #2699d9;
+}
+
+#queue {
+  margin-top: 30%;
+}
+
+.box {
+  background-color: white;
+  margin-top: 20px;
+  border: 3px solid #1b75bb;
+  margin-left: 5px;
+}
+
+.dropdownBtn {
+  margin: 5px;
+}
+
+.textarea {
+  background-color: white;
+}
+
+textarea {
+  resize: none;
+  overflow: auto;
+  outline: none;
+}
+
+* {
+  outline: 1px red solid;
+}
+
+.inputBox {
+  /*padding: 5px;*/
+}
+
+.submitBtn {
+  margin: 5px;
+}
+
+.liveFeed {
+  width: 100%;
+  height: 40px;
+  background-color: red;
+}
