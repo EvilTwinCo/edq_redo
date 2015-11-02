@@ -41,6 +41,9 @@ app.controller("d3VerticleDotDistributionCtrl", function($scope){
     .attr("r", function(d, index){
       return r;
     })
+    .attr("title", function(d, index){
+      return index + ":" + "d";
+    })
 
   }
 
