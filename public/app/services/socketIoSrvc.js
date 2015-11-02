@@ -1,24 +1,40 @@
 angular.module('theQ').service('socketIoSrvc', function() {
 
     var socket = io();
-    
+
+    this.getSocket = function() {
+        return socket;
+    }
+
     // EVENT EMITS
     this.submitConfidence = function(obj) {
         socket.emit('submit confidence', obj);
+    }
+
+      //{question: string, solution: string}
+    this.submitLiveFeed= function(obj) {
+        socket.emit('liveFeed', obj);
     }
 
     // EVENT CAPTURES
     socket.on('report confidence', function(obj) {
         console.log('report confidence received: ', obj);
     });
-    
+
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {
         console.log('connected');
+
+      //  socket.emit('serversLiveFeedStore', theStoredFeed)
+      // sent as array of objects [{question:string, solution: string}]
+
     });
 
     socket.on('reconnect', function() {
         console.log('reconnecting');
+
+        //  socket.emit('serversLiveFeedStore', theStoredFeed)
+        // sent as array of objects [{question:string, solution: string}]
     });
 
     socket.on('disconnect', function() {
@@ -28,4 +44,7 @@ angular.module('theQ').service('socketIoSrvc', function() {
     socket.on('error', function() {
         console.log('connection error');
     });
+
+
+
 });
