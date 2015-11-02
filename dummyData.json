@@ -1,65 +1,125 @@
 [
   {
-    "topic" : "Git",
-    "objective" : "Understand and be able to use the command line",
-    "sections" : {
-      "preReading1" : "Git - The Simple Guide",
-      "preReading2" : "Atlassian Git Tutorial",
-      "preReading3" : "Make sure you Install Git",
-      "project" : "Learn Git",
-      "additionalPractice" : "Learn Git Branching",
-      "additionalReading1" : "The Command Line Crash Course",
-      "additionalReading2" : "Lecture Archive",
-      "additionalReading3" : "Visual Git Guide",
-      "additionalReading4" : "Getting Started with Git",
-      "assessment" : "Command Line & Git",
-    },
-
-  }
-]
-/////////////////////////////////////////////////////////////////////////
-[
-  {
-    "topic" : "Git",
+    "topic" : "Orientation and Version Control",
     "objectives" : {
-      "title1" : "understand and be able to use the command line",
-      "title2" : "understand what Git and Github are and how they fit into the web app landscape",
-      "title3" : "be able to clone a repo and know its purpose",
-      "title4" : "be able to add, commit, and push files to github",
-      "title5" : "understand basic branching",
-      "title6" : "understand how to use github in a group setting",
-    },
+      "objective1" : "Understand and be able to use the command line for",
+      "objective2" : "Understand what Git and Github are and how they fit into the web app landscape",
+      "objective3" : "Be able to clone a repo and know its purpose",
+      "objective4" : "Be able to add, commit, and push files to github",
+      "objective5" : "Understand basic branching",
+      "objective6" : "Understand how to use github in a group setting",
+      },
     "sections" : {
       "preReading1" : "Git - The Simple Guide",
       "preReading2" : "Atlassian Git Tutorial",
       "preReading3" : "Make sure you Install Git",
-      "project" : "Learn Git",
+      "project1" : "Learn Git",
       "additionalPractice" : "Learn Git Branching",
       "additionalReading1" : "The Command Line Crash Course",
       "additionalReading2" : "Lecture Archive",
       "additionalReading3" : "Visual Git Guide",
       "additionalReading4" : "Getting Started with Git",
-      "assessment" : "Command Line & Git",
+      "assessment1" : "Command Line & Git",
     },
 
-  }
+  },
+  {
+    "topic" : "HTML & CSS Fundamentals",
+    "objectives" : {
+      "objective1" : "understand the purpose of HTML",
+      "objective2" : "Understand the purpose of CSS",
+      "objective3" : "From scratch, be able to create a skeleton for their html and css page",
+      "objective4" : "Understand and be able to use the following HTML Elements",
+      "objective5" : "",
+      "objective6" : "",
+      },
+    "sections" : {
+      "preReading1" : "Codecademy HTML/CSS",
+      "preReading2" : "",
+      "preReading3" : "",
+      "project1" : "HTML Layouts",
+      "additionalPractice" : "",
+      "additionalReading1" : "",
+      "additionalReading2" : "",
+      "additionalReading3" : "",
+      "additionalReading4" : "",
+      "assessment1" : "HTML",
+    },
+
+  },
+  {
+    "topic" : "HTML & CSS Positioning",
+    "objectives" : {
+      "objective1" : "Understand and be able to use the command line for",
+      "objective2" : "Understand what Git and Github are and how they fit into the web app landscape",
+      "objective3" : "Be able to clone a repo and know its purpose",
+      "objective4" : "Be able to add, commit, and push files to github",
+      "objective5" : "Understand basic branching",
+      "objective6" : "Understand how to use github in a group setting",
+      },
+    "sections" : {
+      "preReading1" : "Positioning: MDN",
+      "preReading2" : "",
+      "preReading3" : "",
+      "project1" : "HTML Layout 2",
+      "project2" : "Wikimedia Layout",
+      "additionalPractice" : "",
+      "additionalReading1" : "",
+      "additionalReading2" : "",
+      "additionalReading3" : "",
+      "additionalReading4" : "",
+      "assessment1" : "CSS Positioning",
+    },
+
+  },
+  {
+    "topic" : "Advanced HTML and CSS",
+    "objectives" : {
+      "objective1" : "Understand and be able to explain the box model to someone else",
+      "objective2" : "Understand media queries and be able to implement them",
+      "objective3" : "Understand when and when not to use floating elements",
+      "objective4" : "",
+      "objective5" : "",
+      "objective6" : "",
+      },
+    "sections" : {
+      "preReading1" : "Positioning in CSS",
+      "preReading2" : "Atlassian Git Tutorial",
+      "preReading3" : "Make sure you Install Git",
+      "project1" : "WideopenTech",
+      "project2" : "",
+      "additionalPractice" : "",
+      "additionalReading1" : "",
+      "additionalReading2" : "",
+      "additionalReading3" : "",
+      "additionalReading4" : "",
+      "assessment1" : "Advanced CSS",
+    },
+
+  },
+  {
+    "topic" : "Javascript Fundamentals I",
+    "objectives" : {
+      "objective1" : "Understand and be able to use the command line for",
+      "objective2" : "Understand what Git and Github are and how they fit into the web app landscape",
+      "objective3" : "Be able to clone a repo and know its purpose",
+      "objective4" : "Be able to add, commit, and push files to github",
+      "objective5" : "Understand basic branching",
+      "objective6" : "Understand how to use github in a group setting",
+      },
+    "sections" : {
+      "preReading1" : "Eloquent JavaScript - Functions",
+      "preReading2" : "",
+      "preReading3" : "",
+      "project1" : "JavaScript Basics",
+      "project2" : "",
+      "additionalPractice" : "",
+      "additionalReading1" : "Everything you need to know about Scopes",
+      "additionalReading2" : "",
+      "additionalReading3" : "",
+      "additionalReading4" : "",
+      "assessment1" : "JS Fundamentals I",
+    },
+
+  },
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-topic =
-objectiveId = string
-trackableId =
-sections {
-    t
-}
