@@ -19,12 +19,26 @@ app
 
 //Controllers
 var ConfidenceController = require('./controllers/ConfidenceController.js');
+var UserController = require('./controllers/UserController.js');
+var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
 
 
 //Endpoints
 app.post('/server/confidence', ConfidenceController.create);
 app.get('/server/confidence', ConfidenceController.read);
 app.delete('/server/confidence/:id', ConfidenceController.delete);
+
+app.post('/server/user', UserController.create);
+app.get('/server/user', UserController.read);
+app.get('/server/user/:id', UserController.readOne);
+app.put('/server/user/:id', UserController.update);
+app.delete('/server/user/:id', UserController.delete);
+
+app.post('/server/learningobjective', LearningObjectiveController.create);
+app.get('/server/learningobjective', LearningObjectiveController.read);
+app.get('/server/learningobjective', LearningObjectiveController.readOne);
+app.put('/server/learningobjective', LearningObjectiveController.update);
+app.delete('/server/learningobjective', LearningObjectiveController.delete);
 
 
 

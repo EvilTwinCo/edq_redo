@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var schema = new mongoose.Schema({
   response: { type: Number, required: true },
   // user: { type: mongoose.Schema.ObjectID, ref: 'User', required: true },
-  // learningObj: { type: mongoose.Schema.ObjectID, ref: 'LearningObj', required: true }
+  // learningObjective: { type: mongoose.Schema.ObjectID, ref: 'LearningObjective', required: true }
 });
 
 
