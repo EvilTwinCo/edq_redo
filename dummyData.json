@@ -1,0 +1,65 @@
+[
+  {
+    "topic" : "Git",
+    "objective" : "Understand and be able to use the command line",
+    "sections" : {
+      "preReading1" : "Git - The Simple Guide",
+      "preReading2" : "Atlassian Git Tutorial",
+      "preReading3" : "Make sure you Install Git",
+      "project" : "Learn Git",
+      "additionalPractice" : "Learn Git Branching",
+      "additionalReading1" : "The Command Line Crash Course",
+      "additionalReading2" : "Lecture Archive",
+      "additionalReading3" : "Visual Git Guide",
+      "additionalReading4" : "Getting Started with Git",
+      "assessment" : "Command Line & Git",
+    },
+
+  }
+]
+/////////////////////////////////////////////////////////////////////////
+[
+  {
+    "topic" : "Git",
+    "objectives" : {
+      "title1" : "understand and be able to use the command line",
+      "title2" : "understand what Git and Github are and how they fit into the web app landscape",
+      "title3" : "be able to clone a repo and know its purpose",
+      "title4" : "be able to add, commit, and push files to github",
+      "title5" : "understand basic branching",
+      "title6" : "understand how to use github in a group setting",
+    },
+    "sections" : {
+      "preReading1" : "Git - The Simple Guide",
+      "preReading2" : "Atlassian Git Tutorial",
+      "preReading3" : "Make sure you Install Git",
+      "project" : "Learn Git",
+      "additionalPractice" : "Learn Git Branching",
+      "additionalReading1" : "The Command Line Crash Course",
+      "additionalReading2" : "Lecture Archive",
+      "additionalReading3" : "Visual Git Guide",
+      "additionalReading4" : "Getting Started with Git",
+      "assessment" : "Command Line & Git",
+    },
+
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+topic =
+objectiveId = string
+trackableId =
+sections {
+    t
+}
