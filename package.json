@@ -1,0 +1,20 @@
+{
+  "name": "edq_redo",
+  "version": "1.0.0",
+  "description": "This is a readme!",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvilTwinCo/edq_redo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvilTwinCo/edq_redo/issues"
+  },
+  "homepage": "https://github.com/EvilTwinCo/edq_redo#readme"
+}
