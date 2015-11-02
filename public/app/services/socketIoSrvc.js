@@ -6,11 +6,6 @@ angular.module('theQ').service('socketIoSrvc', function() {
         return socket;
     }
 
-    // EVENT EMITS
-    this.submitConfidence = function(obj) {
-        socket.emit('submit confidence', obj);
-    }
-
       //{question: string, solution: string}
     this.submitLiveFeed= function(obj) {
         socket.emit('liveFeed', obj);
@@ -40,15 +35,11 @@ angular.module('theQ').service('socketIoSrvc', function() {
       //mentorQueue information coming back in an object
     socket.on('exit queue information', function(obj) {
 
-
       //example obj coming
       //{name:'bob', pictureUrl: string, reviewedQuestion: string, reviewedAnswer: string
       // question:"how do I tie shoes??", solution: '', mentorName: 'MARK', removing: bool, timeQuestionAnswered:dateObj, timeMentorBegins:dateObj, timeWhenEnteredQ:dateObj}
         console.log('exit queue information: ', obj);
     });
-
-
-
 
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {

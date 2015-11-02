@@ -5,6 +5,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var app = express();
 var httpServer = require('http').Server(app);
 var SocketIOServer = require('socket.io');
 var ioServer = new SocketIOServer(httpServer);
@@ -19,15 +20,13 @@ var passportDevMtnCtrl = require('./controllers/passportDevMtnCtrl.js');
 var serverPort = 8080;
 var mongoURI = 'mongod://localhost:27017/theQ';
 
-var corsWhiteList = ['http://localhost:' + serverPort];
+var corsWhiteList = ['http://localhost:' + serverPort]; 
 var corsOptions = {
     origin: function (origin, callback) {
         if (corsWhiteList.indexOf(origin) !== -1) callback(null, true);
         else callback(null, false);
     }
 }
-
-var app = express();
 
 app.use(express.static(__dirname + '/../public'));
 app.use(cors(corsOptions));
@@ -81,6 +80,7 @@ ioServer.on('connection', function(socket) {
     });
 
     socket.on('submit confidence', function(obj) {
+        
         console.log('confidence submitted by a user: ', obj);
         ioServer.emit('report confidence', obj);
     })
