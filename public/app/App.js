@@ -17,8 +17,9 @@ app.config(function($routeProvider, $mdThemingProvider) {
 
  $(document).ready(function(){
    $('.dropdown-button').dropdown();
+   $('.button-collapse').sideNav();
+   $('.parallax').parallax();
  });
-
 
 //   'default': '100',
 //   'hue-1': '300',
