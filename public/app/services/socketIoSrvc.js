@@ -6,21 +6,6 @@ angular.module('theQ').service('socketIoSrvc', function() {
         return socket;
     }
 
-    // EVENT EMITS
-    this.submitConfidence = function(obj) {
-        socket.emit('submit confidence', obj);
-    }
-
-      //{question: string, solution: string}
-    this.submitLiveFeed= function(obj) {
-        socket.emit('liveFeed', obj);
-    }
-
-    // EVENT CAPTURES
-    socket.on('report confidence', function(obj) {
-        console.log('report confidence received: ', obj);
-    });
-
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {
         console.log('connected');
