@@ -6,6 +6,8 @@ var socket = socketIoSrvc.getSocket();
 
 this.questions = [];
 
+socket.emit('get questions asked');
+
 socket.on('questionForQueue', function(data){
   this.questions.push(data);
   $scope.$apply();
