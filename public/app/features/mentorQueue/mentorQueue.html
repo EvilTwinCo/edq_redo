@@ -1,5 +1,3 @@
-
-
 <div class = 'column col s3'>
   <ul class="collection col s3" ng-repeat = "part in mq.questions">
       <li ng-if = "!part.solved" class="collection-item avatar"  ng-init = "mq.ObjectEntersQ(part)" ng-class-odd= "'grey lighten-2'">
@@ -25,5 +23,5 @@
                 <a ng-if = "part.removing" class="waves-effect waves-light btn" ng-click = "mq.addingQuestionAndSolution(part)">Done!</a>
       </div>
       </li>
-</ul>
+    </ul>
 </div>
