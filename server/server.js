@@ -10,6 +10,9 @@ var httpServer = require('http').Server(app);
 var SocketIOServer = require('socket.io');
 var ioServer = new SocketIOServer(httpServer);
 
+
+
+
 /* --- UNCOMMENT ONCE WE HAVE MONGO CONTROLLERS ---
 var questionsCtrl = require('./controllers/questionsCtrl.js');
 var usersCtrl = require('./controllers/usersCtrl.js');
@@ -24,6 +27,7 @@ var mongoURI = 'mongod://localhost:27017/theQ';
 var ConfidenceController = require('./controllers/ConfidenceController.js');
 var UserController = require('./controllers/UserController.js');
 var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
+var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -94,11 +98,9 @@ ioServer.on('connection', function(socket) {
         console.log('a user disconnected');
     });
 
-    socket.on('submit confidence', function(obj) {
+    socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
 
-        console.log('confidence submitted by a user: ', obj);
-        ioServer.emit('report confidence', obj);
-    })
+    socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
 });
 
 mongoose.set('debug', true);
