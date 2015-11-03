@@ -16,12 +16,12 @@
 
 
 <div class = 'row'>
-  <div class="input-field col s3">
+  <div class="input-field col s9">
     <input id="questionText" type="text" ng-model = "question.question" class="validate" >
     <label for="questionText">What is your question?</label>
   </div>
 
-  <div ng-if= "question.question ">
+  <div ng-if= "question.question" class = "col s3">
     <a class="waves-effect waves-light btn" ng-click = "is.submitQuestion(question)" >Ask!</a>
 
   </div>
