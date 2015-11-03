@@ -31,6 +31,10 @@ angular.module('theQ').service('socketIoSrvc', function() {
     socket.on('report confidence', function(obj) {
         console.log('report confidence received: ', obj);
     });
+    
+    socket.on('flash poll', function(answer) {
+       console.log('flash poll received: ', answer); 
+    });
 
       //mentorQueue information coming back in an object
     socket.on('exit queue information', function(obj) {

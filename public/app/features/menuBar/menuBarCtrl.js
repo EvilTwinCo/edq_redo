@@ -1,3 +1,3 @@
-angular.module('theQ').controller('menuBarCtrl', function($document) {
+angular.module('theQ').controller('menuBarCtrl', function() {
 
 });
