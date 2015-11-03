@@ -6,6 +6,9 @@ app.controller("d3VerticleDotDistributionCtrl", function($scope){
     draw();
   })
 
+  var RedYellowInterpolater = d3.interpolateRgb("red", "gold");
+  var YellowGreenInterpolater = d3.interpolateRgb("gold", "green");
+
 
   function draw(){
     var chartSize = $scope.svg[0];
@@ -15,7 +18,7 @@ app.controller("d3VerticleDotDistributionCtrl", function($scope){
 
     var chart = $scope.chart;
 
-    var r = 2;
+    var r = 1.5;
 
 
     var students = chart.selectAll("cirlce")
@@ -29,9 +32,10 @@ app.controller("d3VerticleDotDistributionCtrl", function($scope){
         students = chart.selectAll("circle")
                         .data($scope.data);
     var studentCount = $scope.data.length;
-    students.transition().duration(1000).attr("cx", function(d, index){
-
-      return (20-2*r) * index/studentCount+r;
+    students.transition().duration(1000)
+    .attr("cx", function(d, index){
+      //console.log(index);
+      return (20-2*r) * (index+1)/(studentCount+1)+r;
     })
     .attr("cy", function(d, index){
       //console.log(d);
@@ -43,6 +47,14 @@ app.controller("d3VerticleDotDistributionCtrl", function($scope){
     })
     .attr("title", function(d, index){
       return index + ":" + "d";
+    })
+    .style("fill", function(d, index){
+      if(d<50){
+      return RedYellowInterpolater(d/50);
+      }
+      return YellowGreenInterpolater((d-50)/50);
+
+      //return 'red';
     })
 
   }

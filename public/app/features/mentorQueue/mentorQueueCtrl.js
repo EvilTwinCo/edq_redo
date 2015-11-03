@@ -1,5 +1,18 @@
-angular.module('theQ').controller('mentorQueueCtrl',function(){
+angular.module('theQ').controller('mentorQueueCtrl',function(socketIoSrvc){
 
+
+
+var socket = socketIoSrvc.getSocket();
+
+this.questions = [];
+
+socket.on('questionForQueue', function(data){
+  this.questions.push(data);
+})
+
+socket.on('getAllQuestionsAsked', function(data){
+  this.questions = data;
+})
 
 
 this.timeObject = function(){
@@ -13,25 +26,22 @@ this.timeObject = function(){
 
  this.mentorBegins = function(object){
    object.timeMentorBegins = this.timeObject();
-
    //need mentor name
- object.mentorName = "SMelly guy"
+   object.mentorName = "Smelly guy"
 
  }
 
  this.questionResolve = function(object){
    object.timeQuestionAnswered = this.timeObject();
    object.removing = true;
-//need to send the object to the server here?
-
  }
 
  this.addingQuestionAndSolution = function(object) {
    object.solved = true;
-console.log(object);
-   //here push the object to the db   object is an individual q
+   socket.emit('exit queue information', object);
+   console.log(object);
 
- }
+ };
 
 
 //dummy data
