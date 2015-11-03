@@ -10,7 +10,4 @@ angular.module('theQ').directive('qInput', function(){
       }
     }
 
-
-
-
 });
