@@ -11,7 +11,7 @@ var SocketIOServer = require('socket.io');
 var ioServer = new SocketIOServer(httpServer);
 
 
-var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
+
 
 /* --- UNCOMMENT ONCE WE HAVE MONGO CONTROLLERS ---
 var questionsCtrl = require('./controllers/questionsCtrl.js');
@@ -22,6 +22,12 @@ var passportDevMtnCtrl = require('./controllers/passportDevMtnCtrl.js');
 
 var serverPort = 8080;
 var mongoURI = 'mongod://localhost:27017/theQ';
+
+//Controllers
+var ConfidenceController = require('./controllers/ConfidenceController.js');
+var UserController = require('./controllers/UserController.js');
+var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
+var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -58,11 +64,21 @@ app.use(passport.session());
 
 // ENDPOINTS
 
+app.post('/confidence', ConfidenceController.create);
+app.get('/confidence', ConfidenceController.read);
+app.delete('/confidence/:_id', ConfidenceController.delete);
 
+app.post('/user', UserController.create);
+app.get('/user', UserController.read);
+app.get('/user/:_id', UserController.readOne);
+app.put('/user/:_id', UserController.update);
+app.delete('/user/:_id', UserController.delete);
 
-
-
-
+app.post('/learningobjective', LearningObjectiveController.create);
+app.get('/learningobjective', LearningObjectiveController.read);
+app.get('/learningobjective/:_id', LearningObjectiveController.readOne);
+app.put('/learningobjective/:_id', LearningObjectiveController.update);
+app.delete('/learningobjective/:_id', LearningObjectiveController.delete);
 
 /* --- UNCOMMENT ONCE WE HAVE AUTH/PASSPORT SET UP ---
 passport.serializeUser(function(user, done) {done(null, user);});
@@ -87,6 +103,7 @@ ioServer.on('connection', function(socket) {
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
 });
 
+mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
     console.log('Connected to MongoDB: ' + mongoURI);
 })
