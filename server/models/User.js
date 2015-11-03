@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
     type: String,
     required: true
   },
@@ -11,6 +15,10 @@ var schema = new mongoose.Schema({
     unique: true
   },
   password: {
+    type: String,
+    required: true
+  },
+  imageUrl: {
     type: String,
     required: true
   }

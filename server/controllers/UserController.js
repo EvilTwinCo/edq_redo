@@ -20,7 +20,7 @@ module.exports = {
       });
     },
     readOne: function(req, res) {
-      User.findById(req.params.id, function(err, result){
+      User.findById(req.params._id, function(err, result){
         if (err) {
           res.status(500).json(err);
         } else {
@@ -29,7 +29,7 @@ module.exports = {
       });
     },
     update: function(req, res) {
-      User.findByIdAndUpdate(req.params.id, function(err, result){
+      User.findByIdAndUpdate(req.params._id, function(err, result){
         if (err) {
           res.status(500).json(err);
         } else {
@@ -38,7 +38,7 @@ module.exports = {
       });
     },
     delete: function(req, res) {
-      User.findByIdAndDelete(req.params.id, function(err, result){
+      User.findByIdAndRemove(req.params._id, function(err, result){
         if (err) {
           res.status(500).json(err)
         } else {

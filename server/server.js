@@ -5,10 +5,17 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var session = require('express-session');
 
+//Mongoose Connection
+var mongoURI = 'mongodb://localhost:27017/edq_redo';
+mongoose.set('debug', true);
+mongoose.connect(mongoURI);
+mongoose.connection.once('open', function() {
+  console.log('Connected to mongoDB at: ', mongoURI);
+});
 
 
 //Express Connection
-var port = 8080;
+var port = 3000;
 var app = express();
 
 app
@@ -24,21 +31,21 @@ var LearningObjectiveController = require('./controllers/LearningObjectiveContro
 
 
 //Endpoints
-app.post('/server/confidence', ConfidenceController.create);
-app.get('/server/confidence', ConfidenceController.read);
-app.delete('/server/confidence/:id', ConfidenceController.delete);
+app.post('/confidence', ConfidenceController.create);
+app.get('/confidence', ConfidenceController.read);
+app.delete('/confidence/:_id', ConfidenceController.delete);
 
-app.post('/server/user', UserController.create);
-app.get('/server/user', UserController.read);
-app.get('/server/user/:id', UserController.readOne);
-app.put('/server/user/:id', UserController.update);
-app.delete('/server/user/:id', UserController.delete);
+app.post('/user', UserController.create);
+app.get('/user', UserController.read);
+app.get('/user/:_id', UserController.readOne);
+app.put('/user/:_id', UserController.update);
+app.delete('/user/:_id', UserController.delete);
 
-app.post('/server/learningobjective', LearningObjectiveController.create);
-app.get('/server/learningobjective', LearningObjectiveController.read);
-app.get('/server/learningobjective', LearningObjectiveController.readOne);
-app.put('/server/learningobjective', LearningObjectiveController.update);
-app.delete('/server/learningobjective', LearningObjectiveController.delete);
+app.post('/learningobjective', LearningObjectiveController.create);
+app.get('/learningobjective', LearningObjectiveController.read);
+app.get('/learningobjective/:_id', LearningObjectiveController.readOne);
+app.put('/learningobjective/:_id', LearningObjectiveController.update);
+app.delete('/learningobjective/:_id', LearningObjectiveController.delete);
 
 
 

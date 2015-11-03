@@ -22,11 +22,13 @@ module.exports = {
   },
 
   delete: function(req, res) {
-    Confidence.remove({_id:req.params.id}, function(err, result){
+    Confidence.findByIdAndRemove(req.params._id, function(err, result){
       if (err) {
-        res.status(500).send(err);
+        console.log("error", err);
+        res.status(500).json(err);
       } else {
         res.status(200).json(result);
+        console.log("result", result);
       }
     });
   }

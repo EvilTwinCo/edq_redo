@@ -20,7 +20,7 @@ module.exports = {
     });
   },
   readOne: function(req, res) {
-    LearningObjective.findById(req.params.id, function(err, result){
+    LearningObjective.findById(req.params._id, function(err, result){
       if (err) {
         res.status(500).json(err);
       } else {
@@ -29,7 +29,7 @@ module.exports = {
     });
   },
   update: function(req, res) {
-    LearningObjective.findByIdAndUpdate(req.params.id, function(err, result){
+    LearningObjective.findByIdAndUpdate(req.params._id, function(err, result){
       if (err) {
         res.status(500).json(err);
       } else {
@@ -38,7 +38,7 @@ module.exports = {
     });
   },
   delete: function(req, res) {
-    LearningObjective.findByIdAndDelete(req.params.id, function(err, result){
+    LearningObjective.findByIdAndRemove(req.params._id, function(err, result){
       if (err) {
         res.status(500).json(err);
       } else {
