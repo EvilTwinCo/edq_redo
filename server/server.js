@@ -28,6 +28,7 @@ var ConfidenceController = require('./controllers/ConfidenceController.js');
 var UserController = require('./controllers/UserController.js');
 var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
+var QuestionCtrl = require('./controllers/QuestionCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -99,8 +100,8 @@ ioServer.on('connection', function(socket) {
     });
 
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
-
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, ioServer));
 });
 
 mongoose.set('debug', true);
