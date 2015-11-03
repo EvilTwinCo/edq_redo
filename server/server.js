@@ -10,6 +10,9 @@ var httpServer = require('http').Server(app);
 var SocketIOServer = require('socket.io');
 var ioServer = new SocketIOServer(httpServer);
 
+
+var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
+
 /* --- UNCOMMENT ONCE WE HAVE MONGO CONTROLLERS ---
 var questionsCtrl = require('./controllers/questionsCtrl.js');
 var usersCtrl = require('./controllers/usersCtrl.js');
@@ -20,7 +23,7 @@ var passportDevMtnCtrl = require('./controllers/passportDevMtnCtrl.js');
 var serverPort = 8080;
 var mongoURI = 'mongod://localhost:27017/theQ';
 
-var corsWhiteList = ['http://localhost:' + serverPort]; 
+var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
     origin: function (origin, callback) {
         if (corsWhiteList.indexOf(origin) !== -1) callback(null, true);
@@ -79,11 +82,9 @@ ioServer.on('connection', function(socket) {
         console.log('a user disconnected');
     });
 
-    socket.on('submit confidence', function(obj) {
-        
-        console.log('confidence submitted by a user: ', obj);
-        ioServer.emit('report confidence', obj);
-    })
+    socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
+
+    socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
 });
 
 mongoose.connect(mongoURI, function() {
@@ -91,5 +92,5 @@ mongoose.connect(mongoURI, function() {
 })
 
 httpServer.listen(serverPort, function() {
-    console.log("Server listening on port: " + serverPort); 
+    console.log("Server listening on port: " + serverPort);
 });
