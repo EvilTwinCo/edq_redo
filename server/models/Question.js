@@ -15,6 +15,10 @@ var schema = new mongoose.Schema({
     type:String,
     required:true
   },
+  directive:{
+    type:String,
+    required:true
+  },
   timeWhenEntered:{
     type:Date,
     required:true
