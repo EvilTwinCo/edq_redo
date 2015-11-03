@@ -2,9 +2,14 @@ var Question = require('../models/Question');
 
 module.exports = {
   handleStudentQuestionSubmit:function(ioServer, data){
-    console.log(data);
+    //
+    data.name = "I am a fake person. We need to figure out Auth. Hopefully David and Samson are having a good time of it."
+    data.timeWhenEntered = new Date();
     Question.create(data, function(err, newQuestion){
-      ioServer.to('instructors').emit('questionForQueue', newQuestion);
+      if(err){
+        console.log (err);
+      }
+        ioServer.emit('questionForQueue', newQuestion);
     });
   }
 }

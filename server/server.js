@@ -21,7 +21,7 @@ var passportDevMtnCtrl = require('./controllers/passportDevMtnCtrl.js');
 */
 
 var serverPort = 8080;
-var mongoURI = 'mongod://localhost:27017/theQ';
+var mongoURI = 'mongodb://localhost:27017/theQ';
 
 //Controllers
 var ConfidenceController = require('./controllers/ConfidenceController.js');
@@ -106,7 +106,7 @@ ioServer.on('connection', function(socket) {
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, ioServer));
-    
+
 });
 
 mongoose.set('debug', true);

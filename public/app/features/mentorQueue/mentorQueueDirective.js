@@ -1,4 +1,4 @@
-angular.module('theQ').directive('mentorQueueDirective', function(){
+angular.module('theQ').directive('mentorQueue', function(){
 
   return{
 
