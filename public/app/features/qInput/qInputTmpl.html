@@ -1,43 +1,30 @@
-<!-- <script type="text/javascript">
-  $(document).ready(function() {
-    $('.dropdown-button').material_select();
-  });
-</script> -->
-<script type="text/javascript">
-$('.dropdown-button').dropdown({
-     inDuration: 300,
-     outDuration: 225,
-     constrain_width: true, // Does not change width of dropdown to that of the activator
-     gutter: 0, // Spacing from edge
-     hover: true,
-     belowOrigin: true, // Displays dropdown below the button
-     alignment: 'left' // Displays dropdown with edge aligned to the left of button
-   }
- );
- $('.dropdown-content-li').on('click', function() {
-   $('.dropdown-content').removeAttr('style')
- })
-</script>
-<div id="queue">
-  <!-- Dropdown Trigger -->
-  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
-  <!-- Dropdown Structure -->
-  <ul id='dropdown1' class='dropdown-content'>
-    <li class='dropdown-content-li'><a href="#!">one</a></li>
-    <li class='dropdown-content-li'><a href="#!">two</a></li>
-    <li class="divider"></li>
-    <li class='dropdown-content-li'><a href="#!">three</a></li>
-  </ul>
 
-  <div class="inputBox ">
+<form action ="#">
 
+  <div class = "row">
+    <span>What does your question concern?</span>
+    <p ng-repeat = "part in is.day">
+      <input name="group1" type="radio" ng-model = "question.directive" value = "{{part}}" id= "{{part}}"/>
+      <label for="{{part}}">{{part}}</label>
+    </p>
+
+    <p>
+      <input name="group1" type="radio" ng-model = "question.directive" value ="none" id ="none"/>
+      <label for="none">None the Above!</label>
+    </p>
   </div>
-  <div class="textArea">
-    <textarea rows="20" cols="40"></textarea>
+
+
+<div class = 'row'>
+  <div class="input-field col s3">
+    <input id="questionText" type="text" ng-model = "question.question" class="validate" >
+    <label for="questionText">What is your question?</label>
   </div>
-  <div class="submitBtn">
-    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-      <i class="material-icons right">send</i>
-    </button>
+
+  <div ng-if= "question.question ">
+    <a class="waves-effect waves-light btn" ng-click = "is.submitQuestion(question)" >Ask!</a>
+
   </div>
 </div>
+
+</form>

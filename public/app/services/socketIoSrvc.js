@@ -11,6 +11,10 @@ angular.module('theQ').service('socketIoSrvc', function() {
         socket.emit('submit confidence', obj);
     }
 
+    this.sendStudentsObjectives = function(arr){
+      socket.emit('dayObjectives', arr);
+    }
+
       //{question: string, solution: string}
     this.submitLiveFeed= function(obj) {
         socket.emit('liveFeed', obj);
@@ -20,6 +24,14 @@ angular.module('theQ').service('socketIoSrvc', function() {
     socket.on('report confidence', function(obj) {
         console.log('report confidence received: ', obj);
     });
+
+
+    socket.on('questionFromStudent', function(obj){
+
+      //obj will be {question: string, directive: string}
+
+
+    })
 
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {
