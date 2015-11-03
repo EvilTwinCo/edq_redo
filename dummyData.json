@@ -1,3 +1,95 @@
+
+{
+    "trackables": [{
+        "sectionName": "css3 selectors",
+        "sectionId": "2398472398472938749823749",
+        "topicName": "css"
+    }],
+    "objectives": [{
+        "objectiveId": "309232092",
+        "objectiveName": "The student will be able to select an element by the element name, class, and id."
+    }]
+},
+
+{
+    "trackables": [{
+        "sectionName": "Orientation and Version Control",
+        "sectionId": "2398472398472938749823741",
+        "topicName": "git"
+    }],
+    "objectives": [{
+        "objectiveId": "309232001",
+        "objectiveName": "Students will understand and be able to use the command line for."
+    }]
+},
+
+{
+    "trackables": [{
+        "sectionName": "Orientation and Version Control",
+        "sectionId": "2398472398472938749823742",
+        "topicName": "git"
+    }],
+    "objectives": [{
+        "objectiveId": "309232002",
+        "objectiveName": "Students will understand what Git and Github are and how they fit into the web app landscape."
+    }]
+},
+
+{
+    "trackables": [{
+        "sectionName": "Orientation and Version Control",
+        "sectionId": "2398472398472938749823743",
+        "topicName": "git"
+    }],
+    "objectives": [{
+        "objectiveId": "309232003",
+        "objectiveName": "Students will be able to clone a repo and know its purpose."
+    }]
+},
+
+{
+    "trackables": [{
+        "sectionName": "Orientation and Version Control",
+        "sectionId": "2398472398472938749823744",
+        "topicName": "git"
+    }],
+    "objectives": [{
+        "objectiveId": "309232004",
+        "objectiveName": "Students will be able to add, commit, and push files to github."
+    }]
+},
+
+{
+    "trackables": [{
+        "sectionName": "Orientation and Version Control",
+        "sectionId": "2398472398472938749823745",
+        "topicName": "git"
+    }],
+    "objectives": [{
+        "objectiveId": "309232005",
+        "objectiveName": "Students will understand basic branching."
+    }]
+},
+
+{
+    "trackables": [{
+        "sectionName": "Orientation and Version Control",
+        "sectionId": "2398472398472938749823746",
+        "topicName": "git"
+    }],
+    "objectives": [{
+        "objectiveId": "309232006",
+        "objectiveName": "Students will understand how to use github in a group setting."
+    }]
+},
+
+
+
+
+
+
+/////////////////////////////
+/*
 [
   {
     "topic" : "Orientation and Version Control",
@@ -122,4 +214,4 @@
     },
 
   },
-]
+]*/
