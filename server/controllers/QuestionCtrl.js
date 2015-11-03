@@ -11,5 +11,17 @@ module.exports = {
       }
         ioServer.emit('questionForQueue', newQuestion);
     });
+  },
+
+  getAllQuestionsAsked: function(socket, data){
+    Question.find({timeQuestionAnswered : null})
+    .exec(function(err, result){
+      if(err){
+        console.log(err);
+      }
+      socket.emit('getAllQuestionsAsked', result);
+      console.log(result);
+    });
   }
+
 }

@@ -106,7 +106,10 @@ ioServer.on('connection', function(socket) {
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, ioServer));
-
+    // socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, socket));
+    // socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
+    // socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, ioServer));
+    socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
 });
 
 mongoose.set('debug', true);
