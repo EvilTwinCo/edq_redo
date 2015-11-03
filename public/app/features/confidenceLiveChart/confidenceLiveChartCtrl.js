@@ -28,6 +28,5 @@ app.controller("confidenceLiveChartCtrl", function($scope, socketIoSrvc){
     $scope.data = _.mapObject($scope.objData, function(object, index){
       return _.values(object);
     })
-    console.log($scope.data)
   }
 });
