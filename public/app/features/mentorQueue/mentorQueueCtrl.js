@@ -27,7 +27,7 @@ this.timeObject = function(){
  this.mentorBegins = function(object){
    object.timeMentorBegins = this.timeObject();
    //need mentor name
-   object.mentorName = "SMelly guy"
+   object.mentorName = "Smelly guy"
 
  }
 
