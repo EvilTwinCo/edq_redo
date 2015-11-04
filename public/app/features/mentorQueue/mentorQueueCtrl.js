@@ -6,6 +6,8 @@ var socket = socketIoSrvc.getSocket();
 
 this.questions = [];
 
+socket.emit('get questions asked');
+
 socket.on('questionForQueue', function(data){
   this.questions.push(data);
   $scope.$apply();
@@ -13,6 +15,7 @@ socket.on('questionForQueue', function(data){
 
 socket.on('getAllQuestionsAsked', function(data){
   this.questions = data;
+  $scope.$apply();
 }.bind(this));
 
 
@@ -29,16 +32,20 @@ this.timeObject = function(){
    object.timeMentorBegins = this.timeObject();
    //need mentor name
    object.mentorName = "Smelly guy"
-
- }
+   console.log(object);
+   socket.emit('mentor begins help', object)
+ };
 
  this.questionResolve = function(object){
    object.timeQuestionAnswered = this.timeObject();
    object.removing = true;
- }
+   console.log(object);
+   socket.emit('mentor resolves problem', object);
+ };
 
  this.addingQuestionAndSolution = function(object) {
    object.solved = true;
+   console.log(object);
    socket.emit('exit queue information', object);
  };
 
