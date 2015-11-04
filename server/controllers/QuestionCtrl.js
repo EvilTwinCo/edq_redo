@@ -36,18 +36,30 @@ module.exports = {
   },
 
   mentorBegins: function(ioServer, data){
-    Question.findByIdAndUpdate(data._id, data)
+    var dataToUpdate = {
+      _id:data._id,
+      mentorName:data.mentorName,
+      timeMentorBegins:data.timeMentorBegins
+    }
+    Question.findByIdAndUpdate(data._id, dataToUpdate)
     .exec(function(err, result){
       if(err){
         console.log(err);
       }
-      socket.emit('mentorBegins', result);
+      ioServer.emit('mentorBegins', result);
       console.log(result);
     });
   },
 
   questionResolve: function(socket, data){
-    Question.findByIdAndUpdate(data._id, data)
+    console.log(data);
+    var dataToUpdate = {
+      _id:data._id,
+      timeQuestionAnswered:data.timeQuestionAnswered,
+      mentorSolution:data.reviewedAnswer,
+      questionCategory:data.reviewedQuestion
+    }
+    Question.findByIdAndUpdate(data._id, dataToUpdate)
     .exec(function(err, result){
       if(err){
         console.log(err);
