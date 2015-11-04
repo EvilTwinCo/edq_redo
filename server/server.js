@@ -24,9 +24,8 @@ var serverPort = 8080;
 var mongoURI = 'mongodb://localhost:27017/theQ';
 
 //Controllers
-var ConfidenceController = require('./controllers/ConfidenceController.js');
-var UserController = require('./controllers/UserController.js');
-var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
+var UserCtrl = require('./controllers/UserCtrl.js');
+var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
@@ -66,21 +65,8 @@ app.use(passport.session());
 
 // ENDPOINTS
 
-app.post('/confidence', ConfidenceController.create);
-app.get('/confidence', ConfidenceController.read);
-app.delete('/confidence/:_id', ConfidenceController.delete);
 
-app.post('/user', UserController.create);
-app.get('/user', UserController.read);
-app.get('/user/:_id', UserController.readOne);
-app.put('/user/:_id', UserController.update);
-app.delete('/user/:_id', UserController.delete);
 
-app.post('/learningobjective', LearningObjectiveController.create);
-app.get('/learningobjective', LearningObjectiveController.read);
-app.get('/learningobjective/:_id', LearningObjectiveController.readOne);
-app.put('/learningobjective/:_id', LearningObjectiveController.update);
-app.delete('/learningobjective/:_id', LearningObjectiveController.delete);
 
 /* --- UNCOMMENT ONCE WE HAVE AUTH/PASSPORT SET UP ---
 passport.serializeUser(function(user, done) {done(null, user);});
@@ -104,13 +90,30 @@ ioServer.on('connection', function(socket) {
         console.log('flash poll submitted by a user: ', answer);
         ioServer.emit('flash poll', answer);
     })
+    //User Sockets
+    socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
+    socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
+    socket.on('update user', UserCtrl.updateUserInfo.bind(null, socket));
+    socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
+
+    //Learning Objective Sockets
+    socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
+    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, ioServer));
+    socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
+    socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
+
+    //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+
+    //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, ioServer));
     socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, ioServer));
     socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+
+    //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 });
