@@ -4,9 +4,14 @@ var socket = socketIoSrvc.getSocket()
 this.askForSolution = false;
 this.showUserInput = true;
 
+this.getDataObject function(){
+  return new Date;
+}
+
 this.getInput = function(){
     this.askForSolution = true;
     this.showUserInput = false;
+    $scope.question.timeDropFromQueue = this.timeObject();
 }
 
 
