@@ -110,6 +110,8 @@ ioServer.on('connection', function(socket) {
     socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
+    socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 });
 
 mongoose.set('debug', true);
