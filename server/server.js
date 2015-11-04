@@ -29,6 +29,7 @@ var UserController = require('./controllers/UserController.js');
 var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
+var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {

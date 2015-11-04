@@ -2,7 +2,7 @@ var Attendance = require('../models/Attendance');
 
 module.exports = {
     postAttendance: function(socket, data) {
-        Attendance.create(data, function(err, createAttendee) {
+        Attendance.create(data, createAttendee) 
             .exec(function(err, result) {
               if (err) {
                 console.log(err);
