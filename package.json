@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "preinstall" : "npm install devmtn-auth-master/"
   },
   "repository": {
     "type": "git",
