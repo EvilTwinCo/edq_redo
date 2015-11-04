@@ -29,7 +29,7 @@ var schema = new mongoose.Schema({
   timeQuestionAnswered:{
     type:Date
   },
-  soulutions:[{
+  solutions:[{
     solution:String,
     public:Boolean,
     name:String

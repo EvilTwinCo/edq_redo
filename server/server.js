@@ -29,6 +29,7 @@ var UserController = require('./controllers/UserController.js');
 var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
+var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -106,7 +107,12 @@ ioServer.on('connection', function(socket) {
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, ioServer));
-
+    socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
+    socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
+    socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
+    socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 });
 
 mongoose.set('debug', true);
