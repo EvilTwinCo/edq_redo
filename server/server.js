@@ -22,6 +22,8 @@ var UserController = require('./controllers/UserController.js');
 var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 var DevMntPassportCtrl = require('./controllers/DevMntPassportCtrl.js');
+var QuestionCtrl = require('./controllers/QuestionCtrl');
+var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -103,7 +105,7 @@ ioServer.on('connection', function(socket) {
   socket.on('disconnect', function() {
     console.log('a user disconnected');
   });
-    
+
     socket.on('flash poll', function(answer) {
         console.log('flash poll submitted by a user: ', answer);
         ioServer.emit('flash poll', answer);
@@ -111,6 +113,13 @@ ioServer.on('connection', function(socket) {
 
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
+    socket.on('mentor begins help', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
+    socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
+    socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
+    socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 
 });
 
