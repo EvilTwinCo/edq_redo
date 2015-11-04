@@ -29,11 +29,15 @@ var schema = new mongoose.Schema({
   timeQuestionAnswered:{
     type:Date
   },
-  solutions:[{
-    solution:String,
-    public:Boolean,
-    name:String
-  }]
+  studentSolution:{
+    type:String
+  },
+  mentorSolution:{
+    type:String
+  },
+  questionCategory:{
+    type:String
+  }
 });
 
 module.exports = mongoose.model('Question', schema);

@@ -40,13 +40,13 @@ this.timeObject = function(){
    object.timeQuestionAnswered = this.timeObject();
    object.removing = true;
    console.log(object);
-   socket.emit('mentor resolves problem', object);
+   socket.emit('mentor resolves question', object);
  };
 
  this.addingQuestionAndSolution = function(object) {
    object.solved = true;
    console.log(object);
-   socket.emit('exit queue information', object);
+   socket.emit('add mentor notes', object);
  };
 
 
