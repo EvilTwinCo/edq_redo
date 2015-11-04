@@ -10,4 +10,6 @@ angular.module('theQ').controller('loginCtrl', function($q, $http) {
      return deferred.promise;
  }
   this.loginWithPassportDevMtn();
+
+
 });
