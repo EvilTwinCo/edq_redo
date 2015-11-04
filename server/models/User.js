@@ -1,27 +1,16 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  imageUrl: {
-    type: String,
-    required: true
-  }
+    email: {type: String, required: true, unique: true, index: true},
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true},
+    imageUrl: {type: String},
+    logins: [{type: Date}],
+    devMnt: {
+        id: {type: Number},
+        roles: [{}],
+        cohortId: {type: Number},
+    }
 });
 
 module.exports = mongoose.model('User', schema);
