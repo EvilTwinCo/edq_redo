@@ -1,4 +1,4 @@
-<div class="attendanceContainer">
+<div class="attendanceContainer"  ng-show='showAttendanceShow'>
   <div class="attendanceHeader">
     <img class="logo" src="app/logoonly.png">
     <div class="attendanceText">Attendance</div>
@@ -40,4 +40,6 @@
   </button>
   </div>
 
+
 </div>
+  <input type="submit" ng-click='showAttendanceShow = !showAttendanceShow' value='ATTENDANCE'>
