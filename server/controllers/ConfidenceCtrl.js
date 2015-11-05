@@ -2,7 +2,8 @@ var currentConfidence = {};
 
 module.exports = {
   handleSubmitConfidence:function(socket, io, obj){
-
+      console.log('obj', obj);
+      
       obj['socketId'] = socket.id;
 
       io.to('instructors').emit('report confidence single', obj);

@@ -56,8 +56,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 30
-  }, //30 seconds
+    maxAge: 1000 * 60 * 30
+  }, //30 minutes
   store: SessionStore
 }));
 
@@ -89,14 +89,14 @@ ioServer.use(passportSocketIo.authorize({
 }));
 
 function onAuthorizeSuccess(data, accept){
-  console.log("Authorized", data)
+  //console.log("Authorized", data)
   accept();
 }
 
 function onAuthorizeFail(data, message, error, accept){
-  console.log('socket Auth Failed');
-  console.log(message);
-  console.log(data);
+  //console.log('socket Auth Failed');
+  //console.log(message);
+  //console.log(data);
   if(error){
     throw new Error(message);
     console.log('failed connection to socket.io', message);
@@ -145,10 +145,9 @@ ioServer.on('connection', function(socket) {
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
-
 });
 
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
   console.log('Connected to MongoDB: ' + mongoURI);
 })
