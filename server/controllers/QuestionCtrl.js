@@ -9,7 +9,7 @@ module.exports = {
       if(err){
         console.log (err);
       }
-        socket.server.emit('questionForQueue', newQuestion);
+        ioServer.emit('questionForQueue', newQuestion);
         socket.emit('questionCreated', newQuestion);
     });
   },
