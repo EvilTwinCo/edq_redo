@@ -25,15 +25,20 @@ angular.module('theQ').service('socketIoSrvc', function() {
         socket.emit('getAllQuestionsAsked', arr);
     }
 
+//format sent array of values from the vote [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3]
+  this.sendVoteResults = function(arr){
+    socket.emit('flashVoteResults', arr);
+
+  }
 
 
     // EVENT CAPTURES
     socket.on('report confidence', function(obj) {
         console.log('report confidence received: ', obj);
     });
-    
+
     socket.on('flash poll', function(answer) {
-       console.log('flash poll received: ', answer); 
+       console.log('flash poll received: ', answer);
     });
 
       //mentorQueue information coming back in an object
