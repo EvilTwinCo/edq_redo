@@ -11,7 +11,9 @@ var SocketIOServer = require('socket.io');
 var ioServer = new SocketIOServer(httpServer);
 var Devmtn = require('devmtn-auth');
 var DevmtnStrategy = Devmtn.Strategy;
-var User = require('./models/User.js')
+var User = require('./models/User.js');
+var passportSocetIo = require("passport.socketio");
+var cookieParser = require("cookie-parser");
 
 var serverPort = 8080;
 var mongoURI = 'mongodb://localhost:27017/theQ';
@@ -43,6 +45,11 @@ app.use(bodyParser.urlencoded({
 
 app.options(cors(corsOptions));
 
+var SessionStore = new MongoStore({
+  collection: 'connect-mongoSessions',
+  autoRemove: 'native',
+  mongooseConnection: mongoose.connection
+})
 var SESSION_SECRET = process.env.DM_SESSION;
 app.use(session({
   secret: SESSION_SECRET,
@@ -52,11 +59,7 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 30
   }, //30 seconds
-  store: new MongoStore({
-    collection: 'connect-mongoSessions',
-    autoRemove: 'native',
-    mongooseConnection: mongoose.connection
-  })
+  store: SessionStore
 }));
 
 app.use(passport.initialize());
@@ -94,10 +97,31 @@ passport.serializeUser(DevMntPassportCtrl.serializeUser);
 passport.deserializeUser(DevMntPassportCtrl.deserializeUser);
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
-ioServer.use(function(socket, next) {
-  console.log('middleware opportunity... could use for auth');
-  next();
-});
+ioServer.use(passportSocetIo.authorize({
+  cookieParser:cookieParser,
+  key:'theQCookie.sid',
+  secret:SESSION_SECRET,
+  store:SessionStore,
+  success: onAuthorizeSuccess,
+  fail: onAuthorizeFail
+}));
+
+function onAuthorizeSuccess(data, accept){
+  console.log("Authorized", data)
+  accept();
+}
+
+function onAuthorizeFail(data, message, error, accept){
+  console.log('socket Auth Failed');
+  console.log(message);
+  console.log(data);
+  if(error){
+    throw new Error(message);
+    console.log('failed connection to socket.io', message);
+
+  }
+  accept(new Error(message));
+}
 
 ioServer.on('connection', function(socket) {
   console.log('a user connected');
