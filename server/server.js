@@ -62,7 +62,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 // DEVMNT PASSPORT AUTH
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ })
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMntPassportCtrl.authFailure), DevMntPassportCtrl.authSuccess);
@@ -94,7 +97,7 @@ ioServer.on('connection', function(socket) {
         console.log('flash poll submitted by a user: ', answer);
         ioServer.emit('flash poll', answer);
     })
-    
+
     //User Sockets
     socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
     socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
@@ -114,6 +117,8 @@ ioServer.on('connection', function(socket) {
     //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, ioServer));
     socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
+    socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
