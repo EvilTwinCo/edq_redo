@@ -62,10 +62,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 // DEVMNT PASSPORT AUTH
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ })
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMntPassportCtrl.authFailure), DevMntPassportCtrl.authSuccess);
