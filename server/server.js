@@ -13,21 +13,17 @@ var Devmtn = require('devmtn-auth');
 var DevmtnStrategy = Devmtn.Strategy;
 var User = require('./models/User.js')
 
-
-
-// var questionsCtrl = require('./controllers/questionsCtrl.js');
-var usersCtrl = require('./controllers/usersCtrl.js');
-// var authCtrl = require('./controllers/authCtrl.js');
-
-
 var serverPort = 8080;
-var mongoURI = 'mongod://localhost:27017/theQ';
+var mongoURI = 'mongodb://localhost:27017/theQ';
 
-//Controllers
+// CONTROLLERS
 var ConfidenceController = require('./controllers/ConfidenceController.js');
 var UserController = require('./controllers/UserController.js');
 var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
+var DevMntPassportCtrl = require('./controllers/DevMntPassportCtrl.js');
+var QuestionCtrl = require('./controllers/QuestionCtrl');
+var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -38,7 +34,8 @@ var corsOptions = {
 }
 
 app.use(express.static(__dirname + '/../public'));
-app.use(cors(corsOptions));
+app.use(cors());
+//app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -46,7 +43,6 @@ app.use(bodyParser.urlencoded({
 
 app.options(cors(corsOptions));
 
-// /* --- UNCOMMENT ONCE WE HAVE AUTH/PASSPORT SET UP ---
 var SESSION_SECRET = process.env.DM_SESSION;
 app.use(session({
   secret: SESSION_SECRET,
@@ -54,8 +50,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60 * 30
-  }, //30 minutes
+    maxAge: 1000 * 30
+  }, //30 seconds
   store: new MongoStore({
     collection: 'connect-mongoSessions',
     autoRemove: 'native',
@@ -66,9 +62,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // ENDPOINTS
-
 app.post('/confidence', ConfidenceController.create);
 app.get('/confidence', ConfidenceController.read);
 app.delete('/confidence/:_id', ConfidenceController.delete);
@@ -85,72 +79,19 @@ app.get('/learningobjective/:_id', LearningObjectiveController.readOne);
 app.put('/learningobjective/:_id', LearningObjectiveController.update);
 app.delete('/learningobjective/:_id', LearningObjectiveController.delete);
 
-app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) {
-  // redirects, so this doesn't get called
-})
-
-// failureRedirect and res.redirect should be changed to match your app
-app.get('/auth/devmtn/callback', passport.authenticate('devmtn', {
-    failureRedirect: '/'
-  }),
-  function(req, res) {
-    //successful authentication
-
-    console.log(req.user); // req.user is created by passport from the decoded json web token
-    console.log('user roles:', req.user.roles);
-    console.log('student:', Devmtn.checkRoles(req.user, 'student')) //example of checking user roles
-
-    res.redirect('/#/studentDashboard')
-  });
-
-app.get('/auth/devmtn/logout', function(req, res) {
-  req.logout();
-  console.log(req.user); //just showing req.user is undefined after logout
-  res.redirect('/#/logout')
-})
-
-passport.serializeUser(function(user, done) {
-  done(null, user._id)
-})
-
-passport.deserializeUser(function(user, done) {
-
-  User.findById(_id: user._id}, function(err, user) {
-    if (err) {
-      return done(err)
-    }
-    return done(null, user)
-  })
-});
-
+// DEVMNT PASSPORT AUTH
+app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ })
+app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMntPassportCtrl.authFailure), DevMntPassportCtrl.authSuccess);
+app.get('/auth/devmtn/logout', DevMntPassportCtrl.authLogout);
 passport.use('devmtn', new DevmtnStrategy({
-  app: process.env.DM_APP,
-  client_token: process.env.DM_AUTH,
-  callbackURL: process.env.DM_CALLBACK,
-  jwtSecret: process.env.DM_SECRET,
-}, function(jwtoken, user, done) {
-    req.session.jwtoken = jwtoken
+    app: process.env.DM_APP,
+    client_token: process.env.DM_AUTH,
+    callbackURL: process.env.DM_CALLBACK,
+    jwtSecret: process.env.DM_SECRET
+}, DevMntPassportCtrl.authLogin));
 
-  User.findById({email: user.email}, function(err, result) {
-    if (err) {
-      return done(err)
-    } else {
-      if (result !== undefined) {
-        return done(null, user)
-
-      } else {
-          User.create({email: user.email}, function(err, result) {
-            if (err) {
-              return done(err)
-            } else {
-              return done(null, user)
-          }
-        });
-      }
-    }
-  });
-}))
-
+passport.serializeUser(DevMntPassportCtrl.serializeUser);
+passport.deserializeUser(DevMntPassportCtrl.deserializeUser);
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(function(socket, next) {
@@ -165,9 +106,21 @@ ioServer.on('connection', function(socket) {
     console.log('a user disconnected');
   });
 
-  socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
+    socket.on('flash poll', function(answer) {
+        console.log('flash poll submitted by a user: ', answer);
+        ioServer.emit('flash poll', answer);
+    })
 
-  socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
+    socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
+    socket.on('mentor begins help', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
+    socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
+    socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
+    socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
+
 });
 
 mongoose.set('debug', true);

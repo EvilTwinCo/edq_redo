@@ -32,6 +32,10 @@ angular.module('theQ').service('socketIoSrvc', function() {
         console.log('report confidence received: ', obj);
     });
 
+    socket.on('flash poll', function(answer) {
+       console.log('flash poll received: ', answer);
+    });
+
       //mentorQueue information coming back in an object
     socket.on('exit queue information', function(obj) {
 
@@ -40,6 +44,14 @@ angular.module('theQ').service('socketIoSrvc', function() {
       // question:"how do I tie shoes??", solution: '', mentorName: 'MARK', removing: bool, timeQuestionAnswered:dateObj, timeMentorBegins:dateObj, timeWhenEnteredQ:dateObj}
         console.log('exit queue information: ', obj);
     });
+
+
+    socket.on('questionFromStudent', function(obj){
+
+      //obj will be {question: string, directive: string}
+
+
+    })
 
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {
