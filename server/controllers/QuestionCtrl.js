@@ -1,4 +1,6 @@
 var Question = require('../models/Question');
+var _ = require('underscore');
+
 
 module.exports = {
   handleStudentQuestionSubmit:function(socket, ioServer, data){
@@ -9,8 +11,12 @@ module.exports = {
       if(err){
         console.log (err);
       }
+        getPositionInQueue(data.name, null, function(position){
+          socket.emit('position in queue', position);
+        });
         ioServer.emit('questionForQueue', newQuestion);
         socket.emit('questionCreated', newQuestion);
+
     });
   },
 
@@ -52,7 +58,6 @@ module.exports = {
   },
 
   questionResolve: function(socket, data){
-    console.log(data);
     var dataToUpdate = {
       _id:data._id,
       timeQuestionAnswered:data.timeQuestionAnswered,
@@ -65,8 +70,19 @@ module.exports = {
         console.log(err);
       }
       socket.emit('questionResolve', result);
-      console.log(result);
     });
   }
-
 };
+
+
+function getPositionInQueue(student, cohort, callback){
+  //TODO include logic to limit to your cohort/track
+  Question.find({
+    timeQuestionAnswered:null
+  })
+  .select('name')
+  .exec(function(err, result){
+    var names= _.pluck(result, 'name');
+    callback(_.indexOf(names,student));
+  })
+}
