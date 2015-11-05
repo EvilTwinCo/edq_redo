@@ -1,6 +1,18 @@
-angular.module('theQ').service('socketIoSrvc', function() {
+angular.module('theQ').service('socketIoSrvc', function($location) {
 
-    var socket = io();
+    function readCookie(a, b) {
+        b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+        return b ? b.pop() : '';
+    }
+
+    console.log(readCookie('theQCookie.sid'));
+    var cookieMonster = readCookie('theQCookie.sid');
+    console.log(cookieMonster);
+    console.log('+' + cookieMonster);
+
+    var socket = io.connect('//'+window.location.host, {
+      query:'session_id='+readCookie('theQCookie.sid')
+    });
 
     this.getSocket = function() {
         return socket;
@@ -81,8 +93,8 @@ angular.module('theQ').service('socketIoSrvc', function() {
         console.log('disconnecting');
     });
 
-    socket.on('error', function() {
-        console.log('connection error');
+    socket.on('error', function(message) {
+        console.log('connection error', message);
     });
 
 
