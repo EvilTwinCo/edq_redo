@@ -1,0 +1,30 @@
+{
+  "name": "devmtn-auth",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Module to authenticate with devmounta.in using json web tokens",
+  "main": "./lib",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -w",
+    "start": "node server.js"
+  },
+  "author": "Jason Dawson",
+  "dependencies": {
+    "inherits": "^2.0.1",
+    "jsonwebtoken": "^5.0.5",
+    "oauth": "^0.9.14",
+    "passport-strategy": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "chai-passport-strategy": "^0.2.0",
+    "jsonwebtoken": "^5.4.0",
+    "mocha": "^2.3.3",
+    "passport": "^0.3.0",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
+  }
+}

@@ -5,11 +5,6 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
         return b ? b.pop() : '';
     }
 
-    console.log(readCookie('theQCookie.sid'));
-    var cookieMonster = readCookie('theQCookie.sid');
-    console.log(cookieMonster);
-    console.log('+' + cookieMonster);
-
     var socket = io.connect('//'+window.location.host, {
       query:'session_id='+readCookie('theQCookie.sid')
     });
@@ -94,9 +89,11 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
     });
 
     socket.on('error', function(message) {
+      if(message === "No session found"){
+        $location.path('login');
+      }
         console.log('connection error', message);
     });
-
 
 
 });

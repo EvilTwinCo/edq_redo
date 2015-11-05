@@ -95,15 +95,10 @@ function onAuthorizeSuccess(data, accept){
 }
 
 function onAuthorizeFail(data, message, error, accept){
-  console.log('socket Auth Failed');
-  console.log(message);
-  console.log(data);
-  if(error){
-    throw new Error(message);
-    console.log('failed connection to socket.io', message);
-
-  }
-  accept(new Error(message));
+  // error indicates whether the fail is due to an error or just a unauthorized client
+  if(error)  throw new Error(message);
+  // send the (not-fatal) error-message to the client and deny the connection
+  return accept(new Error(message));
 }
 
 ioServer.on('connection', function(socket) {
