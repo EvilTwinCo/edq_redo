@@ -12,7 +12,7 @@ var ioServer = new SocketIOServer(httpServer);
 var Devmtn = require('devmtn-auth');
 var DevmtnStrategy = Devmtn.Strategy;
 var User = require('./models/User.js');
-var passportSocetIo = require("passport.socketio");
+var passportSocketIo = require("passport.socketio");
 var cookieParser = require("cookie-parser");
 
 var serverPort = 8080;
@@ -79,7 +79,7 @@ passport.serializeUser(DevMntPassportCtrl.serializeUser);
 passport.deserializeUser(DevMntPassportCtrl.deserializeUser);
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
-ioServer.use(passportSocetIo.authorize({
+ioServer.use(passportSocketIo.authorize({
   cookieParser:cookieParser,
   key:'theQCookie.sid',
   secret:SESSION_SECRET,
