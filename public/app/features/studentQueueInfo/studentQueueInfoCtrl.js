@@ -1,40 +1,49 @@
-angular.module('theQ').controller('studentQueueInfoCtrl',function(socketIoSrvc, $scope){
+angular.module('theQ').controller('studentQueueInfoCtrl',function(socketIoSrvc){
 
-var socket = socketIoSrvc.getSocket()
+var socket = socketIoSrvc.getSocket();
+
 this.askForSolution = false;
-this.showUserInput = true;
-
-this.getDataObject function(){
-  return new Date;
+this.showQueueInfo = false;
+// this.question = {question: "whoa, why???", queuePlace: 4}
+// this.showQueueInfo = true;
+this.timeObject =function(){
+  return new Date()
 }
+
 
 this.getInput = function(){
     this.askForSolution = true;
-    this.showUserInput = false;
-    $scope.question.timeDropFromQueue = this.timeObject();
+    this.showQueueInfo = false;
+    this.timeDropFromQueue = this.timeObject();
+    console.log(this.timeDropFromQueue)
+    socket.emit("studentDropFromQueueTime", this.timeDropFromQueue);
+
 }
 
-
-this.noShareinput = function(){
-  $scope.question.studentSubmittedSolution = '';
-  socket.emit('studentDropFromQueue', $scope.question);
-  console.log($scope.question)
-  $scope.question = { question: ''};
-  this.askForSolution = false;
-}
-
-this.shareInput = function(){
-  if($scope.question.studentSubmittedSolution != ''){
-    socket.emit('studentDropFromQueue', $scope.question);
-      console.log($scope.question)
-    $scope.question = { question: ''};
-    this.askForSolution = false;
-  }
-}
 
 socket.on('questionCreated', function(obj){
-  $scope.question = obj;
+  this.question = obj;
+  this.showQueueInfo = true;
 })
+
+
+socket.on('questionAnswered', function(obj){
+  this.question = obj;
+  this.askForSolution = true;
+  this.showQueueInfo = false;
+})
+
+
+
+//    solutionInputCtrl emits
+// 'studentSolution',{question: string, studentSubmittedSolution: string or ''}
+
+
+// studentQueueInfoCtrl
+// has a listener with "questionAnswered", needs obj= {question:string}
+//has a listener 'questionCreated', needs obj= {question:string, queuePlace: integer }
+//emits 'studentDropFromQueueTime', dateObject
+
 
 
 
