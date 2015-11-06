@@ -16,10 +16,15 @@ module.exports = {
           socket.emit('position in queue', position);
         });
         ioServer.emit('questionForQueue', newQuestion);
-        socket.emit('questionCreated', newQuestion);
+        socket.emit('my current question is', newQuestion);
     });
   },
-
+  qetMyCurrentQuestion: function(socket){
+    Question.findOne({studentId:socket.request.user.devMnt.id, timeQuestionAnswered:null})
+      .exec(function(err, result){
+        socket.emit('my current question is', result)
+      })
+  },
   getAllQuestionsAsked: function(socket){
     Question.find({timeQuestionAnswered : null})
     .exec(function(err, result){
@@ -66,7 +71,11 @@ module.exports = {
       if(err){
         console.log(err);
       }
-      socket.emit('questionResolve', result);
+      passportSocketIo.filterSocketsByUser(socket.server, function(user){
+        return user.devMnt.is = result.studentId
+      }).forEach(function (socket){
+        socket.emit('questionResolve', result);
+      });
       emitAllPositionsInQueue(socket.server, null);
     });
   }
