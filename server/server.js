@@ -22,7 +22,7 @@ var mongoURI = 'mongodb://localhost:27017/theQ';
 var UserCtrl = require('./controllers/UserCtrl.js');
 var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
-var DevMntPassportCtrl = require('./controllers/DevMntPassportCtrl.js');
+var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 
@@ -66,17 +66,17 @@ app.use(passport.session());
 
 // DEVMNT PASSPORT AUTH
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) { /*redirects, not called*/ })
-app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMntPassportCtrl.authFailure), DevMntPassportCtrl.authSuccess);
-app.get('/auth/devmtn/logout', DevMntPassportCtrl.authLogout);
+app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMtnPassportCtrl.authFailure), DevMtnPassportCtrl.authSuccess);
+app.get('/auth/devmtn/logout', DevMtnPassportCtrl.authLogout);
 passport.use('devmtn', new DevmtnStrategy({
     app: process.env.DM_APP,
     client_token: process.env.DM_AUTH,
     callbackURL: process.env.DM_CALLBACK,
     jwtSecret: process.env.DM_SECRET
-}, DevMntPassportCtrl.authLogin));
+}, DevMtnPassportCtrl.authLogin));
 
-passport.serializeUser(DevMntPassportCtrl.serializeUser);
-passport.deserializeUser(DevMntPassportCtrl.deserializeUser);
+passport.serializeUser(DevMtnPassportCtrl.serializeUser);
+passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({

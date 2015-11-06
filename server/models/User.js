@@ -6,7 +6,7 @@ var schema = new mongoose.Schema({
     lastName: {type: String, required: true},
     imageUrl: {type: String},
     logins: [{type: Date}],
-    devMnt: {
+    devMtn: {
         id: {type: String},
         roles: [{}],
         cohortId: {type: String},
