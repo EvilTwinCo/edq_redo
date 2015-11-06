@@ -45,6 +45,7 @@ module.exports = {
     .exec(function (err, result){
       result.timeQuestionAnswered = time;
       result.save();
+      socket.emit('my current question is', result);
     })
   },
   qetMyCurrentQuestion: function(socket){
@@ -94,7 +95,7 @@ module.exports = {
       mentorSolution:data.reviewedAnswer,
       questionCategory:data.reviewedQuestion
     }
-    Question.findByIdAndUpdate(data._id, dataToUpdate)
+    Question.findByIdAndUpdate(data._id, dataToUpdate, {new:true})
     .exec(function(err, result){
       if(err){
         console.log(err);
@@ -103,8 +104,8 @@ module.exports = {
       passportSocketIo.filterSocketsByUser(socket.server, function(user){
         return user.devMnt.is = result.studentId
       }).forEach(function (socket){
-        console.log("question Resolve Emit");
-        socket.emit('questionResolve', result);
+
+        socket.emit('my current question is', result)
       });
       emitAllPositionsInQueue(socket.server, null);
     });

@@ -11,7 +11,8 @@ angular.module('theQ').controller('studentQuestionFormCtrl', function($scope, so
 
   socket.on('questionResolve', function(obj){
     console.log("Questio Resolve Student Question Form Ctrl");
-    $scope.question = obj;
+    $scope.currentQuestion = obj;
+    $scope.$apply();
   })
 
   $scope.callOnSolutionSubmit = function(){

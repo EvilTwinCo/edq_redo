@@ -14,6 +14,7 @@ this.getInput = function(){
     this.askForSolution = true;
     this.showQueueInfo = false;
     this.timeDropFromQueue = new Date();
+    this.question.timeQuestionAnswered = new Date();
     console.log(this.timeDropFromQueue)
     socket.emit("studentDropFromQueueTime", this.timeDropFromQueue);
 }
