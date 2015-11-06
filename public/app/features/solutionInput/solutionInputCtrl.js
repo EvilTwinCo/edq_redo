@@ -1,11 +1,11 @@
-angular.module('theQ').controller('solutionInputCtrl', function(socketIoSrvc) {
+angular.module('theQ').controller('solutionInputCtrl', function(socketIoSrvc, QuestionCtrl) {
 
   var socket = socketIoSrvc.getSocket();
 
   this.question = this.props;
 
   this.noShareinput = function() {
-    this.question.studentSubmittedSolution = '';
+    this.question.studentSolution = '';
     // socket.emit('studentDropFromQueue', si.question);
     this.question = {
       question: ''
@@ -14,7 +14,7 @@ angular.module('theQ').controller('solutionInputCtrl', function(socketIoSrvc) {
 
   this.shareInput = function() {
 
-    if (this.question.studentSubmittedSolution != '') {
+    if (this.question.studentSolution != '') {
 console.log(this.question);
       socket.emit('studentSolution', this.question);
       this.question = {
@@ -23,7 +23,7 @@ console.log(this.question);
 
     } else {
 
-      this.question.studentSubmittedSolution = '';
+      this.question.studentSolution = '';
       // socket.emit('studentSolution', si.question);
       this.question = {
         question: ''
@@ -33,7 +33,7 @@ console.log(this.question);
   }
 
   //    solutionInputCtrl emits
-  // 'studentSolution',{question: string, studentSubmittedSolution: string or ''}
+  // 'studentSolution',{question: string, studentSolution: string or ''}
 
 
 })

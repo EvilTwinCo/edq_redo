@@ -19,6 +19,34 @@ module.exports = {
         socket.emit('my current question is', newQuestion);
     });
   },
+  handleStudentSolutionSubmit:function(socket, data){
+    console.log("start student submission");
+    Question.findOne({
+      studentId:socket.request.user.devMnt.id
+    })
+    .sort({timeQuestionAnswered:-1})
+    .exec(function(err, result){
+        if (err){
+          console.log(err)
+        }
+        if (result){
+          result.studentSolution = data.studentSolution;
+          result.save();
+
+          socket.server.emit('new live feed', {
+            question:result.question,
+            solution:data.studentSolution
+          });
+        }
+    })
+  },
+  handleStudentDropFromQueue: function(socket, time){
+  Question.findOne({studentId:socket.request.user.devMnt.id, timeQuestionAnswered:null})
+    .exec(function (err, result){
+      result.timeQuestionAnswered = time;
+      result.save();
+    })
+  },
   qetMyCurrentQuestion: function(socket){
     Question.findOne({studentId:socket.request.user.devMnt.id, timeQuestionAnswered:null})
       .exec(function(err, result){

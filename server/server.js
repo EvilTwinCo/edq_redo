@@ -137,13 +137,15 @@ ioServer.on('connection', function (socket) {
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('studentSolution', QuestionCtrl.handleStudentSolutionSubmit.bind(null, socket));
+    socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
 
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 });
 
-//mongoose.set('debug', true);
+mongoose.set('debug', true);
 mongoose.connect(mongoURI, function () {
     console.log('Connected to MongoDB: ' + mongoURI);
 })
