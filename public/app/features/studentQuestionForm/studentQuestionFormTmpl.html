@@ -1,5 +1,12 @@
 <q-input ng-hide = "currentQuestion">
 </q-input>
 
-<student-queue-info ng-show = "currentQuestion" props = "">
+<student-queue-info ng-show = "currentQuestion && !currentQuestion.timeWhenAnswered" props = "currentQuestion">
 </student-queue-info>
+
+<solution-input ng-show = "currentQuestion.timeWhenAnswered" props = "currentQuestion">
+</solution-input>
+
+
+Current Question:
+{{currentQuestion}}

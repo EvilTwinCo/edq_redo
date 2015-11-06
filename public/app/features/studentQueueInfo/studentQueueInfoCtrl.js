@@ -1,8 +1,9 @@
 angular.module('theQ').controller('studentQueueInfoCtrl',function(socketIoSrvc, $scope){
 
+
+
 var socket = socketIoSrvc.getSocket();
 
-this.askForSolution = false;
 this.question = {question:'123'};
 this.timeObject =function(){
   return new Date()
@@ -12,7 +13,7 @@ this.timeObject =function(){
 this.getInput = function(){
     this.askForSolution = true;
     this.showQueueInfo = false;
-    this.timeDropFromQueue = this.timeObject();
+    this.timeDropFromQueue = new Date();
     console.log(this.timeDropFromQueue)
     socket.emit("studentDropFromQueueTime", this.timeDropFromQueue);
 }
@@ -22,7 +23,7 @@ socket.on('my current question is', function(obj){
   console.log('current question', obj);
   this.question.question = obj.question;
   this.question._id = obj.question._id;
-  this.showQueueInfo = true;
+  this.e  = true;
   $scope.$apply();
 }.bind(this))
 
@@ -35,11 +36,11 @@ socket.on('position in queue', function(index){
 socket.on('questionResolve', function(obj){
   console.log('question Resolve', obj);
   this.question = obj;
-  this.askForSolution = true;
-  this.showQueueInfo = false;
 }.bind(this))
 
-
+$scope.$on('clearCurrentQuestion', function(){
+  this.question = null;
+})
 
 //    solutionInputCtrl emits
 // 'studentSolution',{question: string, studentSubmittedSolution: string or ''}

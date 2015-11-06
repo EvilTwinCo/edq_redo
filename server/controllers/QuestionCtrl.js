@@ -99,9 +99,11 @@ module.exports = {
       if(err){
         console.log(err);
       }
+      console.log("question Resolve Emit");
       passportSocketIo.filterSocketsByUser(socket.server, function(user){
         return user.devMnt.is = result.studentId
       }).forEach(function (socket){
+        console.log("question Resolve Emit");
         socket.emit('questionResolve', result);
       });
       emitAllPositionsInQueue(socket.server, null);

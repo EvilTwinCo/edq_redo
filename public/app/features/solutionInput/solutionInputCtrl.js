@@ -1,5 +1,6 @@
-angular.module('theQ').controller('solutionInputCtrl', function(socketIoSrvc, QuestionCtrl) {
+angular.module('theQ').controller('solutionInputCtrl', function(socketIoSrvc, $rootScope) {
 
+  console.log( "Solution Input Ctrl");
   var socket = socketIoSrvc.getSocket();
 
   this.question = this.props;
@@ -10,6 +11,8 @@ angular.module('theQ').controller('solutionInputCtrl', function(socketIoSrvc, Qu
     this.question = {
       question: ''
     };
+    console.log(this.onStudentSubmitSolution);
+    this.onStudentSubmitSolution();
   }
 
   this.shareInput = function() {
@@ -20,7 +23,7 @@ console.log(this.question);
       this.question = {
         question: ''
       };
-
+      this.onStudentSubmitSolution();
     } else {
 
       this.question.studentSolution = '';
@@ -28,12 +31,16 @@ console.log(this.question);
       this.question = {
         question: ''
       };
-
+      this.onStudentSubmitSolution();
     }
+  }
+
+  this.onStudentSubmitSolution = function(){
+    $rootScope.$broadcast('clearCurrentQuestion');
   }
 
   //    solutionInputCtrl emits
   // 'studentSolution',{question: string, studentSolution: string or ''}
 
-
+/**/
 })
