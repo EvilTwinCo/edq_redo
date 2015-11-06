@@ -137,6 +137,7 @@ ioServer.on('connection', function (socket) {
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('get my current question', QuestionCtrl.qetMyCurrentQuestion.bind(null, socket));
     socket.on('studentSolution', QuestionCtrl.handleStudentSolutionSubmit.bind(null, socket));
     socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
 

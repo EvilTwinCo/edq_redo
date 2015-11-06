@@ -49,9 +49,15 @@ module.exports = {
     })
   },
   qetMyCurrentQuestion: function(socket){
+    var that = this;
     Question.findOne({studentId:socket.request.user.devMtn.id, timeQuestionAnswered:null})
       .exec(function(err, result){
+        if (result){
         socket.emit('my current question is', result)
+          getPositionInQueue(result.name, null, function(position){
+            socket.emit('position in queue', position);
+          });
+        }
       })
   },
   getAllQuestionsAsked: function(socket){
@@ -65,7 +71,12 @@ module.exports = {
   },
 
   addingQuestionAndSolution: function(socket, data){
-    Question.findByIdAndUpdate(data._id, data)
+    console.log(data);
+    dataToUpdate = {
+      mentorSolution:data.reviewedAnswer,
+      questionCategory:data.reviewedQuestion
+    }
+    Question.findByIdAndUpdate(data._id, dataToUpdate)
     .exec(function(err, result){
       if(err){
         console.log(err);
@@ -91,9 +102,7 @@ module.exports = {
   questionResolve: function(socket, data){
     var dataToUpdate = {
       _id:data._id,
-      timeQuestionAnswered:data.timeQuestionAnswered,
-      mentorSolution:data.reviewedAnswer,
-      questionCategory:data.reviewedQuestion
+      timeQuestionAnswered:data.timeQuestionAnswered
     }
     Question.findByIdAndUpdate(data._id, dataToUpdate, {new:true})
     .exec(function(err, result){
