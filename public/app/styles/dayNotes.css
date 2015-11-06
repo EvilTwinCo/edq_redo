@@ -1,3 +1,20 @@
-p {
-    color: red;
+/*
+* {
+  outline: 1px solid red;
+}*/
+
+day-notes .wrapper {
+  background-color: #FAFAFA;
+}
+
+day-notes .colorBlock {
+  background-color: #F1C40F;
+}
+
+day-notes p {
+  text-align: center;
+}
+
+div.col.s12.day-notes {
+  padding: 0;
 }
