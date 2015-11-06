@@ -32,7 +32,7 @@ module.exports = {
                     User.findByIdAndUpdate(result._id, {
                         firstName: user.first_name,
                         lastName: user.last_name,
-                        devMnt: {
+                        devMtn: {
                             id: user.id,
                             roles: user.roles,
                             cohortId: user.cohortId
@@ -52,7 +52,7 @@ module.exports = {
                         email: user.email,
                         firstName: user.first_name,
                         lastName: user.last_name,
-                        devMnt: {
+                        devMtn: {
                             id: user.id,
                             roles: user.roles,
                             cohortId: user.cohortId
@@ -77,7 +77,7 @@ module.exports = {
     },
     deserializeUser: function(user, done) {
         //console.log('deserializeUser', user);
-        User.findOne({'devMnt.id': user}, function(err, user) {
+        User.findOne({'devMtn.id': user}, function(err, user) {
             if (err) {
                 return done(err)
             }

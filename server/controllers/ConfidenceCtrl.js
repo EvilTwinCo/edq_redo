@@ -6,7 +6,7 @@ var currentConfidence = {};
 
 module.exports = {
     handleSubmitConfidence: function (socket, io, obj) {
-        obj['socketUser'] = socket.client.request.user._doc.devMnt.id;
+        obj['socketUser'] = socket.client.request.user._doc.devMtn.id;
         //console.log('obj', obj);
 
         io.to('instructors').emit('report confidence single', obj);
@@ -46,13 +46,13 @@ function updateConfidence(obj) {
 
 function recordConfidence(obj) {
     //console.log(obj.user);
-    User.findOne({'devMnt.id': obj.user}, function(err, userResult) {
+    User.findOne({'devMtn.id': obj.user}, function(err, userResult) {
         if (err) {
             console.log(err);
         } else {            
             Confidence.create({
                 learningObjective: obj.learningObjective,
-                cohortId: userResult.devMnt.cohortId,
+                cohortId: userResult.devMtn.cohortId,
                 classId: 'testClassId', //TODO: update once we have an actual classId
                 user: userResult._id,
                 confidence: currentConfidence[obj.learningObjective + '|' + obj.user],

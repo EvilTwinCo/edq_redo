@@ -6,7 +6,7 @@ var _ = require('underscore');
 module.exports = {
   handleStudentQuestionSubmit:function(socket, ioServer, data){
     data.name = socket.request.user.firstName + " " + socket.request.user.lastName;
-    data.studentId = socket.request.user.devMnt.id;
+      data.studentId = socket.request.user.devMtn.id;
     data.timeWhenEntered = new Date();
     Question.create(data, function(err, newQuestion){
       if(err){
@@ -93,7 +93,7 @@ function emitAllPositionsInQueue(ioServer, cohort){
   .exec(function(err, result){
     result.forEach(function(studentId, index){
       passportSocketIo.filterSocketsByUser(ioServer, function(user){
-        return user.devMnt.id = studentId;
+          return user.devMtn.id = studentId;
       }).forEach(function(socket){
         socket.emit('position in queue', index)
       });
