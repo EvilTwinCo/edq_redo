@@ -1,4 +1,9 @@
-.feedContainer {
+
+* {
+  outline: 1px solid red;
+}
+
+live-feed .feedContainer {
   height: 250px;
   overflow: scroll;
 
