@@ -2,29 +2,42 @@
   outline:1px solid red;
 }/**/
 
-learning-objective .range-field {
-  margin: 0px;
-  margin-bottom: -4px;
+learning-objective {
+    display: block;
+    background-color: #eefdf6;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.27);
 }
 
-learning-objective .learning-objective-text{
-  align-self: center;
-  display:flex
+learning-objective p {
+    margin: 0;
+    padding: 0;
+}
+
+learning-objective .row {
+    display: flex;
+    margin-bottom: 2px;
+    
+}
+
+learning-objective .learning-objective-text {
+    display: flex;
+    align-self: center;
+    
 }
 
 learning-objective .learning-objective-text .col {
-  align-self: center;
+    align-self: center;
 }
 
-learning-objective .row{
-  margin-bottom: 2px;
-  display:flex;
+learning-objective .range-field {
+
 }
 
-learning-objective {
-  background-color: mintcream;
+learning-objective .current-percentage {
+    display: flex;
+    align-self: center;
 }
 
-learning-objective .box{
-  border:1px solid black;
+learning-objective .current-percentage p {
+    color: black;
 }
