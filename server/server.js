@@ -64,7 +64,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// DEVMNT PASSPORT AUTH
+// devMtn PASSPORT AUTH
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) { /*redirects, not called*/ })
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMtnPassportCtrl.authFailure), DevMtnPassportCtrl.authSuccess);
 app.get('/auth/devmtn/logout', DevMtnPassportCtrl.authLogout);

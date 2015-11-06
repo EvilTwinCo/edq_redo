@@ -22,7 +22,7 @@ module.exports = {
   handleStudentSolutionSubmit:function(socket, data){
     console.log("start student submission");
     Question.findOne({
-      studentId:socket.request.user.devMnt.id
+      studentId:socket.request.user.devMtn.id
     })
     .sort({timeQuestionAnswered:-1})
     .exec(function(err, result){
@@ -41,7 +41,7 @@ module.exports = {
     })
   },
   handleStudentDropFromQueue: function(socket, time){
-  Question.findOne({studentId:socket.request.user.devMnt.id, timeQuestionAnswered:null})
+  Question.findOne({studentId:socket.request.user.devMtn.id, timeQuestionAnswered:null})
     .exec(function (err, result){
       result.timeQuestionAnswered = time;
       result.save();
@@ -49,7 +49,7 @@ module.exports = {
     })
   },
   qetMyCurrentQuestion: function(socket){
-    Question.findOne({studentId:socket.request.user.devMnt.id, timeQuestionAnswered:null})
+    Question.findOne({studentId:socket.request.user.devMtn.id, timeQuestionAnswered:null})
       .exec(function(err, result){
         socket.emit('my current question is', result)
       })
@@ -102,7 +102,7 @@ module.exports = {
       }
       console.log("question Resolve Emit");
       passportSocketIo.filterSocketsByUser(socket.server, function(user){
-        return user.devMnt.is = result.studentId
+        return user.devMtn.id === result.studentId
       }).forEach(function (socket){
 
         socket.emit('my current question is', result)
