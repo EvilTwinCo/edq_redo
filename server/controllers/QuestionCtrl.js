@@ -1,11 +1,12 @@
 var Question = require('../models/Question');
+var passportSocketIo = require('passport.socketio');
 var _ = require('underscore');
 
 
 module.exports = {
   handleStudentQuestionSubmit:function(socket, ioServer, data){
     data.name = socket.request.user.firstName + " " + socket.request.user.lastName;
-
+    data.studentId = socket.request.user.devMnt.id;
     data.timeWhenEntered = new Date();
     Question.create(data, function(err, newQuestion){
       if(err){
@@ -16,7 +17,6 @@ module.exports = {
         });
         ioServer.emit('questionForQueue', newQuestion);
         socket.emit('questionCreated', newQuestion);
-
     });
   },
 
@@ -27,7 +27,6 @@ module.exports = {
         console.log(err);
       }
       socket.emit('getAllQuestionsAsked', result);
-      console.log(result);
     });
   },
 
@@ -37,7 +36,6 @@ module.exports = {
       if(err){
         console.log(err);
       }
-      console.log(result);
     });
   },
 
@@ -53,7 +51,6 @@ module.exports = {
         console.log(err);
       }
       ioServer.emit('mentorBegins', result);
-      console.log(result);
     });
   },
 
@@ -70,6 +67,7 @@ module.exports = {
         console.log(err);
       }
       socket.emit('questionResolve', result);
+      emitAllPositionsInQueue(socket.server, null);
     });
   }
 };
@@ -84,5 +82,21 @@ function getPositionInQueue(student, cohort, callback){
   .exec(function(err, result){
     var names= _.pluck(result, 'name');
     callback(_.indexOf(names,student));
+  })
+}
+
+function emitAllPositionsInQueue(ioServer, cohort){
+  //TODO include logic to limit to cohort/track
+  Question.find({
+    timeQuestionAnswered:null
+  }).select('studentId')
+  .exec(function(err, result){
+    result.forEach(function(studentId, index){
+      passportSocketIo.filterSocketsByUser(ioServer, function(user){
+        return user.devMnt.id = studentId;
+      }).forEach(function(socket){
+        socket.emit('position in queue', index)
+      });
+    })
   })
 }
