@@ -1,11 +1,11 @@
-angular.module('theQ').controller('studentQueueInfoCtrl',function(socketIoSrvc){
+angular.module('theQ').controller('studentQueueInfoCtrl',function(socketIoSrvc, $scope){
 
 var socket = socketIoSrvc.getSocket();
 
 this.askForSolution = false;
 this.showQueueInfo = false;
-// this.question = {question: "whoa, why???", queuePlace: 4}
-// this.showQueueInfo = true;
+this.question = {question: "whoa, why???", queuePlace: 4}
+this.showQueueInfo = true;
 this.timeObject =function(){
   return new Date()
 }
@@ -26,12 +26,16 @@ socket.on('questionCreated', function(obj){
   this.showQueueInfo = true;
 })
 
+socket.on('position in queue', function(index){
+  console.log("I be hit");
+  this.question.queuePlace = index;
+}.bind(this));
 
 socket.on('questionAnswered', function(obj){
   this.question = obj;
   this.askForSolution = true;
   this.showQueueInfo = false;
-})
+}.bind(this))
 
 
 
