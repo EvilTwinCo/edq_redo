@@ -55,3 +55,12 @@ html {
   position: fixed;
     right: 43%;
 }
+/*bryans crapp chart*/
+
+#canvasDiv {
+  display: inline-block;
+  height: 500px;
+  width: 500px;
+}
+
+/*bryan end*/

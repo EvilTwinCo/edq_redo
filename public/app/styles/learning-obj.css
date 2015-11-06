@@ -5,6 +5,7 @@
 learning-objective .range-field {
   margin: 0px;
   margin-bottom: -4px;
+  border: 1px solid;
 }
 
 learning-objective .learning-objective-text{

@@ -12,9 +12,11 @@
   left: 0;
   top: 0;
 }
-
 .attendanceContainer.ng-hide{
   margin-left: -100%;
+}
+.attendanceButton {
+  margin-left: 70%;
 }
 .attendanceHeader {
   background-color: grey;

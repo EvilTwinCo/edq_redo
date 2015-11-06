@@ -11,15 +11,16 @@ var SocketIOServer = require('socket.io');
 var ioServer = new SocketIOServer(httpServer);
 var Devmtn = require('devmtn-auth');
 var DevmtnStrategy = Devmtn.Strategy;
-var User = require('./models/User.js')
+var User = require('./models/User.js');
+var passportSocketIo = require("passport.socketio");
+var cookieParser = require("cookie-parser");
 
 var serverPort = 8080;
 var mongoURI = 'mongodb://localhost:27017/theQ';
 
-// CONTROLLERS
-var ConfidenceController = require('./controllers/ConfidenceController.js');
-var UserController = require('./controllers/UserController.js');
-var LearningObjectiveController = require('./controllers/LearningObjectiveController.js');
+//Controllers
+var UserCtrl = require('./controllers/UserCtrl.js');
+var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 var DevMntPassportCtrl = require('./controllers/DevMntPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
@@ -43,6 +44,11 @@ app.use(bodyParser.urlencoded({
 
 app.options(cors(corsOptions));
 
+var SessionStore = new MongoStore({
+  collection: 'connect-mongoSessions',
+  autoRemove: 'native',
+  mongooseConnection: mongoose.connection
+})
 var SESSION_SECRET = process.env.DM_SESSION;
 app.use(session({
   secret: SESSION_SECRET,
@@ -52,32 +58,11 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 30
   }, //30 seconds
-  store: new MongoStore({
-    collection: 'connect-mongoSessions',
-    autoRemove: 'native',
-    mongooseConnection: mongoose.connection
-  })
+  store: SessionStore
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-// ENDPOINTS
-app.post('/confidence', ConfidenceController.create);
-app.get('/confidence', ConfidenceController.read);
-app.delete('/confidence/:_id', ConfidenceController.delete);
-
-app.post('/user', UserController.create);
-app.get('/user', UserController.read);
-app.get('/user/:_id', UserController.readOne);
-app.put('/user/:_id', UserController.update);
-app.delete('/user/:_id', UserController.delete);
-
-app.post('/learningobjective', LearningObjectiveController.create);
-app.get('/learningobjective', LearningObjectiveController.read);
-app.get('/learningobjective/:_id', LearningObjectiveController.readOne);
-app.put('/learningobjective/:_id', LearningObjectiveController.update);
-app.delete('/learningobjective/:_id', LearningObjectiveController.delete);
 
 // DEVMNT PASSPORT AUTH
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ })
@@ -94,10 +79,31 @@ passport.serializeUser(DevMntPassportCtrl.serializeUser);
 passport.deserializeUser(DevMntPassportCtrl.deserializeUser);
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
-ioServer.use(function(socket, next) {
-  console.log('middleware opportunity... could use for auth');
-  next();
-});
+ioServer.use(passportSocketIo.authorize({
+  cookieParser:cookieParser,
+  key:'theQCookie.sid',
+  secret:SESSION_SECRET,
+  store:SessionStore,
+  success: onAuthorizeSuccess,
+  fail: onAuthorizeFail
+}));
+
+function onAuthorizeSuccess(data, accept){
+  console.log("Authorized", data)
+  accept();
+}
+
+function onAuthorizeFail(data, message, error, accept){
+  console.log('socket Auth Failed');
+  console.log(message);
+  console.log(data);
+  if(error){
+    throw new Error(message);
+    console.log('failed connection to socket.io', message);
+
+  }
+  accept(new Error(message));
+}
 
 ioServer.on('connection', function(socket) {
   console.log('a user connected');
@@ -111,13 +117,32 @@ ioServer.on('connection', function(socket) {
         ioServer.emit('flash poll', answer);
     })
 
+    //User Sockets
+    socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
+    socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
+    socket.on('update user', UserCtrl.updateUserInfo.bind(null, socket));
+    socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
+
+    //Learning Objective Sockets
+    socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
+    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, ioServer));
+    socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
+    socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
+
+    //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+
+    //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
-    socket.on('mentor begins help', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
+    socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+
+    //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 

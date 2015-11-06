@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "preinstall" : "npm install devmtn-auth-master/"
+    "preinstall": "npm install devmtn-auth-master/"
   },
   "repository": {
     "type": "git",
@@ -21,11 +21,14 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "connect-mongo": "^0.8.2",
+    "cookie-parser": "^1.4.0",
     "cors": "^2.7.1",
+    "devmtn-auth": "file:devmtn-auth-master",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "mongoose": "^4.2.3",
     "passport": "^0.3.0",
+    "passport.socketio": "^3.6.1",
     "socket.io": "^1.3.7"
   }
 }
