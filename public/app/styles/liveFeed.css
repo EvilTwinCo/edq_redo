@@ -6,6 +6,7 @@ div.livefeed.col.l2 {
   background-color: #FAFAFA;
   float:right;
   height: 100vh;
+  padding: 0;
 }
 
 .liveFeedColorBlock {
