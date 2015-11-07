@@ -1,19 +1,13 @@
-
-* {
+/** {
   outline: 1px solid red;
+}*/
+
+div.livefeed.col.l2 {
+  background-color: #FAFAFA;
+  float:right;
+  height: 100vh;
 }
 
-live-feed .feedContainer {
-  height: 250px;
-  overflow: scroll;
-
-
-}
-.liveFeedBackground{
-background-color: #2AB27B;
-
-}
-
-.cardsBackground{
-  background-color: grey;
+.liveFeedColorBlock {
+  background-color: #7F8C8D;
 }

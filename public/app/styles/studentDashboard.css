@@ -1,8 +1,8 @@
-#studenDashboard {
-  background-image: url('css/photos/q-logo.jpg');
-  background-color: #2699D9;
-}
 
 * {
   border: 1px solid red;
+}
+
+.liveFeed {
+  height: 100%;
 }

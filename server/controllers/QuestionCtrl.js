@@ -69,7 +69,13 @@ module.exports = {
       socket.emit('questionResolve', result);
       emitAllPositionsInQueue(socket.server, null);
     });
+  },
+  handleStudentSolution: function(socket, data){
+    console.log('handleStudentSolution Data:', data);
+    socket.emit('liveFeed', data);
   }
+
+
 };
 
 

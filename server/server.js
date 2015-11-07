@@ -138,6 +138,8 @@ ioServer.on('connection', function (socket) {
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('studentSolution', QuestionCtrl.handleStudentSolution.bind(null, socket));
+    // socket.on('mentor solution', QuestionCtrl.mentorSolutionToLiveFeed.bind(null, ioServer));
 
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
