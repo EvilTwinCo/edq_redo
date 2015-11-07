@@ -15,7 +15,7 @@ module.exports = {
         getPositionInQueue(data.name, null, function(position){
           socket.emit('position in queue', position);
         });
-        ioServer.emit('questionForQueue', newQuestion);
+        ioServer.to('instructors').emit('questionForQueue', newQuestion);
         socket.emit('questionCreated', newQuestion);
     });
   },
