@@ -6,7 +6,7 @@ angular.module('theQ').controller('studentQuestionFormCtrl', function (socketIoS
     
     socket.on('my current question is', function (result) {
         self.currentQuestion = result;
-        console.log(self.currentQuestion);
+        //console.log(self.currentQuestion);
         
         if(self.currentQuestion) {
             if(self.currentQuestion.timeQuestionAnswered) {
