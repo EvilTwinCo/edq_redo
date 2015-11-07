@@ -64,7 +64,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// DEVMNT PASSPORT AUTH
+// devMtn PASSPORT AUTH
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) { /*redirects, not called*/ })
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMtnPassportCtrl.authFailure), DevMtnPassportCtrl.authSuccess);
 app.get('/auth/devmtn/logout', DevMtnPassportCtrl.authLogout);
@@ -137,13 +137,17 @@ ioServer.on('connection', function (socket) {
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('get my current question', QuestionCtrl.qetMyCurrentQuestion.bind(null, socket));
+    socket.on('studentSolution', QuestionCtrl.handleStudentSolutionSubmit.bind(null, socket));
+    socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
+    socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
 
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 });
 
-//mongoose.set('debug', true);
+mongoose.set('debug', true);
 mongoose.connect(mongoURI, function () {
     console.log('Connected to MongoDB: ' + mongoURI);
 })
