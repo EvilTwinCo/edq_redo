@@ -131,7 +131,7 @@ ioServer.on('connection', function (socket) {
 
     //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
-    socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, socket, ioServer));
     socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));

@@ -24,7 +24,11 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     }.bind(this));
 
     socket.on('mentorBegins', function(updatedQuestion){
+      console.log('mentor identify',updatedQuestion);
+      console.log('1',_.findWhere(this.questions, {studentId:updatedQuestion.studentId}));
       _.findWhere(this.questions, {studentId:updatedQuestion.studentId}).mentorName  = updatedQuestion.mentorName;
+      $scope.$apply();
+      console.log('2',_.findWhere(this.questions, {studentId:updatedQuestion.studentId}));
     }.bind(this))
 
     this.ObjectEntersQ = function (object) {
@@ -35,7 +39,8 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         object.timeMentorBegins = new Date();
         //need mentor name
         //object.mentorName = "Smelly guy"
-        socket.emit('mentor begins help', object)
+        console.log(object);
+        socket.emit('mentor begins', object)
     };
 
     this.questionResolve = function (object) {
