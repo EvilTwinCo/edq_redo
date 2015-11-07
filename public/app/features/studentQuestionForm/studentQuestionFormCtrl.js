@@ -9,10 +9,16 @@ angular.module('theQ').controller('studentQuestionFormCtrl', function (socketIoS
         console.log(self.currentQuestion);
         
         if(self.currentQuestion) {
-            self.state = 'student-queue-info';
-            console.log(self.state);
+            if(self.currentQuestion.timeQuestionAnswered) {
+                self.state = 'solution-input';
+            } else {
+                self.state = 'student-queue-info';
+                
+            }
             $scope.$apply();
+            console.log(self.state);
         }
+        
     });
 
     socket.on('questionResolve', function (obj) {

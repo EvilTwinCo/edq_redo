@@ -9,7 +9,9 @@ angular.module('theQ').controller('studentQueueInfoCtrl', function (socketIoSrvc
 
     this.removeSelfFromQueue = function () {
         this.question.timeQuestionAnswered = new Date();
+        console.log(this.question);
         socket.emit("studentDropFromQueueTime", this.question.timeQuestionAnswered);
+        socket.emit("request question removal", this.question);
         this.done();
     }
 })

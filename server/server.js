@@ -140,6 +140,7 @@ ioServer.on('connection', function (socket) {
     socket.on('get my current question', QuestionCtrl.qetMyCurrentQuestion.bind(null, socket));
     socket.on('studentSolution', QuestionCtrl.handleStudentSolutionSubmit.bind(null, socket));
     socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
+    socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
 
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
