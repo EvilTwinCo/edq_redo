@@ -1,24 +1,39 @@
-angular.module('theQ').controller('studentQuestionFormCtrl', function($scope, socketIoSrvc){
-  var socket = socketIoSrvc.getSocket();
-  socket.emit('get my current question');
-  socket.on('my current question is', function(result){
-    console.log("I be hit 2");
-    $scope.currentQuestion = result;
-  });
+angular.module('theQ').controller('studentQuestionFormCtrl', function (socketIoSrvc, $interval, $scope) {
+    var socket = socketIoSrvc.getSocket();
+    this.state = 'q-input';
+    socket.emit('get my current question');
+    var self = this;
+    
+    socket.on('my current question is', function (result) {
+        self.currentQuestion = result;
+        console.log(self.currentQuestion);
+        
+        if(self.currentQuestion) {
+            self.state = 'student-queue-info';
+            console.log(self.state);
+            $scope.$apply();
+        }
+    });
 
-  $scope.$on('clearCurrentQuestion', function(){
-    $scope.currentQuestion = null;
-  })
+    socket.on('questionResolve', function (obj) {
+        this.currentQuestion = obj;
+    }.bind(this));
 
-  socket.on('questionResolve', function(obj){
-    console.log("Questio Resolve Student Question Form Ctrl");
-    $scope.currentQuestion = obj;
-    $scope.$apply();
-  })
-
-  $scope.callOnSolutionSubmit = function(){
-    console.log("callOnSolutionSubmit called");
-    $scope.currentQuestion = null;
-    $scope.$apply();
-  }
+    this.callOnSolutionSubmit = function () {
+        console.log("callOnSolutionSubmit called");
+        this.currentQuestion = null;
+    }
+    
+    this.cancelSolution = function() {
+        this.currentQuestion = null;
+    }
+    
+    this.next = function(state) {
+        
+        if (state === 'q-input') {
+            this.currentQuestion = null;
+        }
+        this.state = state;
+        console.log(this.state);
+    }
 });

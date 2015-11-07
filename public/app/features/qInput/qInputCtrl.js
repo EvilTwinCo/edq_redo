@@ -1,6 +1,8 @@
-angular.module('theQ').controller('qInputCtrl', function($scope, socketIoSrvc){
+angular.module('theQ').controller('qInputCtrl', function(socketIoSrvc){
 
-    $scope.question = {directive:''};
+    this.question = this.question;
+    console.log(this.question);
+    //this.question = {directive:''};
     var day = [];
     var socket = socketIoSrvc.getSocket();
 
@@ -8,16 +10,23 @@ angular.module('theQ').controller('qInputCtrl', function($scope, socketIoSrvc){
       day = arr;
       })
 
-  this.submitQuestion = function(obj){
+  this.submitQuestion = function (obj) {
+      console.log(this.question);
+      if (obj.directive) {
+          socket.emit('questionFromStudent', obj);
 
-      socket.emit('questionFromStudent', obj);
-
-      //will be a {question: string, objective: string}
-      socket.emit('student Question', obj)
-      $scope.question = {directive:'', question: ''};
-    }
-
-
+          //will be a {question: string, objective: string}
+          socket.emit('student Question', obj)
+          this.question = {
+              directive: '',
+              question: ''
+          };
+          this.question = obj;
+          this.done()
+      } else {
+          alert('You need to select a directive first...');
+      }
+  }
 
 // dummy data
 

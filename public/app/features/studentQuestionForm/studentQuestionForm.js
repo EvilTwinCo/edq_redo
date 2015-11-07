@@ -6,7 +6,7 @@ angular.module('theQ').directive('studentQuestionForm', function(){
         bindToController: true,
         attribute: 'E',
         scope: {
-
+            
         }
     }
 });

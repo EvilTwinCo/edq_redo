@@ -8,6 +8,7 @@ module.exports = {
     data.name = socket.request.user.firstName + " " + socket.request.user.lastName;
       data.studentId = socket.request.user.devMtn.id;
     data.timeWhenEntered = new Date();
+      console.log(data);
     Question.create(data, function(err, newQuestion){
       if(err){
         console.log (err);
@@ -16,7 +17,8 @@ module.exports = {
           socket.emit('position in queue', position);
         });
         ioServer.emit('questionForQueue', newQuestion);
-        socket.emit('my current question is', newQuestion);
+        console.log(newQuestion);
+        //socket.emit('my current question is', newQuestion);
     });
   },
   handleStudentSolutionSubmit:function(socket, data){
@@ -43,9 +45,9 @@ module.exports = {
   handleStudentDropFromQueue: function(socket, time){
   Question.findOne({studentId:socket.request.user.devMtn.id, timeQuestionAnswered:null})
     .exec(function (err, result){
-      result.timeQuestionAnswered = time;
+      result.timeQuestionAnswered = new Date();
       result.save();
-      socket.emit('my current question is', result);
+      //socket.emit('my current question is', result);
     })
   },
   qetMyCurrentQuestion: function(socket){
@@ -55,6 +57,7 @@ module.exports = {
         if (result){
         socket.emit('my current question is', result)
           getPositionInQueue(result.name, null, function(position){
+              console.log('submitting position in queue', position)
             socket.emit('position in queue', position);
           });
         }
@@ -114,7 +117,7 @@ module.exports = {
         return user.devMtn.id === result.studentId
       }).forEach(function (socket){
 
-        socket.emit('my current question is', result)
+        //socket.emit('my current question is', result)
       });
       emitAllPositionsInQueue(socket.server, null);
     });
