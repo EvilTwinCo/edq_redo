@@ -23,6 +23,10 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         $scope.$apply();
     }.bind(this));
 
+    socket.on('mentorBegins', function(updatedQuestion){
+      _.findWhere(this.questions, {studentId:updatedQuestion.studentId}).mentorName  = updatedQuestion.mentorName;
+    }.bind(this))
+
     this.ObjectEntersQ = function (object) {
         object.timeWhenEnteredQ = new Date();
     }
@@ -30,7 +34,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     this.mentorBegins = function (object) {
         object.timeMentorBegins = new Date();
         //need mentor name
-        object.mentorName = "Smelly guy"
+        //object.mentorName = "Smelly guy"
         socket.emit('mentor begins help', object)
     };
 
