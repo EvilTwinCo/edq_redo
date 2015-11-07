@@ -1,7 +1,7 @@
 angular.module('theQ').controller('qInputCtrl', function(socketIoSrvc){
 
     this.question = this.question;
-    console.log(this.question);
+    //console.log(this.question);
     //this.question = {directive:''};
     var day = [];
     var socket = socketIoSrvc.getSocket();
@@ -11,7 +11,7 @@ angular.module('theQ').controller('qInputCtrl', function(socketIoSrvc){
       })
 
   this.submitQuestion = function (obj) {
-      console.log(this.question);
+      //console.log(this.question);
       if (obj.directive) {
           socket.emit('questionFromStudent', obj);
 
