@@ -17,40 +17,30 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     }.bind(this));
 
     socket.on('remove question from queue', function (question) {
-        console.log(question);
         this.questions = _.filter(this.questions, function (item) {
             return item.studentId !== question.studentId;
         })
         $scope.$apply();
     }.bind(this));
 
-    this.timeObject = function () {
-        return new Date();
-
-    }
     this.ObjectEntersQ = function (object) {
-        object.timeWhenEnteredQ = this.timeObject();
-        object.solved = false;
+        object.timeWhenEnteredQ = new Date();
     }
 
     this.mentorBegins = function (object) {
-        object.timeMentorBegins = this.timeObject();
+        object.timeMentorBegins = new Date();
         //need mentor name
         object.mentorName = "Smelly guy"
-        console.log(object);
         socket.emit('mentor begins help', object)
     };
 
     this.questionResolve = function (object) {
-        object.timeQuestionAnswered = this.timeObject();
+        object.timeQuestionAnswered = new Date();
         object.removing = true;
-        console.log(object);
         socket.emit('mentor resolves question', object);
     };
 
     this.addingQuestionAndSolution = function (object) {
-        object.solved = true;
-        console.log(object);
         socket.emit('add mentor notes', object);
         socket.emit('request question removal', object);
     };
