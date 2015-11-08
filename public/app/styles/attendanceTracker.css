@@ -1,0 +1,83 @@
+.attendanceContainer {
+  width: 500px;
+  height: 100%;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: visible;
+  margin: 0;
+  transition: 1000ms all ease-in-out;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.attendanceContainer.ng-hide{
+  margin-left: -100%;
+}
+.attendanceButton {
+  margin-left: 70%;
+}
+.attendanceHeader {
+  background-color: grey;
+  min-height: 80px;
+  background-color: #efefef;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+}
+.attendanceText {
+  margin-top: 28px;
+  margin-left: 5px;
+  font-size: 20px;
+}
+.logo {
+  height: 50px;
+  width: 50px;
+  justify-content: center;
+  margin-top: 15px;
+}
+.studentAttendanceContainer {
+  width: 90%;
+  height: 100px;
+}
+.checkInContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+}
+.studentName {
+text-align: left;
+padding-top: 14px;
+font-size: 16px;
+}
+.checkIn {
+  display: flex;
+  width: 100px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.checkOut {
+  display: flex;
+  width: 100px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.dailyScore {
+  display: flex;
+  width: 75px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  text-align: center;
+
+}
+.submitDay {
+  margin-left: 66%;
+  margin-top: 25px;
+  background-color: #28b5db;
+}

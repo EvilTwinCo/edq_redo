@@ -22,7 +22,7 @@ var mongoURI = 'mongodb://localhost:27017/theQ';
 var UserCtrl = require('./controllers/UserCtrl.js');
 var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
 var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
-var DevMntPassportCtrl = require('./controllers/DevMntPassportCtrl.js');
+var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 
@@ -64,19 +64,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// DEVMNT PASSPORT AUTH
+// devMtn PASSPORT AUTH
 app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) { /*redirects, not called*/ })
-app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMntPassportCtrl.authFailure), DevMntPassportCtrl.authSuccess);
-app.get('/auth/devmtn/logout', DevMntPassportCtrl.authLogout);
+app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMtnPassportCtrl.authFailure), DevMtnPassportCtrl.authSuccess);
+app.get('/auth/devmtn/logout', DevMtnPassportCtrl.authLogout);
 passport.use('devmtn', new DevmtnStrategy({
     app: process.env.DM_APP,
     client_token: process.env.DM_AUTH,
     callbackURL: process.env.DM_CALLBACK,
     jwtSecret: process.env.DM_SECRET
-}, DevMntPassportCtrl.authLogin));
+}, DevMtnPassportCtrl.authLogin));
 
-passport.serializeUser(DevMntPassportCtrl.serializeUser);
-passport.deserializeUser(DevMntPassportCtrl.deserializeUser);
+passport.serializeUser(DevMtnPassportCtrl.serializeUser);
+passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({
@@ -137,13 +137,17 @@ ioServer.on('connection', function (socket) {
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('get my current question', QuestionCtrl.qetMyCurrentQuestion.bind(null, socket));
+    socket.on('studentSolution', QuestionCtrl.handleStudentSolutionSubmit.bind(null, socket));
+    socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
+    socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
 
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 });
 
-//mongoose.set('debug', true);
+mongoose.set('debug', true);
 mongoose.connect(mongoURI, function () {
     console.log('Connected to MongoDB: ' + mongoURI);
 })
