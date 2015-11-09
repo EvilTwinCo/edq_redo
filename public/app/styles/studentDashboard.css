@@ -1,5 +1,5 @@
 
-* {
+/* {
   outline: 1px solid red;
 }/**/
 
@@ -61,4 +61,10 @@ student-flash-poll a{
 
 student-flash-poll div{
   background-color: #FAFAFA;
+}
+
+@media only screen and (min-width: 992px){
+  .flip{
+    transform:rotateX(180deg);
+  }
 }
