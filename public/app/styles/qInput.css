@@ -1,3 +1,8 @@
 /** {
   outline: 1px solid red;
 }*/
+
+q-input{
+  padding:8px;
+  display:block;
+}
