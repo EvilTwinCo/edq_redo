@@ -8,7 +8,7 @@ $scope.dataSet =[];
 var socket = socketIoSrvc.getSocket();
 
 socket.on('flashVoteResults', function(data){
-  $scope.dataSet= dat
+  $scope.dataSet= data
 })
 
 
