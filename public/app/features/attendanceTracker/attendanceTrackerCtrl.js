@@ -1,5 +1,6 @@
 angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc) {
 
+  var socket = socketIoSrvc.getSocket();
 
   this.getDateObject = function() {
     return new Date();
@@ -20,14 +21,23 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
     socket.emit(user);
   }.bind(this)
 
+
+
   this.changeScore = function(user, e) {
     console.log("event", e);
     console.log("user", user);
-    socket.emit(user);
+    socket.emit("getAttendance", user);
     console.log(user);
   }
 
-  var socket = socketIoSrvc.getSocket();
+
+
+  socket.on('getAttendance', function(arr) {
+    this.users = arr;
+
+  }.bind(this));
+
+
 
   this.users = [{
     firstName: "Bryan",
@@ -79,12 +89,8 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
       // score:
       // day:
     }
-  } ];
+  }];
 
-  socket.on('getAttendance', function(arr) {
-    this.users = arr;
-
-  }.bind(this))
 
 
 
