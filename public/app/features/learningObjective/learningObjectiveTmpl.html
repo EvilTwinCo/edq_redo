@@ -1,13 +1,14 @@
+<p style = "text-align:center">Learning Objectives</p>
 <div ng-repeat="objective in is.learningObjectives track by $index" class="row">
     <div class="col s6 learning-objective-text">
         <div class="col s1">{{$index + 1}}</div>
-        <div class="col s11">{{objective.title}}</div>
+        <div class="col s11">{{objective.objectiveName}}</div>
     </div>
 
     <div class="col s4 l5">
-        <form action="#">
+        <form>
             <p class="range-field">
-                <input ng-model="objective.percentage" type="range" id="range-slider" min="0" max="100" step="1" ng-change="is.submitConfidence(objective.id, objective.percentage)" />
+                <input ng-model="objective.percentage" type="range" id="range-slider" default = "0" min="0" max="100" step="1" ng-change="is.submitConfidence(objective.objectiveId, objective.percentage)" />
             </p>
         </form>
     </div>

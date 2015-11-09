@@ -121,10 +121,10 @@ ioServer.on('connection', function (socket) {
     socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
 
     //Learning Objective Sockets
-    socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
-    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, ioServer));
-    socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
-    socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
+    //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
+    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
+    //socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
+    //socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));

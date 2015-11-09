@@ -27,9 +27,7 @@ angular.module('theQ').controller('qInputCtrl', function(socketIoSrvc){
           alert('You need to select a directive first...');
       }
   }
-
 // dummy data
-
   // this.day = {
   //   obj1: "learn things",
   //   obj2: "things about things",
@@ -37,5 +35,4 @@ angular.module('theQ').controller('qInputCtrl', function(socketIoSrvc){
   //   obj: "things about monkeys",
   //   obj5: "things about cheese"
   // };
-
-  });
+});
