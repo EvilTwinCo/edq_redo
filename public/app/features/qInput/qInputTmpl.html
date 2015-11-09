@@ -1,30 +1,26 @@
-
-<form action ="#">
+<form ng-submit="is.submitQuestion(is.question)">
 
   <div class = "row">
     <span>What does your question concern?</span>
     <p ng-repeat = "part in is.day">
-      <input name="group1" type="radio" ng-model = "question.directive" value = "{{part}}" id= "{{part}}"/>
+      <input name="group1" type="radio" ng-model = "is.question.directive" value = "{{part}}" id= "{{part}}"/>
       <label for="{{part}}">{{part}}</label>
     </p>
 
     <p>
-      <input name="group1" type="radio" ng-model = "question.directive" value ="none" id ="none"/>
+      <input name="group1" type="radio" ng-model = "is.question.directive" value ="none" id ="none"/>
       <label for="none">None the Above!</label>
     </p>
   </div>
 
 
-<div class = 'row'>
+<div class = 'row' style = "margin-bottom:0">
   <div class="input-field col s9">
-    <input id="questionText" type="text" ng-model = "question.question" class="validate" >
+    <input id="questionText" type="text" ng-model = "is.question.question" class="validate" >
     <label for="questionText">What is your question?</label>
   </div>
 
-  <div ng-if= "question.question" class = "col s3">
-    <a class="waves-effect waves-light btn" ng-click = "is.submitQuestion(question)" >Ask!</a>
-
+  <div ng-if= "is.question.question" class = "col s3">
+    <a class="waves-effect waves-light btn" ng-click = "is.submitQuestion(is.question)" >Ask!</a>
   </div>
 </div>
-
-</form>

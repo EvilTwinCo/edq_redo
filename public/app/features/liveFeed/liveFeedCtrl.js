@@ -6,14 +6,18 @@ console.log(socket);
 
 this.feed = [];
 
+var self = this;
 socket.on('liveFeed', function(data){
   console.log(data);
-  this.feed.push(data);
+  self.feed.push(data);
 })
 
 socket.on('serversLiveFeedStore', function(data){
-  this.feed = data;
+  self.feed = data;
 })
+
+
+
 
 
 // $broadcast
