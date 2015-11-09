@@ -1,22 +1,24 @@
 <html lang="en" ng-app="theQ">
-    <head>
-      <meta charset="UTF-8">
-      <title>The Q</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="css/materialize.css" type="text/css" rel="stylesheet">
-        <link href = "app/styles/login.css" type = "text/css" rel = "stylesheet">
-        <link href = "app/styles/attendanceTracker.css" type = "text/css" rel = "stylesheet">
-        <link href = "app/styles/main.css" type = "text/css" rel = "stylesheet">
-        <link href = "app/styles/studentSolutionStyles.css" type = "text/css" rel = "stylesheet">
-        <link href = "app/styles/studentDashboard.css" type = "text/css" rel = "stylesheet">
-        <link href="app/styles/learning-obj.css" type = "text/css" rel="stylesheet">
-        <link href = "app/styles/liveFeed.css" type = "text/css" rel = "stylesheet">
-        <link href = "app/styles/qInput.css" type = "text/css" rel = "stylesheet">
-        <link href = "app/styles/dayNotes.css" rel="stylesheet" type="text/css">
-        <link rel  = "stylesheet" href = "app/styles/login.css">
 
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>The Q</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/login.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/attendanceTracker.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/main.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/confidenceLiveChart.css" rel="stylesheet" type="text/css">
+    <link href="app/styles/studentSolutionStyles.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/studentDashboard.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/learning-obj.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/liveFeed.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/qInput.css" type="text/css" rel="stylesheet">
+    <link href="app/styles/dayNotes.css" rel="stylesheet" type="text/css">
+    <link href="app/styles/login.css" rel="stylesheet">
+</head>
+
+<body>
 
     <menu-bar></menu-bar>
     <ng-view></ng-view>
@@ -77,5 +79,6 @@
     <script src="app/services/learningObjSrvc.js"></script>
     <script src="app/services/socketIoSrvc.js"></script>
 
-    </body>
+</body>
+
 </html>
