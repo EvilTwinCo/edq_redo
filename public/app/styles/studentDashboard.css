@@ -1,5 +1,5 @@
 
-/* {
+* {
   outline: 1px solid red;
 }/**/
 
@@ -30,6 +30,10 @@
 }
 .purpleBackground {
   background-color: #cb69d6;
+}
+
+.ancorDiv {
+  display:flex;
 }
 
 learning-objective {

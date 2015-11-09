@@ -3,10 +3,5 @@ day-notes p {
 }
 
 div.col.s12.day-notes {
-  padding: 0;
   background-color: #FAFAFA;
-}
-
-div.daynotes.col.l5 {
-  padding: 0px;
 }
