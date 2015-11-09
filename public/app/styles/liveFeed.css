@@ -1,14 +1,3 @@
 /** {
   outline: 1px solid red;
 }*/
-
-div.livefeed.col.l2 {
-  background-color: #FAFAFA;
-  float:right;
-  height: 100vh;
-  padding: 0;
-}
-
-.liveFeedColorBlock {
-  background-color: #7F8C8D;
-}

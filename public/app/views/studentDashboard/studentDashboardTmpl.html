@@ -1,28 +1,35 @@
-<!-- <body>
-  <div class="container"> -->
-    <div class="row">
+
+    <div class="row" style = "margin-top:1em;">
       <div id="studentDashboard" class="col s12">
-          <div class="learningObjectives col l5">
-            <learning-objective></learning-objective>
+        <div class = "col l10">
+          <div class = "row" style = "display:flex;">
+            <div class="learningObjectives col l7" style = "align-self:flex-end">
+              <learning-objective></learning-objective>
+              <div class = "colorBlock redBackground"></div>
+            </div>
+            <div class="dayNotes col l5" style = "align-self:flex-end">
+
+                <day-notes></day-notes>
+                <div class = "colorBlock yellowBackground"></div>
+
+            </div>
           </div>
-          <div class="dayNotes col l5">
-            <day-notes></day-notes>
+          <div class = "row">
+            <div class="queueInput col l12" style = "padding-right:0">
+              <student-question-form></student-question-form>
+              <div class = "colorBlock greenBackground"></div>
+            </div>
           </div>
-          <div class="queueInput col l10">
-            <q-input></q-input>
+          <div class = "row">
+            <div class="flashPoll col l12" style = "padding-right:0">
+              <student-flash-poll></student-flash-poll>
+              <div class = "colorBlock purpleBackground"></div>
+            </div>
           </div>
-          <div class="liveFeed col l2">
-            <live-feed></live-feed>
-          </div>
-          <div class="studentSolution col l10">
-            <solution-input></solution-input>
-          </div>
-          <div class="flashPoll col l2" >
-            <student-flash-poll></student-flash-poll>
-          </div>
+        </div>
+        <div class="liveFeed col l2">
+          <live-feed></live-feed>
+          <div class = "colorBlock greyBackground"></div>
+        </div>
       </div>
     </div>
-  <!-- </div>
-</body> -->
-
-<!-- ng-hide="true" -->
