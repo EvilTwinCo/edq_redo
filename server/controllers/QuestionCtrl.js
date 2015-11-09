@@ -140,7 +140,12 @@ module.exports = {
             question.studentId = socket.request.user.devMtn.id;
         }
         ioServer.emit('remove question from queue', question);
+    },
+    handleStudentSolution: function(socket, data){
+      console.log('handleStudentSolution Data:', data);
+      socket.emit('liveFeed', data);
     }
+
 };
 
 function getPositionInQueue(student, cohort, callback) {

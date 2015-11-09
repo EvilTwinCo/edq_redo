@@ -1,4 +1,3 @@
-
 <form ng-submit="is.submitQuestion(is.question)">
 
   <div class = "row">
@@ -15,7 +14,7 @@
   </div>
 
 
-<div class = 'row'>
+<div class = 'row' style = "margin-bottom:0">
   <div class="input-field col s9">
     <input id="questionText" type="text" ng-model = "is.question.question" class="validate" >
     <label for="questionText">What is your question?</label>
@@ -23,8 +22,5 @@
 
   <div ng-if= "is.question.question" class = "col s3">
     <a class="waves-effect waves-light btn" ng-click = "is.submitQuestion(is.question)" >Ask!</a>
-
   </div>
 </div>
-
-</form>

@@ -18,6 +18,7 @@ var cookieParser = require("cookie-parser");
 var serverPort = 8080;
 var mongoURI = 'mongodb://localhost:27017/theQ';
 
+
 //Controllers
 var UserCtrl = require('./controllers/UserCtrl.js');
 var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
@@ -141,6 +142,7 @@ ioServer.on('connection', function (socket) {
     socket.on('studentSolution', QuestionCtrl.handleStudentSolutionSubmit.bind(null, socket));
     socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
+
 
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
