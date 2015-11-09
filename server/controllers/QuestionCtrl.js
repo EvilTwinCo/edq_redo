@@ -20,6 +20,7 @@ module.exports = {
             //console.log(newQuestion);
             //socket.emit('my current question is', newQuestion);
         });
+
     },
     handleStudentSolutionSubmit: function (socket, data) {
         //console.log("start student submission");
@@ -36,6 +37,7 @@ module.exports = {
                 if (result) {
                     result.studentSolution = data.studentSolution;
                     result.save();
+
 
                     socket.server.emit('new live feed', {
                         question: result.question,

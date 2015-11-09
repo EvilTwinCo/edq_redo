@@ -11,6 +11,7 @@
   position: fixed;
   left: 0;
   top: 0;
+  overflow: scroll;
 }
 .attendanceContainer.ng-hide{
   margin-left: -100%;
@@ -42,6 +43,7 @@
 .studentAttendanceContainer {
   width: 90%;
   height: 100px;
+
 }
 .checkInContainer {
   display: flex;
@@ -56,14 +58,14 @@ font-size: 16px;
 }
 .checkIn {
   display: flex;
-  width: 100px;
+  /*width: 100px;*/
   border-radius: 4px;
   border: 1px solid #ccc;
   text-align: center;
 }
 .checkOut {
   display: flex;
-  width: 100px;
+  /*width: 100px;*/
   border-radius: 4px;
   border: 1px solid #ccc;
   text-align: center;
@@ -80,4 +82,24 @@ font-size: 16px;
   margin-left: 66%;
   margin-top: 25px;
   background-color: #28b5db;
+}
+
+.multiScore{
+    display:flex;
+    border-radius: 0px;
+    background-color: #28B5DB;
+    color: white;
+    text-transform: uppercase;
+    margin-top: -2px;
+
+
+
+
+}
+attendance-tracker .s4>*{
+  margin-left: 25;
+  margin-right: 25;
+}
+*{
+  /*outline: 1px solid pink;*/
 }
