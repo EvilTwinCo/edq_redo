@@ -110,15 +110,12 @@ ioServer.on('connection', function (socket) {
     });
 
 
-    //Flash poll Sockets
-    socket.on('create flash poll', FlashPollCtrl.handleFlashPoll.bind(null, ioServer, socket));
-    socket.on('get all flash poll', FlashPollCtrl.getAllFlashPoll.bind(null, ioServer));
-    socket.on('update flash poll', FlashPollCtrl.updateFlashPoll.bind(null, ioServer));
-    socket.on('remove flash poll', FlashPollCtrl.removeFlashPoll.bind(null, ioServer, socket));
-    // socket.on('flash poll', function (answer) {
-    //     console.log('flash poll submitted by a user: ', answer);
-    //     ioServer.emit('flash poll', answer);
-    // })
+    // Flash poll Sockets
+
+    socket.on('flash poll', function (answer) {
+        console.log('flash poll submitted by a user: ', answer);
+        ioServer.emit('flash poll', answer);
+    })
 
     //User Sockets
     socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
