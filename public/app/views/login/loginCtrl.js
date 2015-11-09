@@ -1,39 +1,20 @@
-angular.module('theQ').controller('loginCtrl', function($q, $scope, $http, $window) {
+angular.module('theQ').controller('loginCtrl', function($q, $http, $window) {
 
-  this.loginWithPassportDevMtn = function() {
-     var deferred = $q.defer();
-     $http.get('http://localhost:8080/auth/devmtn').then(function(res) {
-         deferred.resolve(res);
-     }, function (err) {
-         deferred.reject('PassportDevMtn login error')
-     })
-     return deferred.promise;
- }
-  this.loginWithPassportDevMtn();
+   this.loginWithPassportDevMtn = function() {
 
-//
-// 
-//     this.loginWithPassportDevMtn = function() {
-//
-//         $window.location.href = 'http://localhost:8080/auth/devmtn';
-//
-//         /*
-//         var deferred = $q.defer();
-//
-//         $http.get('http://localhost:8080/auth/devmtn').then(function(res) {
-//             deferred.resolve(res);
-//         }, function (err) {
-//             deferred.reject('PassportDevMtn login error')
-//         })
-//
-//         return deferred.promise;*/
-//     }
-//
-//     this.loginWithPassportDevMtn();
+       $window.location.href = 'http://localhost:8080/auth/devmtn';
 
-  $scope.showAttendance = function() {
-    console.log(document.getElementById('attendance-button'))
-    document.getElementById('attendance-button').className += 'active';
-  };
+       /*
+       var deferred = $q.defer();
 
+       $http.get('http://localhost:8080/auth/devmtn').then(function(res) {
+           deferred.resolve(res);
+       }, function (err) {
+           deferred.reject('PassportDevMtn login error')
+       })
+
+       return deferred.promise;*/
+   }
+
+   this.loginWithPassportDevMtn();
 });
