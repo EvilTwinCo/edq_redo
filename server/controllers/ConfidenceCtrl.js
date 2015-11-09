@@ -7,30 +7,24 @@ var currentConfidence = {};
 module.exports = {
     handleSubmitConfidence: function (socket, io, obj) {
         obj['socketUser'] = socket.client.request.user._doc.devMtn.id;
-        //console.log('obj', obj);
-
-        io.to('instructors').emit('report confidence single', obj);
-
+        
         if (timeoutQueue[obj.objective_id + '|' + obj.socketUser] === undefined) {
             timeoutQueue[obj.objective_id + '|' + obj.socketUser] = new Date();
             setTimeout(recordConfidence.bind(null, {
                 learningObjective: obj.objective_id,
                 user: obj.socketUser
             }), 10000);
-            updateConfidence({
-                learningObjective: obj.objective_id,
-                user: obj.socketUser,
-                confidence: obj.value
-            });
             //console.log(timeoutQueue);
         }
-        else {
-            updateConfidence({
-                learningObjective: obj.objective_id,
-                user: obj.socketUser,
-                confidence: obj.value
-            });
-        }
+        
+        updateConfidence({
+            learningObjective: obj.objective_id,
+            user: obj.socketUser,
+            confidence: obj.value
+        });
+
+        console.log(obj);
+        io.to('instructors').emit('report confidence single', obj);
     },
     handleInstructorLogin: function (socket, obj) {
         console.log("Instructor Logging In");

@@ -20,6 +20,7 @@ module.exports = {
             //console.log(newQuestion);
             //socket.emit('my current question is', newQuestion);
         });
+
     },
     handleStudentSolutionSubmit: function (socket, data) {
         //console.log("start student submission");
@@ -36,6 +37,7 @@ module.exports = {
                 if (result) {
                     result.studentSolution = data.studentSolution;
                     result.save();
+
 
                     socket.server.emit('new live feed', {
                         question: result.question,
@@ -97,13 +99,15 @@ module.exports = {
             });
     },
 
-    mentorBegins: function (ioServer, data) {
+    mentorBegins: function (socket, ioServer, data) {
+
         var dataToUpdate = {
             _id: data._id,
-            mentorName: data.mentorName,
-            timeMentorBegins: data.timeMentorBegins
+            mentorName: socket.request.user.firstName + " " + socket.request.user.lastName,
+            timeMentorBegins: new Date()
         }
-        Question.findByIdAndUpdate(data._id, dataToUpdate)
+        console.log("Mentor Begins", dataToUpdate);
+        Question.findByIdAndUpdate(data._id, dataToUpdate,{new:true})
             .exec(function (err, result) {
                 if (err) {
                     console.log(err);
