@@ -1,5 +1,10 @@
+html body {
+  height: 100%;
+
+}
+
 html {
-  background-color: #28b9e4;
+  background-color: #2699D9;
 }
 .fakeTitle {
   width: 100%;
@@ -64,3 +69,20 @@ html {
 }
 
 /*bryan end*/
+
+nav {
+  background-color: #FAFAFA;
+  color: black;
+}
+
+nav ul a {
+  color:#2699D9;
+  font-size: 1.35em;
+  font-weight:300;
+  text-shadow:#eee 1px 1px 1px;
+}
+
+nav img{
+  width:55px;
+  margin:4px;
+}

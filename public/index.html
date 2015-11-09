@@ -3,15 +3,25 @@
       <meta charset="UTF-8">
       <title>The Q</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel = "stylesheet" href = "app/styles/login.css">
-        <link rel = "stylesheet" href = "app/styles/attendanceTracker.css">
-        <link href="css/materialize.css" rel="stylesheet" type="text/css">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet">
+        <link href = "app/styles/login.css" type = "text/css" rel = "stylesheet">
+        <link href = "app/styles/attendanceTracker.css" type = "text/css" rel = "stylesheet">
         <link href = "app/styles/main.css" type = "text/css" rel = "stylesheet">
+        <link href = "app/styles/studentSolutionStyles.css" type = "text/css" rel = "stylesheet">
+        <link href = "app/styles/studentDashboard.css" type = "text/css" rel = "stylesheet">
+        <link href="app/styles/learning-obj.css" type = "text/css" rel="stylesheet">
+        <link href = "app/styles/liveFeed.css" type = "text/css" rel = "stylesheet">
+        <link href = "app/styles/qInput.css" type = "text/css" rel = "stylesheet">
+        <link href = "app/styles/dayNotes.css" rel="stylesheet" type="text/css">
+        <link rel  = "stylesheet" href = "app/styles/login.css">
+
     </head>
     <body>
 
     <menu-bar></menu-bar>
-    <ng-view></ng-view> 
+
+    <ng-view></ng-view>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
@@ -34,8 +44,8 @@
     <script src="app/features/d3VerticleDotDistribution/d3VerticleDotDistributionCtrl.js"></script>
     <script src="app/features/dayNotes/dayNotes.js"></script>
     <script src="app/features/dayNotes/dayNotesCtrl.js"></script>
-    <script src="app/features/liveFeedDirective/liveFeedDirective.js"></script>
-    <script src="app/features/liveFeedDirective/liveFeedCtrl.js"></script>
+    <script src="app/features/liveFeed/liveFeed.js"></script>
+    <script src="app/features/liveFeed/liveFeedCtrl.js"></script>
     <script src="app/features/learningObjective/learningObjective.js"></script>
     <script src="app/features/learningObjective/learningObjectiveCtrl.js"></script>
     <script src='app/features/qInput/qInputCtrl.js'></script>
@@ -44,6 +54,12 @@
     <script src='app/features/attendanceTracker/attendanceTracker.js'></script>
     <script src='app/features/studentFlashPoll/studentFlashPoll.js'></script>
     <script src='app/features/studentFlashPoll/studentFlashPollCtrl.js'></script>
+    <script src='app/features/studentQuestionForm/studentQuestionForm.js'></script>
+    <script src='app/features/studentQuestionForm/studentQuestionFormCtrl.js'></script>
+    <script src='app/features/studentQueueInfo/studentQueueInfo.js'></script>
+    <script src='app/features/studentQueueInfo/studentQueueInfoCtrl.js'></script>
+    <script src='app/features/solutionInput/solutionInput.js'></script>
+    <script src='app/features/solutionInput/solutionInputCtrl.js'></script>
     <script src="app/features/mentorQueue/mentorQueueDirective.js"></script>
     <script src="app/features/mentorQueue/mentorQueueCtrl.js"></script>
     <script src='app/features/flashPollMonitor/flashPollMonitor.js'></script>
