@@ -109,6 +109,9 @@ ioServer.on('connection', function (socket) {
         console.log('a user disconnected');
     });
 
+
+    // Flash poll Sockets
+
     socket.on('flash poll', function (answer) {
         console.log('flash poll submitted by a user: ', answer);
         ioServer.emit('flash poll', answer);
