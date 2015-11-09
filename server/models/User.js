@@ -7,9 +7,9 @@ var schema = new mongoose.Schema({
     imageUrl: {type: String},
     logins: [{type: Date}],
     devMnt: {
-        id: {type: Number},
+        id: {type: String},
         roles: [{}],
-        cohortId: {type: Number},
+        cohortId: {type: String},
     }
 });
 

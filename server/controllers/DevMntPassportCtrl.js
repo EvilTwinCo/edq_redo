@@ -5,15 +5,15 @@ var User = require('../models/User.js')
 module.exports = {
     authFailure: {failureRedirect: '/'},
     authSuccess: function(req, res) {
-        console.log('req.user:', req.user); // req.user is created by passport from the decoded json web token
-        console.log('user roles:', req.user.roles);
-        console.log('student:', Devmtn.checkRoles(req.user, 'student')) //example of checking user roles
+        //console.log('req.user:', req.user); // req.user is created by passport from the decoded json web token
+        //console.log('user roles:', req.user.roles);
+        //console.log('student:', Devmtn.checkRoles(req.user, 'student')) //example of checking user roles
 
         res.redirect('/#/studentDashboard')
     },
     authLogout: function(req, res) {
         req.logout();
-        console.log(req.user); //just showing req.user is undefined after logout
+        //console.log(req.user); //just showing req.user is undefined after logout
         res.redirect('/#/logout')
     },
     authLogin: function(jwtoken, user, done) {
@@ -27,7 +27,7 @@ module.exports = {
             if (err) {
                 return done(err)
             } else {
-                console.log('findOne', result);
+                //console.log('findOne', result);
                 if (result !== null) {
                     User.findByIdAndUpdate(result._id, {
                         firstName: user.first_name,
@@ -41,7 +41,7 @@ module.exports = {
                         if (err) {
                             return done(err);
                         } else {
-                            console.log('dbUser-update', dbUser);
+                            //console.log('dbUser-update', dbUser);
                             dbUser.logins.push(new Date());
                             dbUser.save();
                             return done(null, user);
@@ -61,7 +61,7 @@ module.exports = {
                         if (err) {
                             return done(err)
                         } else {
-                            console.log('dbUser-create', dbUser);
+                            //console.log('dbUser-create', dbUser);
                             dbUser.logins.push(new Date());
                             dbUser.save();
                             return done(null, user)
@@ -72,16 +72,16 @@ module.exports = {
         });
     },
     serializeUser: function(user, done) {
-        console.log('serializeUser', user);
+        //console.log('serializeUser', user);
         done(null, user.id)
     },
     deserializeUser: function(user, done) {
-        console.log('deserializeUser', user);
+        //console.log('deserializeUser', user);
         User.findOne({'devMnt.id': user}, function(err, user) {
             if (err) {
                 return done(err)
             }
-            console.log(user);
+            //console.log(user);
             return done(null, user)
         })
     }

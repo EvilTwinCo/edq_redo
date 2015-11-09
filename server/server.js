@@ -28,10 +28,10 @@ var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
-  origin: function(origin, callback) {
-    if (corsWhiteList.indexOf(origin) !== -1) callback(null, true);
-    else callback(null, false);
-  }
+    origin: function (origin, callback) {
+        if (corsWhiteList.indexOf(origin) !== -1) callback(null, true);
+        else callback(null, false);
+    }
 }
 
 app.use(express.static(__dirname + '/../public'));
@@ -39,33 +39,33 @@ app.use(cors());
 //app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: false
+    extended: false
 }));
 
 app.options(cors(corsOptions));
 
 var SessionStore = new MongoStore({
-  collection: 'connect-mongoSessions',
-  autoRemove: 'native',
-  mongooseConnection: mongoose.connection
+    collection: 'connect-mongoSessions',
+    autoRemove: 'native',
+    mongooseConnection: mongoose.connection
 })
 var SESSION_SECRET = process.env.DM_SESSION;
 app.use(session({
-  secret: SESSION_SECRET,
-  name: 'theQCookie.sid',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000 * 30
-  }, //30 seconds
-  store: SessionStore
+    secret: SESSION_SECRET,
+    name: 'theQCookie.sid',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 30
+    }, //30 minutes
+    store: SessionStore
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 // DEVMNT PASSPORT AUTH
-app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ })
+app.get('/auth/devmtn', passport.authenticate('devmtn'), function (req, res) { /*redirects, not called*/ })
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMntPassportCtrl.authFailure), DevMntPassportCtrl.authSuccess);
 app.get('/auth/devmtn/logout', DevMntPassportCtrl.authLogout);
 passport.use('devmtn', new DevmtnStrategy({
@@ -80,39 +80,35 @@ passport.deserializeUser(DevMntPassportCtrl.deserializeUser);
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({
-  cookieParser:cookieParser,
-  key:'theQCookie.sid',
-  secret:SESSION_SECRET,
-  store:SessionStore,
-  success: onAuthorizeSuccess,
-  fail: onAuthorizeFail
+    cookieParser: cookieParser,
+    key: 'theQCookie.sid',
+    secret: SESSION_SECRET,
+    store: SessionStore,
+    success: onAuthorizeSuccess,
+    fail: onAuthorizeFail
 }));
 
-function onAuthorizeSuccess(data, accept){
-  console.log("Authorized", data)
-  accept();
+function onAuthorizeSuccess(data, accept) {
+    //console.log("Authorized", data)
+    accept();
 }
 
-function onAuthorizeFail(data, message, error, accept){
-  console.log('socket Auth Failed');
-  console.log(message);
-  console.log(data);
-  if(error){
-    throw new Error(message);
-    console.log('failed connection to socket.io', message);
+function onAuthorizeFail(data, message, error, accept) {
+    // error indicates whether the fail is due to an error or just a unauthorized client
+    if (error) throw new Error(message);
+    // send the (not-fatal) error-message to the client and deny the connection
+    return accept(new Error(message));
 
-  }
-  accept(new Error(message));
 }
 
-ioServer.on('connection', function(socket) {
-  console.log('a user connected');
+ioServer.on('connection', function (socket) {
+    console.log('a user connected');
 
-  socket.on('disconnect', function() {
-    console.log('a user disconnected');
-  });
+    socket.on('disconnect', function () {
+        console.log('a user disconnected');
+    });
 
-    socket.on('flash poll', function(answer) {
+    socket.on('flash poll', function (answer) {
         console.log('flash poll submitted by a user: ', answer);
         ioServer.emit('flash poll', answer);
     })
@@ -145,14 +141,13 @@ ioServer.on('connection', function(socket) {
     //Attendance Sockets
     socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
-
 });
 
-mongoose.set('debug', true);
-mongoose.connect(mongoURI, function() {
-  console.log('Connected to MongoDB: ' + mongoURI);
+//mongoose.set('debug', true);
+mongoose.connect(mongoURI, function () {
+    console.log('Connected to MongoDB: ' + mongoURI);
 })
 
-httpServer.listen(serverPort, function() {
-  console.log("Server listening on port: " + serverPort);
+httpServer.listen(serverPort, function () {
+    console.log("Server listening on port: " + serverPort);
 });

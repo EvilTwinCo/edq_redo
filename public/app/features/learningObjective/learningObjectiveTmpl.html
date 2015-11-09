@@ -1,15 +1,28 @@
-<link rel = "stylesheet" href = "app/styles/learning-obj.css">
-<div class="box">
-  <div ng-repeat = "objective in is.learningObjectives track by $index" class="row" >
-    <div class="col s8 learning-objective-text">
-        <div class="col s1">{{$index +1}}</div><div class="col s11">{{objective.title}}</div>
+<link rel="stylesheet" href="app/styles/learning-obj.css">
+
+<div ng-repeat="objective in is.learningObjectives track by $index" class="row">
+    <div class="col s6 learning-objective-text">
+        <div class="col s1">{{$index + 1}}</div>
+        <div class="col s11">{{objective.title}}</div>
     </div>
+<<<<<<< HEAD
     <div class="col s4">
       <form action="#">
         <div class="range-field">
             <input ng-model="confidenceValue" type="range" id="rangeSlider" min="0" max="100" ng-change ="is.submitConfidence(objective.id, confidenceValue)"/>
         </div>
       </form>
+=======
+    <div class="col s5">
+        <form action="#">
+            <p class="range-field">
+                <input ng-model="objective.percentage" type="range" id="range-slider" min="0" max="100" step="1" ng-change="is.submitConfidence(objective.id, objective.percentage)" />
+            </p>
+        </form>
     </div>
-  </div>
+    <div class="col s1 current-percentage">
+        <p>{{ objective.percentage }}%</p>
+>>>>>>> 06f84ea7c9674f02abfe2ab531176575cf3cc359
+    </div>
 </div>
+

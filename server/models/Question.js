@@ -5,6 +5,9 @@ var schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  studentId:{
+    type:String
+  },
   mentorName: {
     type: String
   },

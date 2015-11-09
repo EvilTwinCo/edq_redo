@@ -1,10 +1,30 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-  response: { type: Number, required: true },
-  // user: { type: mongoose.Schema.ObjectID, ref: 'User', required: true },
-  // learningObjective: { type: mongoose.Schema.ObjectID, ref: 'LearningObjective', required: true }
+    learningObjective: {
+        type: String,
+        required: true
+    },
+    cohortId: {
+        type: String,
+        required: true 
+    },
+    classId: {
+        type: String,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    confidence: {
+        type: Number,
+        required: true
+    },
+    timestamp: {
+        type: Date,
+        required: true
+    }
 });
-
 
 module.exports = mongoose.model('Confidence', schema);
