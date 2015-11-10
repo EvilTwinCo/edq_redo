@@ -150,8 +150,8 @@ ioServer.on('connection', function (socket) {
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
 
     //Attendance Sockets
-    socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
-    socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
+    socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));
+    socket.on('getAttendance', AttendanceCtrl.getAttendance.bind(null, socket));
 });
 
 mongoose.set('debug', true);

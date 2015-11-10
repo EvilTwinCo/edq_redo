@@ -1,6 +1,17 @@
-angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc) {
-
+angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc, $scope) {
+  var self = this;
   var socket = socketIoSrvc.getSocket();
+  this.hideMenu = false;
+
+  this.getTheUsersForCohort = function() {
+    socket.emit('getAttendance');
+  }
+
+  this.getTheUsersForCohort();
+
+  this.hideDisplay = function() {
+    this.hideMenu = !this.hideMenu;
+  }
 
   this.getDateObject = function() {
     return new Date();
@@ -12,86 +23,72 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
 
   this.timeInButton = function(user) {
     user.attendanceData.timeIn = this.getDateObject();
-    socket.emit(user);
+    self.formatAndPostAttendance(user);
 
   }.bind(this)
 
   this.timeOutButton = function(user) {
     user.attendanceData.timeOut = this.getDateObject();
-    socket.emit(user);
+    self.formatAndPostAttendance(user);
+
   }.bind(this)
 
-
-
   this.changeScore = function(user, e) {
-    console.log("event", e);
-    console.log("user", user);
-    socket.emit("getAttendance", user);
-    console.log(user);
+    self.formatAndPostAttendance(user);
+    console.log('postAttendance', user)
   }
 
+  this.formatAndPostAttendance = function(user) {
+    if (typeof user.attendanceData.score == 'string') {
 
+      switch (user.attendanceData.score) {
+        case ('number:1'):
+          user.attendanceData.score = 1;
+          break;
+        case ('number:2'):
+          user.attendanceData.score = 2;
+          break;
+        case ('number:3'):
+          user.attendanceData.score = 3;
+          break;
+      }
+      socket.emit("postAttendance", user);
+    } else {
+      socket.emit("postAttendance", user);
+    }
+  }
 
-  socket.on('getAttendance', function(arr) {
-    this.users = arr;
+  this.users = [];
 
+  socket.on('attendanceUpdate', function(data) {
+    this.users.forEach(function(item, index, arr) {
+      if (item.user == data.user) {
+        arr[index].attendanceData = data.attendanceData;
+      }
+    })
   }.bind(this));
 
 
 
-  this.users = [{
-    firstName: "Bryan",
-    lastName: "Schauerte",
-    email: "Bryan@email.com",
-    attendanceData: {
-      // timeIn:
-      // timeOut:
-      // score:4
-      // day:
-    }
-  }, {
-    firstName: "Brack",
-    lastName: "Carmony",
-    email: "Brack@email.com",
-    attendanceData: {
-      // timeIn:
-      // timeOut:
-      // score:
-      // day:
-    }
-  }, {
-    firstName: "David",
-    lastName: "Giles",
-    email: "David@email.com",
-    attendanceData: {
-      // timeIn:
-      // timeOut:
-      // score:
-      // day:
-    }
-  }, {
-    firstName: "Samson",
-    lastName: "Nelson",
-    email: "Samson@email.com",
-    attendanceData: {
-      // timeIn:
-      // timeOut:
-      // score:
-      // day:
-    }
-  }, {
-    firstName: "Nathan",
-    lastName: "Allen",
-    email: "Nathan@email.com",
-    attendanceData: {
-      // timeIn:
-      // timeOut:
-      // score:
-      // day:
-    }
-  }];
+  socket.on('getInitialAttendance', function(data) {
+    var today = self.getDateObject();
+    data.forEach(function(item, index, array) {
+      if (item.devMtn.cohortId == self.cohortId) {
+        if (!item.attendanceData) {
+          item.attendanceData = {
+            timeIn: null,
+            timeOut: null,
+            score: null,
+            dateOfAttendance: today
+          };
+          self.users.push(item);
 
+        } else {
 
-
-
+          self.users.push(item);
+        }
+      }
+    })
+    $scope.$apply();
+  })
 });
