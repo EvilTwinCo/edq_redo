@@ -40,14 +40,6 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
 
 
     // EVENT CAPTURES
-    socket.on('report confidence', function(obj) {
-        console.log('report confidence received: ', obj);
-    });
-
-    socket.on('flash poll', function(answer) {
-       console.log('flash poll received: ', answer);
-    });
-
       //mentorQueue information coming back in an object
     socket.on('exit queue information', function(obj) {
 
@@ -57,28 +49,16 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
         console.log('exit queue information: ', obj);
     });
 
-
-    socket.on('questionFromStudent', function(obj){
-
-      //obj will be {question: string, directive: string}
-
-
-    })
-
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {
         console.log('connected');
-
-
       // needs to send all questions in qu to mentorQueue
       //  socket.emit('serversLiveFeedStore', theStoredFeed)
       // sent as array of objects [{question:string, solution: string}]
-
     });
 
     socket.on('reconnect', function() {
         console.log('reconnecting');
-
         // needs to send all questions in qu to mentorQueue
         //  socket.emit('serversLiveFeedStore', theStoredFeed)
         // sent as array of objects [{question:string, solution: string}]
