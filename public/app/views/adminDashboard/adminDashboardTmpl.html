@@ -1,14 +1,28 @@
-<p>Admin Dashboard Template</p>
-    Add Select Here...
-   
-   <div class = 'row'>
-    <div class = "col s12 m6">
-      <mentor-queue></mentor-queue>
+<a class='dropdown-button btn' href='#' data-activates='dropdownCohortOptions'>Cohort: {{is.currentCohort}}</a>
+<ul id='dropdownCohortOptions' class='dropdown-content'>
+    <li ng-repeat="cohort in is.cohortOptions"><a ng-click="is.setDropdownValue(cohort)">{{cohort.label}}</a></li>
+</ul>
+
+<div class='row'>
+    <div class="col s12 m6">
+        <mentor-queue cohort-id="is.currentCohort"></mentor-queue>
     </div>
-    <div class = "col s12 m6">
-      <confidence-live-chart></confidence-live-chart>
+    <div class="col s12 m6">
+        <confidence-live-chart cohort-id="is.currentCohort"></confidence-live-chart>
     </div>
-  </div>
-<div>
-  <attendance-Tracker></attendance-Tracker>
 </div>
+<div>
+    <attendance-tracker cohort-id="is.currentCohort" ng-if="false"></attendance-tracker>
+</div>
+
+<script>
+    $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrain_width: true,
+        hover: false,
+        gutter: 0,
+        belowOrigin: true,
+        alignment: 'left'
+    });
+</script>
