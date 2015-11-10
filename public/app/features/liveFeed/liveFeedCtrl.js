@@ -13,6 +13,7 @@ socket.on('liveFeed', function(data){
 })
 
 socket.on('serversLiveFeedStore', function(data){
+  // console.log('55555555', data);
   self.feed = data;
 })
 

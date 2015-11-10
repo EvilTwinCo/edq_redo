@@ -2,13 +2,14 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
 
 // bryans
 
-//$scope.dataSet = [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2,2, 2, 2, 2, 3, 3, 3];
+// $scope.dataSet = [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2,2, 2, 2, 2, 3, 3, 3];
 $scope.dataSet =[];
 
 var socket = socketIoSrvc.getSocket();
 
-socket.on('flashVoteResults', function(data){
-  $scope.dataSet= data
+socket.on('flashPoll', function(data){
+  console.log(data);
+  $scope.dataSet.push(data)
 })
 
 

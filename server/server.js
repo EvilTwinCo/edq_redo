@@ -26,6 +26,7 @@ var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
+var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -112,11 +113,11 @@ ioServer.on('connection', function (socket) {
 
     // Flash poll Sockets
 
-    socket.on('flash poll', function (answer) {
-        console.log('flash poll submitted by a user: ', answer);
-        ioServer.emit('flash poll', answer);
-    })
-
+    // socket.on('flash poll', function (answer) {
+    //     console.log('flash poll submitted by a user: ', answer);
+    //     ioServer.emit('submit flash poll', answer);
+    // })
+    socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
     //User Sockets
     socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
     socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
