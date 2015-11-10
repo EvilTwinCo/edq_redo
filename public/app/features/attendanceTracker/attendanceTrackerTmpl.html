@@ -1,11 +1,15 @@
 
+<!-- this button can be moved as long as you add attribue to the element hideMenu = !hideMenu -->
+<button class = "showAttendanceButton" ng-click = "is.hideDisplay()">Show Attendance</button>
 
 
-<div class="attendanceContainer"  ng-show='users !=[]'>
+<div class="attendanceContainer" ng-cloak ng-show='users !=[] && !is.hideMenu'>
   <div class="attendanceHeader">
     <img class="logo" src="app/logoonly.png">
     <div class="attendanceText">Attendance</div>
   </div>
+
+<button ng-click = "is.hideDisplay()">Hide Attendance</button>
 
 
   <div class="studentAttendanceContainer row" ng-repeat = "user in is.users">
@@ -15,6 +19,7 @@
         <button class="waves-effect waves-light btn checkIn" ng-click = "is.timeInButton(user)" ng-hide = "user.attendanceData.timeIn">Time In</button>
         <button ng-hide = "!user.attendanceData.timeIn">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
       </div>
+
       <div class = "col s4">
       <button class="waves-effect waves-light btn checkOut" ng-click = "is.timeOutButton(user)" ng-hide = "user.attendanceData.timeOut">Time Out</button>
       <button ng-hide = "!user.attendanceData.timeOut">{{ user.attendanceData.timeOut | date:"MM/dd/yyyy 'at' h:mma"}}</button>
@@ -24,11 +29,16 @@
       <div ng-init = "is.doIt()" class="col s4">
 
         <select class = "browser-default multiScore" ng-change = "is.changeScore(user)" ng-model= "user.attendanceData.score">
-          <option value=""  selected>Daily Score</option>
-          <option value="1">1 of 3</option>
-          <option value="2">2 of 3</option>
-          <option value="3">3 of 3</option>
+          <option value="" disabled selected>Daily Score</option>
+          <option value="Number: 1">1 of 3</option>
+          <option value="Number: 2">2 of 3</option>
+          <option value="Number: 3">3 of 3</option>
+
         </select>
+
+<!-- <select ng-options = "label for item in is.multiValue" ng-model = "user.attendanceData.score"></select> -->
+
+
 
       </div>
 
@@ -48,5 +58,3 @@
   </div>
 
 </div>
-
-  <input type="submit" ng-click='showAttendanceShow = !showAttendanceShow' value='ATTENDANCE'>

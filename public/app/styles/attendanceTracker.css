@@ -103,3 +103,10 @@ attendance-tracker .s4>*{
 *{
   /*outline: 1px solid pink;*/
 }
+.showAttendanceButton{
+    background-color: #fff;
+    position:fixed;
+    bottom:0px;
+
+
+}
