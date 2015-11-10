@@ -7,6 +7,7 @@ module.exports = {
     handleStudentQuestionSubmit: function (socket, ioServer, data) {
         data.name = socket.request.user.firstName + " " + socket.request.user.lastName;
         data.studentId = socket.request.user.devMtn.id;
+        data.cohortId = socket.request.user.devMtn.cohortId;
         data.timeWhenEntered = new Date();
         //console.log(data);
         Question.create(data, function (err, newQuestion) {
@@ -73,9 +74,9 @@ module.exports = {
                 }
             })
     },
-    getAllQuestionsAsked: function (socket) {
+    getAllQuestionsAsked: function (socket, data) {
         Question.find({
-                timeQuestionAnswered: null
+                timeQuestionAnswered: null, cohortId: data.cohortId
             })
             .exec(function (err, result) {
                 if (err) {
