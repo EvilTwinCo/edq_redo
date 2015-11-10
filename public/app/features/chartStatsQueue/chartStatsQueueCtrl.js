@@ -1,4 +1,4 @@
-var app = angular.module("theQ").controller("queueStatsChartCtrl", function ($scope, socketIoSrvc) {
+var app = angular.module("theQ").controller("chartStatsQueueCtrl", function ($scope, socketIoSrvc) {
   var socket = socketIoSrvc.getSocket();
 
   console.log(self);

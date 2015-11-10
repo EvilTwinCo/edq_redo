@@ -18,7 +18,7 @@ angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $
         },
         {
             label: 'Queue',
-            value: 'queueStatsChart'
+            value: 'chartStatsQueue'
         }
     ]
     
