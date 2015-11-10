@@ -5,14 +5,14 @@
         <div class="col s11">{{objective.objectiveName}}</div>
     </div>
 
-    <div class="col s4 l5">
+    <div class="col s4 l4">
         <form>
             <p class="range-field">
                 <input ng-model="objective.percentage" type="range" id="range-slider" default = "0" min="0" max="100" step="1" ng-change="is.submitConfidence(objective.objectiveId, objective.percentage)" />
             </p>
         </form>
     </div>
-    <div class="col s2 l1 current-percentage">
+    <div class="col s2 l2 current-percentage" style = "text-align:center">
         <p>{{ objective.percentage }}%</p>
     </div>
 </div>

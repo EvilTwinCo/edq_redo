@@ -9,8 +9,6 @@ var app = angular.module("theQ").controller("learningObjectiveCtrl", function(so
     //     {id: "098765", title: "Changing Directories", percentage: 0}
     // ]
 
-    this.confidenceValue = 50;
-
     this.submitConfidence = function(objective_id, value) {
         var confidenceObj = {
             objective_id: objective_id,
