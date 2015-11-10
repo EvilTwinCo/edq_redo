@@ -6,6 +6,7 @@ angular.module('theQ').directive('qInput', function () {
         bindToController: true,
         attribute: 'E',
         scope: {
+            objectives:"=",
             question: '=',
             done: '&'
         }
