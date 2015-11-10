@@ -47,7 +47,7 @@ module.exports = {
             value: obj.value
         });
 
-        console.log(obj);
+        //console.log(obj);
         io.to('instructors').emit('report confidence single', obj);
     },
     handleInstructorLogin: function (socket, obj) {
@@ -62,7 +62,7 @@ module.exports = {
                 filterObj[prop] = currentConfidence[prop];
             }
         }
-        console.log(filterObj);
+        //console.log(filterObj);
         for (var prop in filterObj) {
             var indexStart = prop.indexOf(COHORT_SEPARATOR);
             var indexStop = prop.indexOf(USER_SEPARATOR);
@@ -76,6 +76,25 @@ module.exports = {
                 cohortId: cohortId
             });  
         }
+    },
+    getCohorts: function(req, res, cohorts) {
+        Confidence.find({}, function (error, result) {
+            if (error) {
+                console.log(error);
+                return [];
+            } else {
+                //console.log(result);
+                for (var i = 0; i < result.length; i++) {
+                    //console.log('cohortId', result[i].cohortId);
+                    if (cohorts.indexOf(result[i].cohortId) === -1) {
+                        //console.log('pushing cohortId ' + result[i].cohortId);
+                        cohorts.push(result[i].cohortId);
+                    }
+                }
+                //console.log(cohorts);
+                return cohorts;
+            }
+        })
     }
 }
     

@@ -1,6 +1,6 @@
 <a class='dropdown-button btn' href='#' data-activates='dropdownCohortOptions'>Cohort: {{is.currentCohort}}</a>
 <ul id='dropdownCohortOptions' class='dropdown-content'>
-    <li ng-repeat="cohort in is.cohortOptions"><a ng-click="is.setDropdownValue(cohort)">{{cohort.label}}</a></li>
+    <li ng-repeat="cohort in is.cohortOptions track by $index"><a ng-click="is.setDropdownValue(cohort)">{{cohort}}</a></li>
 </ul>
 
 <div class='row'>
