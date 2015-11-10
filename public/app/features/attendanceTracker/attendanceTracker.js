@@ -8,8 +8,8 @@ app.directive("attendanceTracker", function(){
     bindToController: true,
     attribute:"E",
     scope: {
-    hideMenu: "=",
-    cohortId: '='
+      hideMenu: "=",
+      cohortId: '='
     }
   }
 })

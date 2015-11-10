@@ -28,30 +28,16 @@
 
       <div ng-init = "is.doIt()" class="col s4">
 
-        <select class = "browser-default multiScore" ng-change = "is.changeScore(user)" ng-model= "user.attendanceData.score">
+        <select class = "browser-default multiScore " ng-class = "{multiScoreValueAdded: user.attendanceData.score}" ng-change = "is.changeScore(user)" ng-model= "user.attendanceData.score">
           <option value="" disabled selected>Daily Score</option>
-          <option value="Number: 1">1 of 3</option>
-          <option value="Number: 2">2 of 3</option>
-          <option value="Number: 3">3 of 3</option>
+          <option value="number:1">1 of 3</option>
+          <option value="number:2">2 of 3</option>
+          <option value="number:3">3 of 3</option>
 
         </select>
 
-<!-- <select ng-options = "label for item in is.multiValue" ng-model = "user.attendanceData.score"></select> -->
-
-
 
       </div>
-
-
-
-      <!-- <form>
-          <label for="singleSelect"> Single select: </label><br>
-          <select name="singleSelect" ng-model="user.attendanceData.singleSelect">
-            <option value="1"> 1</option>
-            <option value="2"> 2</option>
-          </select><br>
-        </form> -->
-
 
 
     </div>

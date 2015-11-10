@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var attendancesSchema = new mongoose.Schema({
+
   user: {
     type: mongoose.Schema.Types.ObjectId
     // required: true
@@ -20,8 +21,11 @@ var attendancesSchema = new mongoose.Schema({
     },
     score: {
       type: Number
+    },
+    
+    dateOfAttendance: {
+      type: Date
     }
-    // day:
   }
 
 });

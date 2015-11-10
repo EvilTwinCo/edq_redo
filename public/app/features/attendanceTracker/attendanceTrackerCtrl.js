@@ -1,21 +1,15 @@
 angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc, $scope) {
-
+  var self = this;
   var socket = socketIoSrvc.getSocket();
+  this.hideMenu = false;
 
-  this.getTheUsersForCohort = function(){
+  this.getTheUsersForCohort = function() {
     socket.emit('getAttendance');
   }
 
-
   this.getTheUsersForCohort();
 
-
-var self = this;
-
-
-  this.hideMenu = false;
-
-  this.hideDisplay = function(){
+  this.hideDisplay = function() {
     this.hideMenu = !this.hideMenu;
   }
 
@@ -28,36 +22,47 @@ var self = this;
   }
 
   this.timeInButton = function(user) {
-
     user.attendanceData.timeIn = this.getDateObject();
-    socket.emit("postAttendance", user);
+    self.formatAndPostAttendance(user);
 
   }.bind(this)
 
   this.timeOutButton = function(user) {
     user.attendanceData.timeOut = this.getDateObject();
-    socket.emit("postAttendance", user);
+    self.formatAndPostAttendance(user);
+
   }.bind(this)
 
-
-
   this.changeScore = function(user, e) {
-    socket.emit("postAttendance", user);
+    self.formatAndPostAttendance(user);
     console.log('postAttendance', user)
-
   }
 
+  this.formatAndPostAttendance = function(user) {
+    if (typeof user.attendanceData.score == 'string') {
 
+      switch (user.attendanceData.score) {
+        case ('number:1'):
+          user.attendanceData.score = 1;
+          break;
+        case ('number:2'):
+          user.attendanceData.score = 2;
+          break;
+        case ('number:3'):
+          user.attendanceData.score = 3;
+          break;
+      }
+      socket.emit("postAttendance", user);
+    } else {
+      socket.emit("postAttendance", user);
+    }
+  }
 
-  // socket.on('getAttendance', function(arr) {
-  //   this.users = arr;
-  //
-  // }.bind(this));
-  this.users =[];
+  this.users = [];
 
-  socket.on('attendanceUpdate', function(data){
-    this.users.forEach(function(item, index, arr){
-      if (item.user == data.user){
+  socket.on('attendanceUpdate', function(data) {
+    this.users.forEach(function(item, index, arr) {
+      if (item.user == data.user) {
         arr[index].attendanceData = data.attendanceData;
       }
     })
@@ -65,88 +70,25 @@ var self = this;
 
 
 
-socket.on('getInitialAttendance', function(data){
+  socket.on('getInitialAttendance', function(data) {
+    var today = self.getDateObject();
+    data.forEach(function(item, index, array) {
+      if (item.devMtn.cohortId == self.cohortId) {
+        if (!item.attendanceData) {
+          item.attendanceData = {
+            timeIn: null,
+            timeOut: null,
+            score: null,
+            dateOfAttendance: today
+          };
+          self.users.push(item);
 
+        } else {
 
-  data.forEach(function(item, index, array){
-
-
-    if(item.devMnt.cohortId == self.cohortId){
-      if(!item.attendanceData){
-        item.attendanceData = {};
-        self.users.push(item);
-      }else {
-      self.users.push(item);
-      console.log(item, "pushed item");
-    }
-    }
+          self.users.push(item);
+        }
+      }
+    })
+    $scope.$apply();
   })
-  $scope.$apply();
-  console.log("the users listed", self.users)
-})
-
-//
-// $scope.$watch('is.users', function(newValue, oldValue){
-//   self.users = newValue;
-//
-// })
-
-// $scope.$digest();
-
-//   this.users = [{
-//     firstName: "Bryan",
-//     lastName: "Schauerte",
-//     email: "Bryan@email.com",
-//     attendanceData: {
-//       // timeIn:
-//       // timeOut:
-//       // score:4
-//       // day:
-//     }
-//   }
-//   // , {
-//   //   firstName: "Brack",
-//   //   lastName: "Carmony",
-//   //   email: "Brack@email.com",
-//   //   attendanceData: {
-//   //     // timeIn:
-//   //     // timeOut:
-//   //     // score:
-//   //     // day:
-//   //   }
-//   // }, {
-//   //   firstName: "David",
-//   //   lastName: "Giles",
-//   //   email: "David@email.com",
-//   //   attendanceData: {
-//   //     // timeIn:
-//   //     // timeOut:
-//   //     // score:
-//   //     // day:
-//   //   }
-//   // }, {
-//   //   firstName: "Samson",
-//   //   lastName: "Nelson",
-//   //   email: "Samson@email.com",
-//   //   attendanceData: {
-//   //     // timeIn:
-//   //     // timeOut:
-//   //     // score:
-//   //     // day:
-//   //   }
-//   // }, {
-//   //   firstName: "Nathan",
-//   //   lastName: "Allen",
-//   //   email: "Nathan@email.com",
-//   //   attendanceData: {
-//   //     // timeIn:
-//   //     // timeOut:
-//   //     // score:
-//   //     // day:
-//   //   }
-//   // }
-// ];
-
-
-  console.log("the users listed", self.users)
 });
