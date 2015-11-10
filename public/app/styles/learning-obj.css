@@ -31,7 +31,8 @@ learning-objective .learning-objective-text .col {
 }
 
 learning-objective .range-field {
-
+  position:relative;
+  top:7px
 }
 
 learning-objective .current-percentage {

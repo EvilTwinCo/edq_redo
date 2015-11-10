@@ -6,7 +6,7 @@ var app = angular.module('theQ').directive('learningObjective', function(){
     bindToController: true,
     attribute: "E",
     scope:{
-      
+      learningObjectives:"=objectives"
     }
   }
 })
