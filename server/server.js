@@ -18,6 +18,7 @@ var cookieParser = require("cookie-parser");
 var serverPort = 8080;
 var mongoURI = 'mongodb://localhost:27017/theQ';
 
+
 //Controllers
 var UserCtrl = require('./controllers/UserCtrl.js');
 var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
@@ -108,11 +109,17 @@ ioServer.on('connection', function (socket) {
         console.log('a user disconnected');
     });
 
+
+    // Flash poll Sockets
+
     socket.on('flash poll', function (answer) {
         console.log('flash poll submitted by a user: ', answer);
         ioServer.emit('flash poll', answer);
     })
 
+    //View Sockets
+    socket.on('request reset view data', function() {socket.emit('reset view data');});
+    
     //User Sockets
     socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
     socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
@@ -120,18 +127,19 @@ ioServer.on('connection', function (socket) {
     socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
 
     //Learning Objective Sockets
-    socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
-    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, ioServer));
-    socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
-    socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
+    //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
+    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
+    //socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
+    //socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket))
 
     //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
-    socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, ioServer));
+    socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, socket, ioServer));
     socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));

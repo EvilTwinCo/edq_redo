@@ -1,75 +1,115 @@
 var User = require('../models/User.js');
 var Confidence = require('../models/Confidence.js');
 
+var COHORT_SEPARATOR = '__';
+var USER_SEPARATOR = '||';
+
+
 var timeoutQueue = {};
-var currentConfidence = {};
+var currentConfidence = {
+// Starting dummy data:
+//    '28__123456||1351': '50',
+//    '28__123456||1358': '51',
+//    '28__123456||1359': '52',
+//    '28__123456||1350': '53',
+//    '27__123456||1356': '34',
+//    '27__123456||1358': '85',
+//    '26__123456||1354': '46',
+//    '26__123456||1355': '47',
+//    '28__12345X||1351': '80',
+//    '28__12345X||1358': '71',
+//    '28__12345X||1359': '62',
+//    '28__12345X||1350': '53',
+//    '27__12345X||1356': '44',
+//    '27__12345X||1358': '35',
+//    '26__12345X||1354': '26',
+//    '26__12345X||1355': '17'
+};
 
 module.exports = {
     handleSubmitConfidence: function (socket, io, obj) {
-        obj['socketUser'] = socket.client.request.user._doc.devMtn.id;
-        //console.log('obj', obj);
-
-        io.to('instructors').emit('report confidence single', obj);
-
-        if (timeoutQueue[obj.objective_id + '|' + obj.socketUser] === undefined) {
-            timeoutQueue[obj.objective_id + '|' + obj.socketUser] = new Date();
+        obj.devMtnId = socket.request.user.devMtn.id;
+        obj.cohortId = socket.request.user.devMtn.cohortId;
+        
+        if (timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId] === undefined) {
+            timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId] = new Date();
             setTimeout(recordConfidence.bind(null, {
-                learningObjective: obj.objective_id,
-                user: obj.socketUser
+                objective_id: obj.objective_id,
+                devMtnId: obj.devMtnId,
+                cohortId: obj.cohortId
             }), 10000);
-            updateConfidence({
-                learningObjective: obj.objective_id,
-                user: obj.socketUser,
-                confidence: obj.value
-            });
-            //console.log(timeoutQueue);
         }
-        else {
-            updateConfidence({
-                learningObjective: obj.objective_id,
-                user: obj.socketUser,
-                confidence: obj.value
-            });
-        }
+        
+        updateConfidence({
+            objective_id: obj.objective_id,
+            devMtnId: obj.devMtnId,
+            cohortId: obj.cohortId,
+            value: obj.value
+        });
+
+        console.log(obj);
+        io.to('instructors').emit('report confidence single', obj);
     },
     handleInstructorLogin: function (socket, obj) {
         console.log("Instructor Logging In");
-        socket.emit("report confidence", currentConfidence);
         socket.join('instructors');
+    },
+    handleGetCurrentConfidences: function (socket, cohortId) {
+        var filterObj = {};
+        var returnObj = {};
+        for (var prop in currentConfidence) {
+            if (prop.search(cohortId + COHORT_SEPARATOR) !== -1) {
+                filterObj[prop] = currentConfidence[prop];
+            }
+        }
+        console.log(filterObj);
+        for (var prop in filterObj) {
+            var indexStart = prop.indexOf(COHORT_SEPARATOR);
+            var indexStop = prop.indexOf(USER_SEPARATOR);
+            var objId = prop.slice(indexStart + COHORT_SEPARATOR.length, indexStop);
+            var cohortId = prop.slice(0,indexStart);
+            var userId = prop.slice(indexStop + USER_SEPARATOR.length);
+            socket.emit('report confidence single', {
+                objective_id: objId,
+                value: String(filterObj[prop]),
+                devMtnId: userId,
+                cohortId: cohortId
+            });  
+        }
     }
 }
     
 function updateConfidence(obj) {
-    currentConfidence[obj.learningObjective + '|' + obj.user] = obj.confidence;
-    //console.log(currentConfidence);
+    currentConfidence[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId] = obj.value;
 }
 
 function recordConfidence(obj) {
-    //console.log(obj.user);
-    User.findOne({'devMtn.id': obj.user}, function(err, userResult) {
+    User.findOne({'devMtn.id': obj.devMtnId}, function(err, userResult) {
         if (err) {
             console.log(err);
         } else {            
             Confidence.create({
-                learningObjective: obj.learningObjective,
-                cohortId: userResult.devMtn.cohortId,
+                learningObjective: obj.objective_id,
+                cohortId: obj.cohortId,
                 classId: 'testClassId', //TODO: update once we have an actual classId
                 user: userResult._id,
-                confidence: currentConfidence[obj.learningObjective + '|' + obj.user],
-                timestamp: timeoutQueue[obj.learningObjective + '|' + obj.user]
+                confidence: currentConfidence[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId],
+                timestamp: timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId]
             }, function (err, confidenceResult) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log('Learnging objective confidence added to the database: ', confidenceResult);
+                    console.log('Learning objective confidence added to the database: ', confidenceResult);
                 }
             })
             
-            delete timeoutQueue[obj.learningObjective + '|' + obj.user];
-            delete currentConfidence[obj.learningObjective + '|' + obj.user];
+            delete timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId];
         }
     })
-    
-  
-    
 }
+
+//TODO: Make this a reset at midnight instead of a reset every 24 hours.
+setInterval(function(){
+    console.log('clearing current confidence cache');
+    currentConfidence = {};
+}, 1000 * 60 * 60 * 24);

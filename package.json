@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/EvilTwinCo/edq_redo#readme",
   "dependencies": {
+    "ajax-request": "^1.2.1",
     "body-parser": "^1.14.1",
     "connect-mongo": "^0.8.2",
     "cookie-parser": "^1.4.0",
     "cors": "^2.7.1",
+    
     "devmtn-auth": "file:devmtn-auth-master",
     "express": "^4.13.3",
     "express-session": "^1.12.1",

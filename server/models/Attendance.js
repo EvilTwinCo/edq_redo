@@ -14,5 +14,12 @@ var schema = new mongoose.Schema({
   },
   timeOut: {
     type: Date
+  },
+  day: {
+    type: Date
+  },
+  score: {
+    type: Number
   }
+
 });

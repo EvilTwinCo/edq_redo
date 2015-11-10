@@ -1,5 +1,7 @@
-<q-input ng-show="is.state==='q-input'" question="is.currentQuestion" done="is.next('student-queue-info')"></q-input>
+<div class = 'row' style="margin-bottom:0">
+  <q-input ng-if="is.state==='q-input'" question="is.currentQuestion" done="is.next('student-queue-info')" objectives = "is.objectives"></q-input>
 
-<student-queue-info ng-show="is.state==='student-queue-info'" question="is.currentQuestion" done="is.next('solution-input')"></student-queue-info>
+  <student-queue-info ng-if="is.state==='student-queue-info'" question="is.currentQuestion" done="is.next('solution-input')"></student-queue-info>
 
-<solution-input ng-show="is.state==='solution-input'" question="is.currentQuestion" cancel="is.cancelSolution()" done="is.next('q-input')"></solution-input>
+  <solution-input ng-if="is.state==='solution-input'" question="is.currentQuestion" cancel="is.cancelSolution()" done="is.next('q-input')"></solution-input>
+</div>

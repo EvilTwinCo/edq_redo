@@ -1,0 +1,70 @@
+
+/* {
+  outline: 1px solid red;
+}/**/
+
+.liveFeed {
+  height: 100%;
+}
+
+.colorBlock {
+  width:100%;
+  height:1.5em;
+}
+
+.redBackground {
+  background-color: #E74C3C;
+}
+
+.redBackground {
+  background-color: #E74C3C;
+}
+.greenBackground {
+  background-color: #2ECC71;
+}
+.yellowBackground {
+  background-color: #F1C40F;
+}
+.greyBackground {
+  background-color: #7F8C8D;
+}
+.purpleBackground {
+  background-color: #cb69d6;
+}
+
+.ancorDiv {
+  display:flex;
+}
+
+learning-objective {
+  display:block;
+  background-color: #FAFAFA;
+}
+
+student-question-form {
+  background-color: #FAFAFA;
+  display:block;
+  margin-bottom:0;
+}
+
+live-feed{
+  display:block;
+  height:85vh;
+  background-color: #FAFAFA;
+  overflow:auto;
+}
+
+student-flash-poll a{
+  flex:1;
+  margin:.75em;
+}
+
+student-flash-poll div{
+  background-color: #FAFAFA;
+}
+
+@media only screen and (min-width: 992px){
+  .flip{
+    transform:rotateX(180deg);
+  }
+}

@@ -7,6 +7,7 @@ module.exports = {
     handleStudentQuestionSubmit: function (socket, ioServer, data) {
         data.name = socket.request.user.firstName + " " + socket.request.user.lastName;
         data.studentId = socket.request.user.devMtn.id;
+        data.cohortId = socket.request.user.devMtn.cohortId;
         data.timeWhenEntered = new Date();
         //console.log(data);
         Question.create(data, function (err, newQuestion) {
@@ -20,6 +21,7 @@ module.exports = {
             //console.log(newQuestion);
             //socket.emit('my current question is', newQuestion);
         });
+
     },
     handleStudentSolutionSubmit: function (socket, data) {
         //console.log("start student submission");
@@ -36,6 +38,7 @@ module.exports = {
                 if (result) {
                     result.studentSolution = data.studentSolution;
                     result.save();
+
 
                     socket.server.emit('new live feed', {
                         question: result.question,
@@ -71,9 +74,9 @@ module.exports = {
                 }
             })
     },
-    getAllQuestionsAsked: function (socket) {
+    getAllQuestionsAsked: function (socket, data) {
         Question.find({
-                timeQuestionAnswered: null
+                timeQuestionAnswered: null, cohortId: data.cohortId
             })
             .exec(function (err, result) {
                 if (err) {
@@ -97,13 +100,15 @@ module.exports = {
             });
     },
 
-    mentorBegins: function (ioServer, data) {
+    mentorBegins: function (socket, ioServer, data) {
+
         var dataToUpdate = {
             _id: data._id,
-            mentorName: data.mentorName,
-            timeMentorBegins: data.timeMentorBegins
+            mentorName: socket.request.user.firstName + " " + socket.request.user.lastName,
+            timeMentorBegins: new Date()
         }
-        Question.findByIdAndUpdate(data._id, dataToUpdate)
+        console.log("Mentor Begins", dataToUpdate);
+        Question.findByIdAndUpdate(data._id, dataToUpdate,{new:true})
             .exec(function (err, result) {
                 if (err) {
                     console.log(err);
@@ -140,7 +145,12 @@ module.exports = {
             question.studentId = socket.request.user.devMtn.id;
         }
         ioServer.emit('remove question from queue', question);
+    },
+    handleStudentSolution: function(socket, data){
+      console.log('handleStudentSolution Data:', data);
+      socket.emit('liveFeed', data);
     }
+
 };
 
 function getPositionInQueue(student, cohort, callback) {

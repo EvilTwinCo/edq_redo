@@ -1,3 +1,7 @@
-p {
-    color: red;
+day-notes p {
+  text-align: center;
+}
+
+div.col.s12.day-notes {
+  background-color: #FAFAFA;
 }
