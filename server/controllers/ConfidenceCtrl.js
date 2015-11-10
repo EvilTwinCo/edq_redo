@@ -76,25 +76,6 @@ module.exports = {
                 cohortId: cohortId
             });  
         }
-    },
-    getCohorts: function(req, res, cohorts) {
-        Confidence.find({}, function (error, result) {
-            if (error) {
-                console.log(error);
-                return [];
-            } else {
-                //console.log(result);
-                for (var i = 0; i < result.length; i++) {
-                    //console.log('cohortId', result[i].cohortId);
-                    if (cohorts.indexOf(result[i].cohortId) === -1) {
-                        //console.log('pushing cohortId ' + result[i].cohortId);
-                        cohorts.push(result[i].cohortId);
-                    }
-                }
-                //console.log(cohorts);
-                return cohorts;
-            }
-        })
     }
 }
     
