@@ -26,6 +26,7 @@ var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
 var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
+var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -109,10 +110,14 @@ ioServer.on('connection', function (socket) {
         console.log('a user disconnected');
     });
 
-    socket.on('flash poll', function (answer) {
-        console.log('flash poll submitted by a user: ', answer);
-        ioServer.emit('flash poll', answer);
-    })
+
+    // Flash poll Sockets
+
+
+    socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
+
+    //View Sockets
+    socket.on('request reset view data', function() {socket.emit('reset view data');});
 
     //User Sockets
     socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
@@ -121,14 +126,15 @@ ioServer.on('connection', function (socket) {
     socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
 
     //Learning Objective Sockets
-    socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
-    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, ioServer));
-    socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
-    socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
+    //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
+    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
+    //socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
+    //socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket))
 
     //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
@@ -139,10 +145,9 @@ ioServer.on('connection', function (socket) {
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
     socket.on('get my current question', QuestionCtrl.qetMyCurrentQuestion.bind(null, socket));
-    socket.on('studentSolution', QuestionCtrl.handleStudentSolutionSubmit.bind(null, socket));
+    socket.on('studentSolution', QuestionCtrl.handleStudentSolution.bind(null, socket));
     socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
-
 
     //Attendance Sockets
     socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));

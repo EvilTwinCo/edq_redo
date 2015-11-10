@@ -8,11 +8,12 @@ this.feed = [];
 
 var self = this;
 socket.on('liveFeed', function(data){
-  console.log(data);
+  console.log('12121212', data);
   self.feed.push(data);
 })
 
 socket.on('serversLiveFeedStore', function(data){
+  // console.log('55555555', data);
   self.feed = data;
 })
 

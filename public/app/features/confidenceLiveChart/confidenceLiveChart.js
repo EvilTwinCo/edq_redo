@@ -6,7 +6,7 @@ var app = angular.module('theQ').directive("confidenceLiveChart", function () {
         bindToController: true,
         attribute: "E",
         scope: {
-
+            cohortId: '='
         }
     }
 })

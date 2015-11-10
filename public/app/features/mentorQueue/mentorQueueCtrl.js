@@ -1,35 +1,41 @@
 angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $scope) {
-
     var socket = socketIoSrvc.getSocket();
+    var self = this;
+    resetData();
 
-    this.questions = [];
-
-    socket.emit('get questions asked');
+    socket.on('reset view data', function () {
+        //console.log('resetting data view - queue');
+        resetData();
+        $scope.$apply();
+    })
 
     socket.on('questionForQueue', function (data) {
-        this.questions.push(data);
+      console.log(data);
+      if( data.cohortId === self.mq.cohortId){
+        self.questions.push(data);
         $scope.$apply();
-    }.bind(this));
+      }
+    });
 
     socket.on('getAllQuestionsAsked', function (data) {
-        this.questions = data;
+        self.questions = data;
         $scope.$apply();
-    }.bind(this));
+    });
 
     socket.on('remove question from queue', function (question) {
-        this.questions = _.filter(this.questions, function (item) {
+        self.questions = _.filter(self.questions, function (item) {
             return item.studentId !== question.studentId;
         })
         $scope.$apply();
-    }.bind(this));
+    });
 
     socket.on('mentorBegins', function(updatedQuestion){
       console.log('mentor identify',updatedQuestion);
-      console.log('1',_.findWhere(this.questions, {studentId:updatedQuestion.studentId}));
-      _.findWhere(this.questions, {studentId:updatedQuestion.studentId}).mentorName  = updatedQuestion.mentorName;
+      console.log('1',_.findWhere(self.questions, {studentId:updatedQuestion.studentId}));
+      _.findWhere(self.questions, {studentId:updatedQuestion.studentId}).mentorName  = updatedQuestion.mentorName;
       $scope.$apply();
-      console.log('2',_.findWhere(this.questions, {studentId:updatedQuestion.studentId}));
-    }.bind(this))
+      console.log('2',_.findWhere(self.questions, {studentId:updatedQuestion.studentId}));
+    });
 
     this.ObjectEntersQ = function (object) {
         object.timeWhenEnteredQ = new Date();
@@ -54,18 +60,8 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         socket.emit('request question removal', object);
     };
 
-
-    //dummy data
-    //  this.questions = [
-    //
-    //    {name:'bob', pictureUrl: 'http://myprofile.bryanschauerte.com/app/images/IMG_1067.jpg', question:"how do I tie shoes??", solution: '', mentorName: 'MARK'},
-    //    {name:'joe', pictureUrl: 'http://myprofile.bryanschauerte.com/app/images/IMG_1067.jpg', question:"how do I tie knots??", solution: '', mentorName: 'MARK'},
-    //    {name:'mary', pictureUrl: 'http://myprofile.bryanschauerte.com/app/images/IMG_1067.jpg', question:"how do I tie ties??", solution: '', mentorName: ''},
-    //    {name:'paul', pictureUrl: 'http://myprofile.bryanschauerte.com/app/images/IMG_1067.jpg', question:"how do I tie the knote??", solution: '', mentorName: 'MARK'},
-    //    {name:'Ringo', pictureUrl: 'http://myprofile.bryanschauerte.com/app/images/IMG_1067.jpg', question:"how do I tie a bow??", solution: '', mentorName: 'MARK'}
-    //
-    // ]
-
-    //endter q, mentorbegins help, leaveQ
-
+    function resetData() {
+        self.questions = [];
+        socket.emit('get questions asked', {cohortId: self.cohortId});
+    }
 })

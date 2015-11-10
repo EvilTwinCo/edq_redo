@@ -6,7 +6,7 @@ angular.module('theQ').directive('dayNotes', function() {
         bindToController: true,
         attribute: 'E',
         scope: {
-        
+          trackables:"="
         }
     }
 });

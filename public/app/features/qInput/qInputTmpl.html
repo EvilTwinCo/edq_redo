@@ -2,9 +2,9 @@
 
   <div class = "row">
     <span>What does your question concern?</span>
-    <p ng-repeat = "part in is.day">
-      <input name="group1" type="radio" ng-model = "is.question.directive" value = "{{part}}" id= "{{part}}"/>
-      <label for="{{part}}">{{part}}</label>
+    <p ng-repeat = "part in is.objectives">
+      <input name="group1" type="radio" ng-model = "is.question.directive" value = "{{part.objectiveName}}" id= "{{part.objectiveName}}"/>
+      <label for="{{part.objectiveName}}">{{part.objectiveName}}</label>
     </p>
 
     <p>
