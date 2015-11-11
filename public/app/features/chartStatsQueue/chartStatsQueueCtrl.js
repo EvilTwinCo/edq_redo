@@ -1,8 +1,6 @@
 var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($scope, socketIoSrvc, $filter) {
   var socket = socketIoSrvc.getSocket();
 
-
-  console.log(self);
   var columnDefs = [{
     headerName: "Student",
     field: "name"
@@ -24,8 +22,8 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
     headerName: "Time Helped",
     field: "timeHelped",
     cellRenderer: function(params) {
-      if (params.value){
-        return pad(params.value.getUTCHours())+":"+pad(params.value.getUTCMinutes())+":"+pad(params.value.getUTCSeconds());
+      if (params.value) {
+        return pad(params.value.getUTCHours()) + ":" + pad(params.value.getUTCMinutes()) + ":" + pad(params.value.getUTCSeconds());
       }
       return "";
     }
@@ -40,10 +38,9 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
     columnDefs: columnDefs,
     rowData: rowData,
     enableColResize: true
-
   }
-  socket.emit('request queue stats');
 
+  socket.emit('request queue stats');
   socket.on('report queue stat data', function(queueData) {
     console.log(queueData);
     $scope.queueData = queueData;
@@ -61,7 +58,16 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
 
     queueData.forEach(function(item) {
       if (item.mentorName) {
-        item.timeHelped = new Date(new Date(item.timeQuestionAnswered) - new Date(item.timeMentorBegins))
+        item.timeHelped = new Date(new Date(item.timeQuestionAnswered) - new Date(item.timeMentorBegins));
+        item.timeWait = new Date(new Date(item.timeMentorBegins) - new Date(item.timeWhenEntered));
+      }else{
+        item.timeSelfHelp = new Date(new Date(item.tineQuestionAnswered)- new Date(item.timeWhenEntered));
+      }
+    })
+
+    var chartData = queueData.map(function(item){
+      return {
+        date: item.timeWhenEntered.getMonth()+"/"+ item.timeWhenEntered.getDay() +"/"+ item.timeWhenEntered.getYear();
       }
     })
 
@@ -69,11 +75,11 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
     $scope.gridOptions.api.sizeColumnsToFit();
 
     $scope.$apply();
-
   });
-  function pad(number){
 
-      return (number<10?"0"+number:number)
+  function pad(number) {
+    //helper function to pend a leading 0 for times;
+    return (number < 10 ? "0" + number : number)
 
   }
 })
