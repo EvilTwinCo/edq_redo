@@ -55,7 +55,6 @@ module.exports = {
             .exec(function (err, result) {
                 result.timeQuestionAnswered = new Date();
                 result.save();
-                //socket.emit('my current question is', result);
             })
     },
     qetMyCurrentQuestion: function (socket) {
@@ -68,7 +67,6 @@ module.exports = {
                 if (result) {
                     socket.emit('my current question is', result)
                     getPositionInQueue(result.name, null, function (position) {
-                        //console.log('submitting position in queue', position)
                         socket.emit('position in queue', position);
                     });
                 }
@@ -101,7 +99,6 @@ module.exports = {
     },
 
     mentorBegins: function (socket, ioServer, data) {
-
         var dataToUpdate = {
             _id: data._id,
             mentorName: socket.request.user.firstName + " " + socket.request.user.lastName,
@@ -120,7 +117,7 @@ module.exports = {
     questionResolve: function (socket, data) {
         var dataToUpdate = {
             _id: data._id,
-            timeQuestionAnswered: data.timeQuestionAnswered
+            timeQuestionAnswered: new Date()
         }
         Question.findByIdAndUpdate(data._id, dataToUpdate, {
                 new: true
