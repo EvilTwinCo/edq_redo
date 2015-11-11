@@ -1,15 +1,15 @@
 <div class="row" style="margin-top:1em;">
     <div id="statsDashboard" class="col s12">
-        <div class="col s1">
+        <div class="col s2">
             <a class='dropdown-button btn' href='#' data-activates='dropdownStatsOptions'>{{is.currentStatType.label}}</a>
             <ul id='dropdownStatsOptions' class='dropdown-content'>
                 <li ng-repeat="statType in is.statTypeOptions track by $index"><a ng-click="is.setDropdownValue(statType)">{{statType.label}}</a></li>
             </ul>
         </div>
-        <div class="col s11">
-            <chart-stats-attendance ng-show="is.currentStatType.value === 'chartStatsAttendance'"></chart-stats-attendance>
-            <chart-stats-confidence ng-show="is.currentStatType.value === 'chartStatsConfidence'"></chart-stats-confidence>
-            <chart-stats-queue ng-show="is.currentStatType.value === 'chartStatsQueue'"></chart-stats-queue>
+        <div class="col s10">
+            <chart-stats-attendance ng-if="is.currentStatType.value === 'chartStatsAttendance'"></chart-stats-attendance>
+            <chart-stats-confidence ng-if="is.currentStatType.value === 'chartStatsConfidence'"></chart-stats-confidence>
+            <chart-stats-queue ng-if="is.currentStatType.value === 'chartStatsQueue'"></chart-stats-queue>
 
         </div>
     </div>

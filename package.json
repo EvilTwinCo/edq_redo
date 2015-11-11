@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/EvilTwinCo/edq_redo#readme",
   "dependencies": {
+    "ag-grid": "^2.3.5",
     "ajax-request": "^1.2.1",
     "body-parser": "^1.14.1",
     "connect-mongo": "^0.8.2",

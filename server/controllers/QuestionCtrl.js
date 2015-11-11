@@ -156,7 +156,7 @@ module.exports = {
   handleStatsQuery: function(socket, query) {
     console.log("Start Query");
     //{studentId:quest.studentId, mentorName:query.mentorName, cohortId:query.cohortId, directive:query.directive}
-    Question.find({})
+    Question.find({timeQuestionAnswered:{$ne:null}})
       .select('name studentId cohortId mentorName directive timeWhenEntered timeMentorBegins timeQuestionAnswered questionCategory')
       .exec(function (err, result){
         if(err){
