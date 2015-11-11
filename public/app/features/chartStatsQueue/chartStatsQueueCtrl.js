@@ -1,6 +1,7 @@
 var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($scope, socketIoSrvc, $filter) {
   var socket = socketIoSrvc.getSocket();
 
+
   console.log(self);
   var columnDefs = [{
     headerName: "Student",
@@ -23,9 +24,10 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
     headerName: "Time Helped",
     field: "timeHelped",
     cellRenderer: function(params) {
-      console.log(params);
-      console.log($filter('date')(params.value, "HH:mm:ss"))
-      return $filter('date')(params.value, "HH:mm:ss");
+      if (params.value){
+        return pad(params.value.getUTCHours())+":"+pad(params.value.getUTCMinutes())+":"+pad(params.value.getUTCSeconds());
+      }
+      return "";
     }
   }]
 
@@ -59,14 +61,19 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
 
     queueData.forEach(function(item) {
       if (item.mentorName) {
-        item.timeHelped = (new Date(item.timeQuestionAnswered) - new Date(item.timeMentorBegins))
+        item.timeHelped = new Date(new Date(item.timeQuestionAnswered) - new Date(item.timeMentorBegins))
       }
     })
 
     $scope.gridOptions.api.setRowData(queueData);
-
+    $scope.gridOptions.api.sizeColumnsToFit();
 
     $scope.$apply();
 
   });
+  function pad(number){
+
+      return (number<10?"0"+number:number)
+
+  }
 })
