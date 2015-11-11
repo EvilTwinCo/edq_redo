@@ -37,7 +37,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
       return d;
     })
     .attr('x', function(d, i) {
-      return containerWidth*(.5 + i);
+      return containerWidth * (.5 + i);
     })
     .attr('y', 98)
     .attr("font-family", "sans-serif")
@@ -45,6 +45,14 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
     .attr('font-size', "10")
     .attr("text-anchor", "middle")
     .classed('labels', true);
+
+  var resultSet;
+
+  this.clearData = function() {
+    socket.emit('removeStudentFlashPollData')
+    $scope.dataSet = [];
+    updateResults();
+  }
 
   function updateResults() {
     aCount = $scope.dataSet.filter(function(item) {
@@ -70,7 +78,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
       })
       .attr('width', barWidth)
       .attr('x', function(d, i) {
-        return padding/2 + containerWidth*i;
+        return padding / 2 + containerWidth * i;
       })
       .attr('y', function(d, i) {
         return 90 - scale(d);
@@ -85,15 +93,19 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
         return d;
       })
       .attr('x', function(d, i) {
-        return containerWidth*(.5 + i);
+        return containerWidth * (.5 + i);
       })
       .attr('y', function(d) {
         return 88 - scale(d);
       })
       .attr("font-family", "sans-serif")
       .attr('font-size', "10")
-      .attr("text-anchor", "middle" );
+      .attr("text-anchor", "middle");
   }
+
+
+
+
 
 
   // .attr("text-anchor", "middle" )
