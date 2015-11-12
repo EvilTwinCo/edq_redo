@@ -11,12 +11,23 @@
 
 <button ng-click = "is.hideDisplay()">Hide Attendance</button>
 
+<!-- <input type="datetime-local" /> -->
 
   <div class="studentAttendanceContainer row" ng-repeat = "user in is.users">
     <div class="studentName">{{user.firstName}} {{user.lastName}}</div>
     <div class="checkInContainer row">
       <div class = "col s4">
         <button class="waves-effect waves-light btn checkIn" ng-click = "is.timeInButton(user)" ng-hide = "user.attendanceData.timeIn">Time In</button>
+
+        <!-- <div ng-hide = "showTimeChangeButton">
+
+          <button  class="waves-effect waves-light btn checkIn" ng-click = "is.updateTime(user.newtime)">Change from 9am</button>
+        <input type="time" id="exampleInput" name="input" ng-model= "user.attendanceData.timeIn"
+            placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />
+
+          </div> -->
+
+
         <button ng-hide = "!user.attendanceData.timeIn">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
       </div>
 

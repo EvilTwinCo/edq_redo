@@ -1,15 +1,32 @@
 angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc, $scope) {
   var self = this;
   var socket = socketIoSrvc.getSocket();
-  this.hideMenu = false;
+  this.hideMenu = true;
+
+this.showTimeChangeButton = false;
+
+
+  this.doIt = function() {
+    $('select').material_select();
+  }
+
+this.setTimeToNineAm = function(){
+  var today = function(){
+    return new Date();
+  }
+    var nineOclock = new Date();
+
+    return new Date(nineOclock.setHours(9,0,0));
+
+}
+
 
   this.getTheUsersForCohort = function() {
     socket.emit('getAttendance');
   }
 
-  this.getTheUsersForCohort();
-
   this.hideDisplay = function() {
+      this.getTheUsersForCohort();
     this.hideMenu = !this.hideMenu;
   }
 
@@ -17,15 +34,21 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
     return new Date();
   }
 
-  this.doIt = function() {
-    $('select').material_select();
-  }
-
   this.timeInButton = function(user) {
-    user.attendanceData.timeIn = this.getDateObject();
+
+    this.showTimeChangeButton = true;
+    user.attendanceData.timeIn = this.setTimeToNineAm();
+    console.log(user, "the time in button");
     self.formatAndPostAttendance(user);
 
   }.bind(this)
+
+
+  this.updateTime = function(user){
+    // user.attendanceData.timeIn = user.newTime;
+          // socket.emit("postAttendance", user);
+        self.formatAndPostAttendance(user);
+  }
 
   this.timeOutButton = function(user) {
     user.attendanceData.timeOut = this.getDateObject();
@@ -35,10 +58,11 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
 
   this.changeScore = function(user, e) {
     self.formatAndPostAttendance(user);
-    console.log('postAttendance', user)
+
   }
 
   this.formatAndPostAttendance = function(user) {
+
     if (typeof user.attendanceData.score == 'string') {
 
       switch (user.attendanceData.score) {
@@ -52,28 +76,41 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
           user.attendanceData.score = 3;
           break;
       }
+      // console.log("postAttendance", user)
       socket.emit("postAttendance", user);
+
     } else {
+      ///////problens herererererere
+            // console.log("postAttendance", user)
       socket.emit("postAttendance", user);
+
     }
   }
 
   this.users = [];
+//only new
+  socket.on('attendanceUpdateWithNewAttenance', function(data) {
 
-  socket.on('attendanceUpdate', function(data) {
-    this.users.forEach(function(item, index, arr) {
-      if (item.user == data.user) {
-        arr[index].attendanceData = data.attendanceData;
+    self.users.forEach(function(item, index, arr) {
+      if (item._id == data.user) {
+        item.attendanceData = data.attendanceData;
       }
     })
+
+    // _.findWhere(this.users,{_id:data.user})._id = data._id;
+
   }.bind(this));
 
 
 
-  socket.on('getInitialAttendance', function(data) {
+  socket.on('getInitialAttendance', function(freshUsers) {
+
+
+    self.users =[];
     var today = self.getDateObject();
-    data.forEach(function(item, index, array) {
-      if (item.devMtn.cohortId == self.cohortId) {
+    freshUsers.forEach(function(item, index, array) {
+      if (item.cohortId == self.cohortId) {
+
         if (!item.attendanceData) {
           item.attendanceData = {
             timeIn: null,
@@ -89,6 +126,7 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
         }
       }
     })
+    // console.log(self.users);
     $scope.$apply();
   })
 });
