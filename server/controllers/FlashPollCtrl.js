@@ -11,6 +11,7 @@ module.exports = {
 
   handleFlashPollRemoval: function(socket) {
     studentVotes = [];
+    socket.server.emit('togglePolls', true);
   }
 
 };
