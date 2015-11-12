@@ -1,5 +1,5 @@
 
-var app = angular.module('theQ', ['ngRoute','ngMaterial']);
+var app = angular.module('theQ', ['ngRoute','ngMaterial', 'agGrid']);
 
 app.config(function($routeProvider, $mdThemingProvider) {
     $routeProvider
