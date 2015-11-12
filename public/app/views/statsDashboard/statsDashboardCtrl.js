@@ -3,7 +3,7 @@ angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $
     var self = this;
     
     this.currentStatType = {
-        label: 'Select...',
+        label: 'Chart...',
         value: undefined
     }
     
@@ -22,7 +22,55 @@ angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $
         }
     ]
     
-    this.setDropdownValue = function (type) {
+    this.setStatDropdownValue = function (type) {
         this.currentStatType = type;
     }
+    
+    this.currentGroupType = {
+        label: 'By...',
+        value: undefined
+    }
+
+    this.groupTypeOptions = [
+        {
+            label: 'By Cohort',
+            value: 'cohort'
+        },
+        {
+            label: 'By All',
+            value: 'all'
+        }
+    ]
+
+    this.setGroupDropdownValue = function (type) {
+        this.currentGroupType = type;
+        
+        if (this.currentGroupType.value === 'all') {
+            this.currentSpecificType = {
+                label: 'Cohort #?',
+                value: 'all'
+            }
+        }
+    }
+    
+    this.currentSpecificType = {
+        label: 'Cohort #?',
+        value: undefined
+    }
+    
+    this.specificTypeOptions = [
+        {
+            label: '27',
+            value: '27'
+        },
+        {
+            label: '28',
+            value: '28'
+        }
+    ]
+
+    this.setSpecificDropdownValue = function (type) {
+        this.currentSpecificType = type;
+    }
+    
 });

@@ -76,6 +76,24 @@ module.exports = {
                 cohortId: cohortId
             });  
         }
+    },
+    getDatabaseConfidences: function (req, res) {
+        var findObj;
+        if (req.params.cohortId === 'all') findObj = {};
+        else findObj = {cohortId: req.params.cohortId};
+        console.log('findObj', findObj);
+        
+        Confidence.find(findObj).populate({
+                path: 'user',
+                select: 'firstName lastName',
+            }).sort({timestamp: -1}).exec(function (error, result) {
+            if (error) {
+                console.log(error);
+                res.send(error);
+            } else {
+                res.json(result);
+            }
+        })
     }
 }
     

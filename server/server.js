@@ -103,6 +103,8 @@ function onAuthorizeFail(data, message, error, accept) {
 
 }
 
+app.get('/admin/confidences/:cohortId', ConfidenceCtrl.getDatabaseConfidences);
+
 ioServer.on('connection', function (socket) {
     console.log('a user connected');
 
@@ -134,7 +136,7 @@ ioServer.on('connection', function (socket) {
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
-    socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket))
+    socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
     //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
