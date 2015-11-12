@@ -6,7 +6,7 @@ angular.module('theQ').directive('graphStudentQueue', function() {
         bindToController: true,
         attribute: 'E',
         scope: {
-          questionData:"="
+          chartData:"="
         }
-    }
+    };
 });

@@ -17,5 +17,5 @@ var app = angular.module('theQ').directive("d3VerticleDotDistribution", function
             scope.chart = d3.select("#chartToSelect");
             scope.svg.attr("id", "chart");
         }*/
-    }
-})
+    };
+});
