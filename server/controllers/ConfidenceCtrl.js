@@ -47,7 +47,7 @@ module.exports = {
             value: obj.value
         });
 
-        console.log(obj);
+        //console.log(obj);
         io.to('instructors').emit('report confidence single', obj);
     },
     handleInstructorLogin: function (socket, obj) {
@@ -62,7 +62,7 @@ module.exports = {
                 filterObj[prop] = currentConfidence[prop];
             }
         }
-        console.log(filterObj);
+        //console.log(filterObj);
         for (var prop in filterObj) {
             var indexStart = prop.indexOf(COHORT_SEPARATOR);
             var indexStop = prop.indexOf(USER_SEPARATOR);

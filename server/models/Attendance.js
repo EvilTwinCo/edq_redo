@@ -1,25 +1,33 @@
 var mongoose = require('mongoose');
 
-var schema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
+var attendancesSchema = new mongoose.Schema({
+
+  user: {
+    type: mongoose.Schema.Types.ObjectId
+    // required: true
   },
   cohort: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
-  timeIn: {
-    type: Date
-  },
-  timeOut: {
-    type: Date
-  },
-  day: {
-    type: Date
-  },
-  score: {
-    type: Number
+
+  attendanceData: {
+
+    timeIn: {
+      type: Date
+    },
+    timeOut: {
+      type: Date
+    },
+    score: {
+      type: Number
+    },
+    
+    dateOfAttendance: {
+      type: Date
+    }
   }
 
 });
+
+module.exports = mongoose.model('Attendances', attendancesSchema);
