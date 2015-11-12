@@ -118,7 +118,7 @@ ioServer.on('connection', function (socket) {
     socket.on('removeStudentFlashPollData', FlashPollCtrl.handleFlashPollRemoval.bind(null, socket));
 
     //View Sockets
-    socket.on('request reset view data', function() {socket.emit('reset view data');});
+    socket.on('request reset view data', function() {socket.emit('reset view data')});
 
     //User Sockets
     socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
@@ -162,4 +162,4 @@ mongoose.connect(mongoURI, function() {
 
 httpServer.listen(serverPort, function() {
   console.log("Server listening on port: " + serverPort);
-});
+})
