@@ -27,6 +27,7 @@ var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
+var CohortCtrl = require('./controllers/CohortCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -104,6 +105,7 @@ function onAuthorizeFail(data, message, error, accept) {
 }
 
 app.get('/admin/confidences/:cohortId', ConfidenceCtrl.getDatabaseConfidences);
+app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
 
 ioServer.on('connection', function (socket) {
     console.log('a user connected');

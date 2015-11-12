@@ -1,4 +1,4 @@
-angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $scope) {
+angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $scope, cohortSrvc) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
     
@@ -60,6 +60,26 @@ angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $
     
     this.specificTypeOptions = [
         {
+            label: 'Please wait...',
+            value: 'undefined'
+        }
+    ]
+    
+    cohortSrvc.getCohortIds().then(function (res) {
+        console.log(res);
+        self.specificTypeOptions = []
+        res.forEach(function (item) {
+            self.specificTypeOptions.push({label: item, value: item});
+        })
+    }, function (err) {
+        this.specificTypeOptions = [{
+            label: 'Error loading.',
+            value: undefined
+        }]
+    })
+    
+    /*this.specificTypeOptions = [
+        {
             label: '27',
             value: '27'
         },
@@ -67,7 +87,7 @@ angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $
             label: '28',
             value: '28'
         }
-    ]
+    ]*/
 
     this.setSpecificDropdownValue = function (type) {
         this.currentSpecificType = type;
