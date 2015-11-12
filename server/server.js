@@ -27,6 +27,7 @@ var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
+var CohortCtrl = require('./controllers/CohortCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -103,17 +104,18 @@ function onAuthorizeFail(data, message, error, accept) {
 
 }
 
+app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
+
 ioServer.on('connection', function (socket) {
-    console.log('a user connected');
+    var devMtnId = socket.request.user.devMtn.id;
+    console.log('user ' + devMtnId + ' connected');
 
     socket.on('disconnect', function () {
-        console.log('a user disconnected');
+        console.log('user ' + devMtnId + ' disconnected');
     });
 
 
     // Flash poll Sockets
-
-
     socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
 
     //View Sockets
