@@ -18,7 +18,6 @@ var cookieParser = require("cookie-parser");
 var serverPort = 8080;
 var mongoURI = 'mongodb://localhost:27017/theQ';
 
-
 //Controllers
 var UserCtrl = require('./controllers/UserCtrl.js');
 var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
@@ -105,7 +104,6 @@ function onAuthorizeFail(data, message, error, accept) {
 
 }
 
-
 ioServer.on('connection', function(socket) {
   console.log('a user connected');
 
@@ -154,19 +152,22 @@ ioServer.on('connection', function(socket) {
   socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
   socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
 
+
+
 app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
 
 ioServer.on('connection', function (socket) {
     var devMtnId = socket.request.user.devMtn.id;
     console.log('user ' + devMtnId + ' connected');
+  });
 
     socket.on('disconnect', function () {
         console.log('user ' + devMtnId + ' disconnected');
     });
 
-
     // Flash poll Sockets
     socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
+    socket.on('removeStudentFlashPollData', FlashPollCtrl.handleFlashPollRemoval.bind(null, socket));
 
     //View Sockets
     socket.on('request reset view data', function() {socket.emit('reset view data')});
@@ -197,16 +198,17 @@ ioServer.on('connection', function (socket) {
     socket.on('studentSolution', QuestionCtrl.handleStudentSolution.bind(null, socket));
     socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
+    socket.on('request queue stats', QuestionCtrl.handleStatsQuery.bind(null, socket));
 
     //Attendance Sockets
     socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('getAttendance', AttendanceCtrl.getAttendance.bind(null, socket));
-})
+});
 
 mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
   console.log('Connected to MongoDB: ' + mongoURI);
-})
+});
 
 httpServer.listen(serverPort, function() {
   console.log("Server listening on port: " + serverPort);

@@ -1,6 +1,6 @@
 var passportSocketIo = require('passport.socketio');
 
-<<<<<<< HEAD
+
 var studentVotes = [];
 
 module.exports = {
@@ -15,12 +15,4 @@ module.exports = {
     socket.server.emit('togglePolls', true);
   }
 
-=======
-module.exports = {
-
-  handleFlashPollSubmit: function(socket, data) {
-    console.log('handleFlashPollSubmit Data:', data);
-    socket.server.to('instructors').emit('flashPoll', data);
-  }
->>>>>>> adminDashboard
 };
