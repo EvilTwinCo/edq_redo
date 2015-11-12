@@ -1,15 +1,29 @@
 <div class="row" style="margin-top:1em;">
     <div id="statsDashboard" class="col s12">
         <div class="col s2">
-            <a class='dropdown-button btn' href='#' data-activates='dropdownStatsOptions'>{{is.currentStatType.label}}</a>
-            <ul id='dropdownStatsOptions' class='dropdown-content'>
-                <li ng-repeat="statType in is.statTypeOptions track by $index"><a ng-click="is.setDropdownValue(statType)">{{statType.label}}</a></li>
-            </ul>
+            <div class="stats-dropdown">
+                <a class='dropdown-button btn' href='#' data-activates='dropdownStatsOptions'>{{is.currentStatType.label}}</a>
+                <ul id='dropdownStatsOptions' class='dropdown-content'>
+                    <li ng-repeat="statType in is.statTypeOptions track by $index"><a ng-click="is.setStatDropdownValue(statType)">{{statType.label}}</a></li>
+                </ul>
+            </div>
+            <div class="stats-dropdown">
+                <a class='dropdown-button btn' href='#' data-activates='dropdownGroupOptions'>{{is.currentGroupType.label}}</a>
+                <ul id='dropdownGroupOptions' class='dropdown-content'>
+                    <li ng-repeat="groupType in is.groupTypeOptions"><a ng-click="is.setGroupDropdownValue(groupType)">{{groupType.label}}</a></li>
+                </ul>
+            </div>
+            <div ng-show="is.currentGroupType.value === 'cohort'" class="stats-dropdown">
+                <a class='dropdown-button btn' href='#' data-activates='dropdownSpecificOptions'>{{is.currentSpecificType.label}}</a>
+                <ul id='dropdownSpecificOptions' class='dropdown-content'>
+                    <li ng-repeat="specificType in is.specificTypeOptions"><a ng-click="is.setSpecificDropdownValue(specificType)">{{specificType.label}}</a></li>
+                </ul>
+            </div>
         </div>
         <div class="col s10">
-            <chart-stats-attendance ng-if="is.currentStatType.value === 'chartStatsAttendance'"></chart-stats-attendance>
-            <chart-stats-confidence ng-if="is.currentStatType.value === 'chartStatsConfidence'"></chart-stats-confidence>
-            <chart-stats-queue ng-if="is.currentStatType.value === 'chartStatsQueue'"></chart-stats-queue>
+            <chart-stats-attendance ng-if="is.currentStatType.value === 'chartStatsAttendance'" cohort-id="is.currentSpecificType.value"></chart-stats-attendance>
+            <chart-stats-confidence ng-if="is.currentStatType.value === 'chartStatsConfidence'" cohort-id="is.currentSpecificType.value"></chart-stats-confidence>
+            <queue-stats-chart ng-if="is.currentStatType.value === 'queueStatsChart'" cohort-id="is.currentSpecificType.value"></queue-stats-chart>
 
         </div>
     </div>
@@ -19,7 +33,7 @@
     $('.dropdown-button').dropdown({
         inDuration: 300,
         outDuration: 225,
-        constrain_width: true,
+        constrain_width: false,
         hover: false,
         gutter: 0,
         belowOrigin: true,
