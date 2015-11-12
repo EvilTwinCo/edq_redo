@@ -27,6 +27,7 @@ var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
+var CohortCtrl = require('./controllers/CohortCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -103,6 +104,7 @@ function onAuthorizeFail(data, message, error, accept) {
 
 }
 
+
 ioServer.on('connection', function(socket) {
   console.log('a user connected');
 
@@ -137,7 +139,7 @@ ioServer.on('connection', function(socket) {
   //Confidence Sockets
   socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
   socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
-  socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket))
+  socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
   //Question Sockets
   socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
@@ -155,7 +157,58 @@ ioServer.on('connection', function(socket) {
   //Attendance Sockets
   socket.on('post attendance', AttendanceCtrl.postAttendance.bind(null, socket));
   socket.on('get attendance', AttendanceCtrl.getAttendance.bind(null, socket));
-});
+
+app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
+
+ioServer.on('connection', function (socket) {
+    var devMtnId = socket.request.user.devMtn.id;
+    console.log('user ' + devMtnId + ' connected');
+
+    socket.on('disconnect', function () {
+        console.log('user ' + devMtnId + ' disconnected');
+    });
+
+
+    // Flash poll Sockets
+    socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
+
+    //View Sockets
+    socket.on('request reset view data', function() {socket.emit('reset view data')});
+
+    //User Sockets
+    socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
+    socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
+    socket.on('update user', UserCtrl.updateUserInfo.bind(null, socket));
+    socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
+
+    //Learning Objective Sockets
+    //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
+    socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
+    //socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
+    //socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
+
+    //Confidence Sockets
+    socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
+    socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket))
+
+    //Question Sockets
+    socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
+    socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, socket, ioServer));
+    socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
+    socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
+    socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
+    socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
+    socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
+    socket.on('get my current question', QuestionCtrl.qetMyCurrentQuestion.bind(null, socket));
+    socket.on('studentSolution', QuestionCtrl.handleStudentSolution.bind(null, socket));
+    socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
+    socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
+
+    //Attendance Sockets
+    socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));
+    socket.on('getAttendance', AttendanceCtrl.getAttendance.bind(null, socket));
+})
 
 mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
@@ -164,4 +217,4 @@ mongoose.connect(mongoURI, function() {
 
 httpServer.listen(serverPort, function() {
   console.log("Server listening on port: " + serverPort);
-});
+})
