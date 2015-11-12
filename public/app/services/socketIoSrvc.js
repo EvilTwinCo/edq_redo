@@ -1,5 +1,7 @@
 angular.module('theQ').service('socketIoSrvc', function($location) {
 
+    this.showPolls = false;
+
     function readCookie(a, b) {
         b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
         return b ? b.pop() : '';
@@ -74,6 +76,10 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
       }
         console.log('connection error', message);
     });
+
+    this.togglePolls = function(){
+      this.showPolls = !this.showPolls;
+    }
 
 
 });
