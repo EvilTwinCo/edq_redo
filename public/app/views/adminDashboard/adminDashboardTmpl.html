@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <<<<<<< HEAD
    <div class = 'row'>
@@ -10,18 +11,46 @@
 <ul id='dropdownCohortOptions' class='dropdown-content'>
     <li ng-repeat="cohort in is.cohortOptions track by $index"><a ng-click="is.setDropdownValue(cohort)">{{cohort}}</a></li>
 </ul>
+=======
+<link href="../../styles/adminDashboardTmpl.css" rel="stylesheet" type="text/css">
+>>>>>>> adminDashboard
 
-<div class='row'>
-    <div class="col s12 m6">
+
+<!-- <div class='row'> -->
+  <div class="col s12 m4 l4">
+    <a class='dropdown-button btn' href='#' data-activates='dropdownCohortOptions'>Cohort: {{is.currentCohort}}</a>
+    <ul id='dropdownCohortOptions' class='dropdown-content'>
+      <li ng-repeat="cohort in is.cohortOptions"><a ng-click="is.setDropdownValue(cohort)">{{cohort.label}}</a></li>
+    </ul>
+
+    <div class='row'>
+      <div class="col s12 m6">
         <mentor-queue cohort-id="is.currentCohort"></mentor-queue>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 =======
 >>>>>>> master
     </div>
     <div class="col s12 m6">
+=======
+
+      </div>
+      <div class="col s12 m6">
+>>>>>>> adminDashboard
         <confidence-live-chart cohort-id="is.currentCohort"></confidence-live-chart>
+      </div>
     </div>
+  </div>
+
+    <div>
+      <attendance-tracker cohort-id="is.currentCohort" ng-if="false"></attendance-tracker>
+    </div>
+
+    <div class="">
+      <flash-poll-monitor></flash-poll-monitor>
+    </div>
+<<<<<<< HEAD
 </div>
 <div>
 
@@ -38,9 +67,11 @@
 
 =======
 >>>>>>> master
+=======
+>>>>>>> adminDashboard
 
-<script>
-    $('.dropdown-button').dropdown({
+    <script>
+      $('.dropdown-button').dropdown({
         inDuration: 300,
         outDuration: 225,
         constrain_width: true,
@@ -48,5 +79,10 @@
         gutter: 0,
         belowOrigin: true,
         alignment: 'left'
+<<<<<<< HEAD
     });
 </script>
+=======
+      });
+    </script>
+>>>>>>> adminDashboard

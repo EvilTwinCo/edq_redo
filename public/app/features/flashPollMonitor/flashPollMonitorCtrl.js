@@ -2,10 +2,33 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
   var socket = socketIoSrvc.getSocket();
   var aCount, bCount, cCount, scale;
 
+<<<<<<< HEAD
   socket.on('flashPoll', function(data) {
     $scope.dataSet = data
     updateResults();
   })
+=======
+// bryans
+
+// $scope.dataSet = [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2,2, 2, 2, 2, 3, 3, 3];
+$scope.dataSet =[];
+
+var socket = socketIoSrvc.getSocket();
+
+socket.on('flashPoll', function(data){
+  console.log(data);
+  $scope.dataSet.push(data)
+})
+
+
+
+  // var dataSet = fm.votesArray;
+
+
+  var aCount = $scope.dataSet.filter(function(item) {return (item === 1 ? true : false)}).length;
+  var bCount = $scope.dataSet.filter(function(item) {return (item === 2 ? true : false)}).length;
+  var cCount = $scope.dataSet.filter(function(item) {return (item === 3 ? true : false)}).length;
+>>>>>>> adminDashboard
 
   $scope.dataSet = [];
   var labels = ['A', 'B', 'C'];

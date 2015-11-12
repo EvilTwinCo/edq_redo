@@ -24,6 +24,7 @@
     "connect-mongo": "^0.8.2",
     "cookie-parser": "^1.4.0",
     "cors": "^2.7.1",
+    
     "devmtn-auth": "file:devmtn-auth-master",
     "express": "^4.13.3",
     "express-session": "^1.12.1",

@@ -29,6 +29,7 @@ var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 var CohortCtrl = require('./controllers/CohortCtrl');
 
+
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
   origin: function(origin, callback) {
@@ -114,8 +115,6 @@ ioServer.on('connection', function(socket) {
 
 
   // Flash poll Sockets
-
-
   socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
   socket.on('removeStudentFlashPollData', FlashPollCtrl.handleFlashPollRemoval.bind(null, socket));
 
@@ -131,10 +130,7 @@ ioServer.on('connection', function(socket) {
   socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
 
   //Learning Objective Sockets
-  //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
   socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
-  //socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
-  //socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
 
   //Confidence Sockets
   socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
@@ -182,15 +178,12 @@ ioServer.on('connection', function (socket) {
     socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
 
     //Learning Objective Sockets
-    //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
     socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
-    //socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
-    //socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
     socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
-    socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket))
+    socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
     //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
@@ -217,4 +210,4 @@ mongoose.connect(mongoURI, function() {
 
 httpServer.listen(serverPort, function() {
   console.log("Server listening on port: " + serverPort);
-})
+});
