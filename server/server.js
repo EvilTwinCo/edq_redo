@@ -104,6 +104,7 @@ function onAuthorizeFail(data, message, error, accept) {
 
 }
 
+app.get('/admin/confidences/:cohortId', ConfidenceCtrl.getDatabaseConfidences);
 app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
 
 ioServer.on('connection', function (socket) {

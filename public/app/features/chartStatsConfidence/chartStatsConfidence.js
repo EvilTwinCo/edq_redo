@@ -6,7 +6,7 @@ angular.module('theQ').directive('chartStatsConfidence', function() {
         bindToController: true,
         attribute: 'E',
         scope: {
-
+            cohortId: '='
         }
     }
 });
