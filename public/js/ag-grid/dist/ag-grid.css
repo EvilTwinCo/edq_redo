@@ -326,3 +326,7 @@ ag-grid-ng2 {
   cursor: default;
   width: 200px;
 }
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked{
+  visibility: visible;
+}
