@@ -1,217 +1,263 @@
 
-{
-    "trackables": [{
-        "sectionName": "css3 selectors",
-        "sectionId": "2398472398472938749823749",
-        "topicName": "css"
-    }],
-    "objectives": [{
-        "objectiveId": "309232092",
-        "objectiveName": "The student will be able to select an element by the element name, class, and id."
-    }]
-},
+[{
+    "trackables": {
+        "sectionName": "Pre-Reading",
+        "sectionId": "1",
+        "topicName": "Git - The Simple Guide"
+    },
+    "trackables": {
+        "sectionName": "Pre-Reading",
+        "sectionId": "2",
+        "topicName": "Atlassian Git Tutorial"
+    },
+    "trackables": {
+        "sectionName": "Pre-Reading",
+        "sectionId": "3",
+        "topicName": "Make sure you Install Git"
+    },
+    "trackables": {
+        "sectionName": "Project",
+        "sectionId": "4",
+        "topicName": "Learn Git"
+    },
+    "trackables": {
+        "sectionName": "Additional Practice",
+        "sectionId": "5",
+        "topicName": "Learn Git Branching"
+    },
+    "trackables": {
+        "sectionName": "Additional Reading",
+        "sectionId": "6",
+        "topicName": "The Command Line Crash Course"
+    },
+    "trackables": {
+        "sectionName": "Additional Reading",
+        "sectionId": "7",
+        "topicName": "Lecture Archive"
+    },
+    "trackables": {
+        "sectionName": "Additional Reading",
+        "sectionId": "8",
+        "topicName": "Visual Git Guide"
+    },
+    "trackables": {
+        "sectionName": "Additional Reading",
+        "sectionId": "9",
+        "topicName": "Getting Started with Git"
+    },
+    "trackables": {
+        "sectionName": "Assessment",
+        "sectionId": "10",
+        "topicName": "Command Line and Git"
+    },
+    "trackables": {
+        "sectionName": "Additional Reading",
+        "sectionId": "11",
+        "topicName": "Getting Started with Git"
+    },
+    "trackables": {
+        "sectionName": "Pre-Reading",
+        "sectionId": "12",
+        "topicName": "Codeacademy HTML/CSS"
+    },
+    "trackables": {
+        "sectionName": "Project",
+        "sectionId": "13",
+        "topicName": "HTML Layouts"
+    },
+    "trackables": {
+        "sectionName": "Assessment",
+        "sectionId": "14",
+        "topicName": "HTML"
+    },
+    "trackables": {
+        "sectionName": "Pre-Reading",
+        "sectionId": "15",
+        "topicName": "Positioning: MDN"
+    },
+    "trackables": {
+        "sectionName": "Projects",
+        "sectionId": "16",
+        "topicName": "HTML Layout 2"
+    },
+    "trackables": {
+        "sectionName": "Projects",
+        "sectionId": "17",
+        "topicName": "Wikimedia Layout"
+    },
+    "trackables": {
+        "sectionName": "Assessment",
+        "sectionId": "18",
+        "topicName": "CSS Positioning"
+    },
+    "trackables": {
+        "sectionName": "Pre-Reading",
+        "sectionId": "19",
+        "topicName": "Eloquent Javascript - Functions"
+    },
+    "trackables": {
+        "sectionName": "Projects",
+        "sectionId": "20",
+        "topicName": "JavaScript Basics"
+    },
+    "trackables": {
+        "sectionName": "Additional Reading",
+        "sectionId": "21",
+        "topicName": "Everything you need to know about Scopes"
+    },
+    "trackables": {
+        "sectionName": "Assessment",
+        "sectionId": "22",
+        "topicName": "JS Fundamentals I"
+    },
+    "trackables": {
+        "sectionName": "Assessment",
+        "sectionId": "23",
+        "topicName": "Advanced JS Problems"
+    },
+    "trackables": {
+        "sectionName": "Pre-Reading",
+        "sectionId": "24",
+        "topicName": "JS is Sexy - Objects"
+    },
+    "trackables": {
+        "sectionName": "Projects",
+        "sectionId": "25",
+        "topicName": "JavaScript Objects"
+    },
+    "trackables": {
+        "sectionName": "Projects",
+        "sectionId": "26",
+        "topicName": "JavaScript Arrays"
+    },
+    "trackables": {
+        "sectionName": "Assessment",
+        "sectionId": "27",
+        "topicName": "JS Fundamentals II and III"
+    },
 
-{
-    "trackables": [{
-        "sectionName": "Orientation and Version Control",
-        "sectionId": "2398472398472938749823741",
-        "topicName": "git"
-    }],
-    "objectives": [{
-        "objectiveId": "309232001",
-        "objectiveName": "Students will understand and be able to use the command line for."
-    }]
-},
+}],
 
-{
-    "trackables": [{
-        "sectionName": "Orientation and Version Control",
-        "sectionId": "2398472398472938749823742",
-        "topicName": "git"
-    }],
-    "objectives": [{
-        "objectiveId": "309232002",
-        "objectiveName": "Students will understand what Git and Github are and how they fit into the web app landscape."
-    }]
-},
-
-{
-    "trackables": [{
-        "sectionName": "Orientation and Version Control",
-        "sectionId": "2398472398472938749823743",
-        "topicName": "git"
-    }],
-    "objectives": [{
-        "objectiveId": "309232003",
-        "objectiveName": "Students will be able to clone a repo and know its purpose."
-    }]
-},
-
-{
-    "trackables": [{
-        "sectionName": "Orientation and Version Control",
-        "sectionId": "2398472398472938749823744",
-        "topicName": "git"
-    }],
-    "objectives": [{
-        "objectiveId": "309232004",
-        "objectiveName": "Students will be able to add, commit, and push files to github."
-    }]
-},
-
-{
-    "trackables": [{
-        "sectionName": "Orientation and Version Control",
-        "sectionId": "2398472398472938749823745",
-        "topicName": "git"
-    }],
-    "objectives": [{
-        "objectiveId": "309232005",
-        "objectiveName": "Students will understand basic branching."
-    }]
-},
-
-{
-    "trackables": [{
-        "sectionName": "Orientation and Version Control",
-        "sectionId": "2398472398472938749823746",
-        "topicName": "git"
-    }],
-    "objectives": [{
-        "objectiveId": "309232006",
+[{
+    "objectives": {
+        "objectiveId": "1",
         "objectiveName": "Students will understand how to use github in a group setting."
-    }]
-},
-
-
-
-
-
-
-/////////////////////////////
-/*
-[
-  {
-    "topic" : "Orientation and Version Control",
-    "objectives" : {
-      "objective1" : "Understand and be able to use the command line for",
-      "objective2" : "Understand what Git and Github are and how they fit into the web app landscape",
-      "objective3" : "Be able to clone a repo and know its purpose",
-      "objective4" : "Be able to add, commit, and push files to github",
-      "objective5" : "Understand basic branching",
-      "objective6" : "Understand how to use github in a group setting",
-      },
-    "sections" : {
-      "preReading1" : "Git - The Simple Guide",
-      "preReading2" : "Atlassian Git Tutorial",
-      "preReading3" : "Make sure you Install Git",
-      "project1" : "Learn Git",
-      "additionalPractice" : "Learn Git Branching",
-      "additionalReading1" : "The Command Line Crash Course",
-      "additionalReading2" : "Lecture Archive",
-      "additionalReading3" : "Visual Git Guide",
-      "additionalReading4" : "Getting Started with Git",
-      "assessment1" : "Command Line & Git",
+    },
+    "objectives": {
+        "objectiveId": "2",
+        "objectiveName": "Students will understand what Git and Github are and how they fit into the web app landscape."
+    },
+    "objectives": {
+        "objectiveId": "3",
+        "objectiveName": "Students will be able to clone a repo and know its purpose."
+    },
+    "objectives": {
+        "objectiveId": "4",
+        "objectiveName": "Students will be able to add, commit, and push files to github."
+    },
+    "objectives": {
+        "objectiveId": "5",
+        "objectiveName": "Students will understand basic branching."
+    },
+    "objectives": {
+        "objectiveId": "6",
+        "objectiveName": "Students will understand how to use github in a group setting."
+    },
+    "objectives": {
+        "objectiveId": "7",
+        "objectiveName": "Students will understand the purpose of HTML."
+    },
+    "objectives": {
+        "objectiveId": "8",
+        "objectiveName": "Students will understand the purpose of CSS."
+    },
+    "objectives": {
+        "objectiveId": "9",
+        "objectiveName": "Students will from scratch, be able to create a skeleton for their html and css page."
+    },
+    "objectives": {
+        "objectiveId": "10",
+        "objectiveName": "understand and be able to use the following HTML Elements."
+    },
+    "objectives": {
+        "objectiveId": "11",
+        "objectiveName": "Understand and be able to use the following CSS properties."
+    },
+    "objectives": {
+        "objectiveId": "12",
+        "objectiveName": "Students will be able to use Chrome Dev Tools to inspect their HTML/CSS."
+    },
+    "objectives": {
+        "objectiveId": "13",
+        "objectiveName": "Students will understand the purpose of CSS."
+    },
+    "objectives": {
+        "objectiveId": "14",
+        "objectiveName": "Students will be able to compare and contrast fixed, relative, absolute, and static positioning in CSS."
+    },
+    "objectives": {
+        "objectiveId": "15",
+        "objectiveName": "Students will be able to compare and contrast display block, inline-block, inline, and none."
+    },
+    "objectives": {
+        "objectiveId": "16",
+        "objectiveName": "Students will be able to compare and contrast overflow hidden, auto, scroll."
+    },
+    "objectives": {
+        "objectiveId": "17",
+        "objectiveName": "Students will understand and be able to use max/min-width and max/min-height."
+    },
+    "objectives": {
+        "objectiveId": "18",
+        "objectiveName": "Students will understand and be able to explain the box model to someone else."
+    },
+    "objectives": {
+        "objectiveId": "19",
+        "objectiveName": "Students will understand media queries and be able to implement them."
+    },
+    "objectives": {
+        "objectiveId": "20",
+        "objectiveName": "Students will understand when and when not to use floating elements."
+    },
+    "objectives": {
+        "objectiveId": "21",
+        "objectiveName": "Students will understand how the web works."
+    },
+    "objectives": {
+        "objectiveId": "22",
+        "objectiveName": "Students will understand JavaScript vs jQuery."
+    },
+    "objectives": {
+        "objectiveId": "23",
+        "objectiveName": "Students will understand what the DOM is."
+    },
+    "objectives": {
+        "objectiveId": "24",
+        "objectiveName": "Students will understand functions."
+    },
+    "objectives": {
+        "objectiveId": "25",
+        "objectiveName": "Students will understand use cases for objects."
+    },
+    "objectives": {
+        "objectiveId": "26",
+        "objectiveName": "Students will understand how to create and add properties/values to objects."
+    },
+    "objectives": {
+        "objectiveId": "27",
+        "objectiveName": "Students will understand how to loop through objects."
+    },
+    "objectives": {
+        "objectiveId": "28",
+        "objectiveName": "Students will understand how to create and invoke a method."
+    },
+    "objectives": {
+        "objectiveId": "29",
+        "objectiveName": "Students will understand bracket notation vs dot notation."
+    },
+    "objectives": {
+        "objectiveId": "30",
+        "objectiveName": "Students will understand how to remove keys/props from objects (delete)."
     },
 
-  },
-  {
-    "topic" : "HTML & CSS Fundamentals",
-    "objectives" : {
-      "objective1" : "understand the purpose of HTML",
-      "objective2" : "Understand the purpose of CSS",
-      "objective3" : "From scratch, be able to create a skeleton for their html and css page",
-      "objective4" : "Understand and be able to use the following HTML Elements",
-      "objective5" : "",
-      "objective6" : "",
-      },
-    "sections" : {
-      "preReading1" : "Codecademy HTML/CSS",
-      "preReading2" : "",
-      "preReading3" : "",
-      "project1" : "HTML Layouts",
-      "additionalPractice" : "",
-      "additionalReading1" : "",
-      "additionalReading2" : "",
-      "additionalReading3" : "",
-      "additionalReading4" : "",
-      "assessment1" : "HTML",
-    },
-
-  },
-  {
-    "topic" : "HTML & CSS Positioning",
-    "objectives" : {
-      "objective1" : "Understand and be able to use the command line for",
-      "objective2" : "Understand what Git and Github are and how they fit into the web app landscape",
-      "objective3" : "Be able to clone a repo and know its purpose",
-      "objective4" : "Be able to add, commit, and push files to github",
-      "objective5" : "Understand basic branching",
-      "objective6" : "Understand how to use github in a group setting",
-      },
-    "sections" : {
-      "preReading1" : "Positioning: MDN",
-      "preReading2" : "",
-      "preReading3" : "",
-      "project1" : "HTML Layout 2",
-      "project2" : "Wikimedia Layout",
-      "additionalPractice" : "",
-      "additionalReading1" : "",
-      "additionalReading2" : "",
-      "additionalReading3" : "",
-      "additionalReading4" : "",
-      "assessment1" : "CSS Positioning",
-    },
-
-  },
-  {
-    "topic" : "Advanced HTML and CSS",
-    "objectives" : {
-      "objective1" : "Understand and be able to explain the box model to someone else",
-      "objective2" : "Understand media queries and be able to implement them",
-      "objective3" : "Understand when and when not to use floating elements",
-      "objective4" : "",
-      "objective5" : "",
-      "objective6" : "",
-      },
-    "sections" : {
-      "preReading1" : "Positioning in CSS",
-      "preReading2" : "Atlassian Git Tutorial",
-      "preReading3" : "Make sure you Install Git",
-      "project1" : "WideopenTech",
-      "project2" : "",
-      "additionalPractice" : "",
-      "additionalReading1" : "",
-      "additionalReading2" : "",
-      "additionalReading3" : "",
-      "additionalReading4" : "",
-      "assessment1" : "Advanced CSS",
-    },
-
-  },
-  {
-    "topic" : "Javascript Fundamentals I",
-    "objectives" : {
-      "objective1" : "Understand and be able to use the command line for",
-      "objective2" : "Understand what Git and Github are and how they fit into the web app landscape",
-      "objective3" : "Be able to clone a repo and know its purpose",
-      "objective4" : "Be able to add, commit, and push files to github",
-      "objective5" : "Understand basic branching",
-      "objective6" : "Understand how to use github in a group setting",
-      },
-    "sections" : {
-      "preReading1" : "Eloquent JavaScript - Functions",
-      "preReading2" : "",
-      "preReading3" : "",
-      "project1" : "JavaScript Basics",
-      "project2" : "",
-      "additionalPractice" : "",
-      "additionalReading1" : "Everything you need to know about Scopes",
-      "additionalReading2" : "",
-      "additionalReading3" : "",
-      "additionalReading4" : "",
-      "assessment1" : "JS Fundamentals I",
-    },
-
-  },
-]*/
+}]
