@@ -58,17 +58,19 @@ font-size: 16px;
 }
 .checkIn {
   display: flex;
-  /*width: 100px;*/
+  width: 134px;
   border-radius: 4px;
   border: 1px solid #ccc;
   text-align: center;
+  height: 43px;
 }
 .checkOut {
   display: flex;
-  /*width: 100px;*/
+  width: 134px;
   border-radius: 4px;
   border: 1px solid #ccc;
   text-align: center;
+  height: 43px;
 }
 .dailyScore {
   display: flex;
@@ -96,10 +98,21 @@ font-size: 16px;
 
 
 }
+
+.multiScoreValueAdded.multiScore {
+      background-color: #00E044;
+}
 attendance-tracker .s4>*{
-  margin-left: 25;
+  margin-left: 0;
   margin-right: 25;
 }
 *{
   /*outline: 1px solid pink;*/
+}
+.showAttendanceButton{
+    background-color: #fff;
+    position:fixed;
+    bottom:0px;
+
+
 }

@@ -2,7 +2,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     var socket = socketIoSrvc.getSocket();
     var self = this;
     resetData();
-    
+
     socket.on('reset view data', function () {
         //console.log('resetting data view - queue');
         resetData();
@@ -10,8 +10,11 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     })
 
     socket.on('questionForQueue', function (data) {
+      console.log(data);
+      if( data.cohortId === self.mq.cohortId){
         self.questions.push(data);
         $scope.$apply();
+      }
     });
 
     socket.on('getAllQuestionsAsked', function (data) {
@@ -56,7 +59,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         socket.emit('add mentor notes', object);
         socket.emit('request question removal', object);
     };
-    
+
     function resetData() {
         self.questions = [];
         socket.emit('get questions asked', {cohortId: self.cohortId});

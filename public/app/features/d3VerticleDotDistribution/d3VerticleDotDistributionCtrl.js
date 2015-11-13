@@ -8,15 +8,16 @@ var app = angular.module("theQ").controller("d3VerticleDotDistributionCtrl", fun
 
     $scope.$watch('is.data', function () {
         draw();
-    })
+    });
 
     var RedYellowInterpolater = d3.interpolateRgb("red", "gold");
-    var YellowGreenInterpolater = d3.interpolateRgb("gold", "green");
+    var YellowGreenInterpolater = d3.interpolateRgb("gold", "#01ea01");
 
     function draw() {
         var chartSize = self.svg[0];
         var h = chartSize.clientHeight;
         var w = chartSize.clientWidth;
+        //console.log(h);
 
         var chart = self.chart;
 
@@ -51,9 +52,9 @@ var app = angular.module("theQ").controller("d3VerticleDotDistributionCtrl", fun
                     return RedYellowInterpolater(d / 50);
                 }
                 return YellowGreenInterpolater((d - 50) / 50);
-            })
+            });
     }
-    
+
     //$interval(draw,5000);
-    
+
 });

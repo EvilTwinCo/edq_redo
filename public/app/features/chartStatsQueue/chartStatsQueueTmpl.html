@@ -1,0 +1,11 @@
+<form class = "row">
+  <span ng-click = "viewingChart = !viewingChart"  type = "text">Toggle Chart</span>
+  <input type="text" id="queue-chart-filter" class="input" ng-model="gridOptions.quickFilterText" placeholder="Filter text...">
+</form>
+<div class = "row">
+  <div ng-if = "viewingChart" class = "col s12 l6">
+    <graph-student-queue chart-data = "chartData"></graph-student-queue>
+  </div>
+<div>
+<!-- {{chartData}} -->
+<div ag-grid = "gridOptions" class = "ag-blue col s12" ng-class = "{l6:viewingChart, l12:!viewingChart}" style = "height:80vh"></div>

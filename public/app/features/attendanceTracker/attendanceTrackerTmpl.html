@@ -1,52 +1,49 @@
+<!-- this button can be moved as long as you add attribue to the element hideMenu = !hideMenu -->
+<button class="showAttendanceButton" ng-click="is.hideDisplay()">Show Attendance</button>
 
-
-
-<div class="attendanceContainer"  ng-show='users !=[]'>
+<div class="attendanceContainer" ng-cloak ng-show='users !=[] && !is.hideMenu'>
   <div class="attendanceHeader">
     <img class="logo" src="app/logoonly.png">
     <div class="attendanceText">Attendance</div>
   </div>
 
+  <button ng-click="is.hideDisplay()">Hide Attendance</button>
 
-  <div class="studentAttendanceContainer row" ng-repeat = "user in is.users">
-    <div class="studentName">{{user.firstName}} {{user.lastName}}</div>
+  <div class="studentAttendanceContainer row" ng-repeat="user in is.users">
+    <div class="studentName">{{user.firstName}}
+      {{user.lastName}}</div>
     <div class="checkInContainer row">
-      <div class = "col s4">
-        <button class="waves-effect waves-light btn checkIn" ng-click = "is.timeInButton(user)" ng-hide = "user.attendanceData.timeIn">Time In</button>
-        <button ng-hide = "!user.attendanceData.timeIn">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
+      <div class="col s4">
+
+        <button class="waves-effect waves-light btn checkIn" ng-click="is.timeInButton(user); showTimeChangeButton = true;" ng-hide="user.attendanceData.timeIn || (changingTimeOut || changingTimeIn)">Time In</button>
+        <input id="exampleInput" name="input" ng-model="newtime.timeIn" ng-show="changingTimeIn" type="time"/>
+        <button ng-click="is.startChangeTimeIn(user); changingTimeIn = !changingTimeIn;" ng-hide="!user.attendanceData.timeIn" ng-show="!changingTimeIn && !changingTimeOut">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
+        <input name="input" ng-model="newtime.timeOut" ng-show="changingTimeOut" type="time"/>
+
       </div>
-      <div class = "col s4">
-      <button class="waves-effect waves-light btn checkOut" ng-click = "is.timeOutButton(user)" ng-hide = "user.attendanceData.timeOut">Time Out</button>
-      <button ng-hide = "!user.attendanceData.timeOut">{{ user.attendanceData.timeOut | date:"MM/dd/yyyy 'at' h:mma"}}</button>
+
+      <div class="col s4">
+
+        <button class="waves-effect waves-light btn checkOut" ng-click="is.timeOutButton(user)" ng-hide="user.attendanceData.timeOut || (changingTimeOut || changingTimeIn)">Time Out</button>
+        <button class="waves-effect waves-light btn checkOut" ng-click="is.setNewTimeIn(newtime.timeIn); changingTimeIn = !changingTimeIn;" ng-show="changingTimeIn">Time-In</button>
+        <button class="waves-effect waves-light btn checkOut" ng-click="is.setNewTimeOut(newtime.timeOut); changingTimeOut = !changingTimeOut;" ng-show="changingTimeOut">Time-Out</button>
+        <button ng-click="is.startChangeTimeOut(user); changingTimeOut = !changingTimeOut;" ng-hide="!user.attendanceData.timeOut" ng-show="changingTimeIn && changingTimeOut">{{ user.attendanceData.timeOut | date: "MM/dd/yyyy 'at' h:mma"}}</button>
+
       </div>
 
+      <div class="col s4" ng-init="is.doIt()" ng-show="!changingTimeIn && !changingTimeOut">
 
-      <div ng-init = "is.doIt()" class="col s4">
+        <select class="browser-default multiScore " ng-change="is.changeScore(user)" ng-class="{multiScoreValueAdded: user.attendanceData.score}" ng-model="user.attendanceData.score">
+          <option disabled selected value="">Daily Score</option>
+          <option value="number:1">1 of 3</option>
+          <option value="number:2">2 of 3</option>
+          <option value="number:3">3 of 3</option>
 
-        <select class = "browser-default multiScore" ng-change = "is.changeScore(user)" ng-model= "user.attendanceData.score">
-          <option value=""  selected>Daily Score</option>
-          <option value="1">1 of 3</option>
-          <option value="2">2 of 3</option>
-          <option value="3">3 of 3</option>
         </select>
 
       </div>
-
-
-
-      <!-- <form>
-          <label for="singleSelect"> Single select: </label><br>
-          <select name="singleSelect" ng-model="user.attendanceData.singleSelect">
-            <option value="1"> 1</option>
-            <option value="2"> 2</option>
-          </select><br>
-        </form> -->
-
-
 
     </div>
   </div>
 
 </div>
-
-  <input type="submit" ng-click='showAttendanceShow = !showAttendanceShow' value='ATTENDANCE'>
