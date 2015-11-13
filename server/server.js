@@ -26,10 +26,9 @@ var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
 var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
-<<<<<<< Updated upstream
-=======
+
 var CohortCtrl = require('./controllers/CohortCtrl');
->>>>>>> Stashed changes
+
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -118,20 +117,20 @@ ioServer.on('connection', function (socket) {
     });
 
     // Flash poll Sockets
-<<<<<<< Updated upstream
+
 
 
     socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
 
     //View Sockets
     socket.on('request reset view data', function() {socket.emit('reset view data');});
-=======
+
     socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
     socket.on('removeStudentFlashPollData', FlashPollCtrl.handleFlashPollRemoval.bind(null, socket));
 
     //View Sockets
     socket.on('request reset view data', function() {socket.emit('reset view data')});
->>>>>>> Stashed changes
+
 
     //User Sockets
     socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
