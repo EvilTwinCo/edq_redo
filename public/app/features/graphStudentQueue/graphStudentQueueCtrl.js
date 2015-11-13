@@ -45,7 +45,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
 
     var y = d3.scale.linear()
       .rangeRound([height, 0])
-      .domain([0,100000000])
+      .domain([0,1000000])
       .clamp(true);
 
     // y.domain([0, d3.max(groupedData, function(d) {
