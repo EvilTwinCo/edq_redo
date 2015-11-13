@@ -17,27 +17,35 @@
     <div class="studentName">{{user.firstName}} {{user.lastName}}</div>
     <div class="checkInContainer row">
       <div class = "col s4">
-        <button class="waves-effect waves-light btn checkIn" ng-click = "is.timeInButton(user)" ng-hide = "user.attendanceData.timeIn">Time In</button>
-
-        <!-- <div ng-hide = "showTimeChangeButton">
-
-          <button  class="waves-effect waves-light btn checkIn" ng-click = "is.updateTime(user.newtime)">Change from 9am</button>
-        <input type="time" id="exampleInput" name="input" ng-model= "user.attendanceData.timeIn"
-            placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />
-
-          </div> -->
 
 
-        <button ng-hide = "!user.attendanceData.timeIn">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
+        <button class="waves-effect waves-light btn checkIn" ng-click = "is.timeInButton(user)" ng-hide = "user.attendanceData.timeIn || (is.changingTimeOut || is.changingTimeIn)" >Time In</button>
+              <!-- change time in input -->
+        <input ng-show = "is.changingTimeIn" type="time" id="exampleInput" name="input" ng-model= "newtime.timeIn"/>
+
+        <button ng-click = "is.startChangeTimeIn(user)" ng-show = "!is.changingTimeIn && !is.changingTimeOut" ng-hide = "!user.attendanceData.timeIn">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
+
+        <!-- change time out input -->
+        <input ng-show = "is.changingTimeOut" type="time"  name="input" ng-model= "newtime.timeOut" />
+
       </div>
 
       <div class = "col s4">
-      <button class="waves-effect waves-light btn checkOut" ng-click = "is.timeOutButton(user)" ng-hide = "user.attendanceData.timeOut">Time Out</button>
-      <button ng-hide = "!user.attendanceData.timeOut">{{ user.attendanceData.timeOut | date:"MM/dd/yyyy 'at' h:mma"}}</button>
+
+      <button class="waves-effect waves-light btn checkOut" ng-click = "is.timeOutButton(user)" ng-hide = "user.attendanceData.timeOut || (is.changingTimeOut || is.changingTimeIn)" >Time Out</button>
+<!-- change timein button -->
+      <button ng-show = "is.changingTimeIn" class="waves-effect waves-light btn checkOut" ng-click = "is.setNewTimeIn(newtime.timeIn)">Time-In</button>
+
+      <!-- change time out buton -->
+
+      <button ng-show = "is.changingTimeOut" class="waves-effect waves-light btn checkOut" ng-click = "is.setNewTimeOut(newtime.timeOut)">Time-Out</button>
+
+      <button ng-show = "!is.changingTimeIn && !is.changingTimeOut" ng-click =  "is.startChangeTimeOut(user)" ng-hide = "!user.attendanceData.timeOut">{{ user.attendanceData.timeOut | date: "MM/dd/yyyy 'at' h:mma"}}</button>
+
       </div>
 
 
-      <div ng-init = "is.doIt()" class="col s4">
+      <div  ng-show = "!is.changingTimeIn && !is.changingTimeOut" ng-init = "is.doIt()" class="col s4">
 
         <select class = "browser-default multiScore " ng-class = "{multiScoreValueAdded: user.attendanceData.score}" ng-change = "is.changeScore(user)" ng-model= "user.attendanceData.score">
           <option value="" disabled selected>Daily Score</option>

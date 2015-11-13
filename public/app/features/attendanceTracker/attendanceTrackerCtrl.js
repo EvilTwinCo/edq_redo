@@ -2,9 +2,10 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
   var self = this;
   var socket = socketIoSrvc.getSocket();
   this.hideMenu = true;
+  this.changingTimeIn = false;
+  this.changingTimeOut = false;
 
-this.showTimeChangeButton = false;
-
+  this.tempUser = {};
 
   this.doIt = function() {
     $('select').material_select();
@@ -44,11 +45,58 @@ this.setTimeToNineAm = function(){
   }.bind(this)
 
 
-  this.updateTime = function(user){
-    // user.attendanceData.timeIn = user.newTime;
-          // socket.emit("postAttendance", user);
-        self.formatAndPostAttendance(user);
-  }
+
+this.startChangeTimeIn = function(user){
+    self.changingTimeIn = !self.changingTimeIn;
+    self.tempUser = user;
+
+}
+
+this.setNewTimeIn = function(time){
+
+
+  var hours = time.getHours();
+  var mins = time.getMinutes();
+  var seconds = time.getSeconds();
+  var now = new Date();
+  now.setHours(hours, mins, seconds);
+  self.tempUser.attendanceData.timeIn  = now;
+  self.formatAndPostAttendance(self.tempUser);
+  self.changingTimeIn = !self.changingTimeIn;
+
+}
+
+
+
+this.startChangeTimeOut = function(user){
+    self.changingTimeOut = !self.changingTimeOut;
+    self.tempUser = user;
+
+}
+
+this.setNewTimeOut = function(time){
+
+
+  var hours = time.getHours();
+  var mins = time.getMinutes();
+  var seconds = time.getSeconds();
+  var now = new Date();
+  now.setHours(hours, mins, seconds);
+  console.log(now);
+  self.tempUser.attendanceData.timeOut  = now;
+  self.formatAndPostAttendance(self.tempUser);
+  self.changingTimeOut = !self.changingTimeOut;
+
+}
+  $scope.$watch('self.users', function(newValue, oldValue) {
+
+
+});
+
+
+
+
+
 
   this.timeOutButton = function(user) {
     user.attendanceData.timeOut = this.getDateObject();
@@ -61,7 +109,21 @@ this.setTimeToNineAm = function(){
 
   }
 
+
+  this.dateForCheckingAttendanceDate = function(){
+    var today = function(){
+      return new Date();
+    }
+      var zeroOclock = new Date();
+
+      return new Date(zeroOclock.setHours(0,0,0,0));
+
+  }
+
   this.formatAndPostAttendance = function(user) {
+
+    var today = self.dateForCheckingAttendanceDate();
+    user.todayDate = today;
 
     if (typeof user.attendanceData.score == 'string') {
 
@@ -78,10 +140,11 @@ this.setTimeToNineAm = function(){
       }
       // console.log("postAttendance", user)
       socket.emit("postAttendance", user);
+      console.log("posting", user)
 
     } else {
       ///////problens herererererere
-            // console.log("postAttendance", user)
+            console.log("postAttendance", user)
       socket.emit("postAttendance", user);
 
     }
@@ -107,7 +170,7 @@ this.setTimeToNineAm = function(){
 
 
     self.users =[];
-    var today = self.getDateObject();
+    var today = self.dateForCheckingAttendanceDate();
     freshUsers.forEach(function(item, index, array) {
       if (item.cohortId == self.cohortId) {
 

@@ -10,8 +10,9 @@ module.exports = {
 
 
   postAttendance: function(socket, data) {
+console.log('data.todayDate', data.todayDate)
+    Attendance.findOne({'user' :data.user, 'attendanceData.dateOfAttendance':{$gte: data.todayDate}}, function(err, attendance) {
 
-    Attendance.findOne({'user' :data.user}, function(err, attendance) {
 
       if (attendance) {
 
@@ -52,7 +53,8 @@ module.exports = {
            .where('attendanceData.dateOfAttendance')
            .gt(morning)
             .exec(function(err, attendances) {
-
+              console.log(morning);
+              console.log(attendances);
             var daysAttendance = users.map(function(item){
               console.log(item);
               return {
