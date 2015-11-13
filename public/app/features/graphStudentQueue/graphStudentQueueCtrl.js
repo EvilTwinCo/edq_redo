@@ -20,13 +20,13 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
   function draw() {
 
     var margin = {
-      top: 5,
-      right: 5,
-      bottom: 6,
-      left: 8
+      top: 50,
+      right: 50,
+      bottom: 60,
+      left: 80
     };
-    var width = 140 - margin.left - margin.right;
-    var height = 100 - margin.top - margin.bottom;
+    var width = 1400 - margin.left - margin.right;
+    var height = 1000 - margin.top - margin.bottom;
 
     var groupedData = _.groupBy(self.chartData, function(item) {
       return item.date;
@@ -42,11 +42,27 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
       return key;
     }));
 
-
+    groupedData = _.toArray(groupedData);
+    var formatTime= d3.time.format("%H:%M");
+    var formatMili = function(d){return formatTime(new Date(2012,0,1,0,0,0,d));};
     var y = d3.scale.linear()
-      .rangeRound([height, 0])
-      .domain([0,1000000])
+      .range([height, 0])
+      .domain([0,10000000])
       .clamp(true);
+
+      var maxRange = d3.max(groupedData, function(d){
+        console.log(d);
+        var x = d;
+        var y =2;
+        y = y +2;
+        return d3.sum(d, function(item){
+          return item.timeSelfHelp + item.timeHelped + item.timeWait;
+        });
+      });
+
+      console.log(maxRange);
+
+      y.domain([0, maxRange*1.1]);
 
     // y.domain([0, d3.max(groupedData, function(d) {
     //   console.log(d);
@@ -58,7 +74,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
 
     var xAxis = d3.svg.axis().scale(x).orient("bottom");
 
-    var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+    var yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(formatMili).ticks(10);
 
     chart = d3Svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -78,7 +94,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
       .style("text-anchor", "start")
       .text("Time");
 
-      groupedData = _.toArray(groupedData);
+
       console.log(groupedData);
     var state = chart.selectAll(".day")
       .data(groupedData)
@@ -91,21 +107,35 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
 
       console.log(state);
 
-    state.selectAll("rect").data(function (d){
+    var questions = state.selectAll("rect").data(function (d){
       var squareData = d.map(function(itm, ind, arr){
         itm.start = (ind===0?0:arr[ind-1].start+arr[ind-1].timeWait+arr[ind-1].timeHelped+arr[ind-1].timeSelfHelp);
         return itm;
       });
       return squareData;
     })
-      .enter().append("rect")
-      .attr("width",x.rangeBand() )
+      .enter().append("g")
+      .attr("class", "question")
       .attr("height",function(d){
         console.log("y",y(d.timeWait + d.timeHelped + d.timeSelfHelp),"---time",(d.timeWait + d.timeHelped + d.timeSelfHelp));
           return  y(d.start) - y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp);
       })
-      .attr("y", function(d){return y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp);})
-      .style("fill", function(d){return d3.rgb(150,150,Math.floor(Math.random()*255));});
+      .attr("transform", function(d){return "translate(0,"+y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp)+")";});
+
+      questions.selectAll("rect").data(function(d){
+        console.log(d);
+          return [[0, d.timeWait], [d.timeWait,d.timeWait+d.timeHelped], [0,d.timeSelfHelp]];
+      }).enter().append("rect")
+        .attr("width",x.rangeBand())
+        .attr("height",function(d){
+          console.log(d);
+          return y(d[0])-y(d[1]);})
+        .attr("y", function(d){
+          console.log("y(d[0]) - y(0)",  y(d[0]) , "-",  y(0));
+          return -y(d[0]) + y(0);})
+        .style("fill", function(d,i){return color(i);});
+
+      //.style("fill", function(d){return d3.rgb(150,150,Math.floor(Math.random()*255));});
 
       // .attr("width", function(d) {
       //   console.log(test);
