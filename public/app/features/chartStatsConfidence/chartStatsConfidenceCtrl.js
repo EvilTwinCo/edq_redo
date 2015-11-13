@@ -3,6 +3,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     var self = this;
     
     var filteredData = [];
+    self.showChart = 'cohort';
     
     $scope.$watch('is.cohortId', function () {
         if (self.cohortId) {
@@ -11,8 +12,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     })
     
     function getData() {
-        console.log(self.cohortId); 
-        
+        //console.log(self.cohortId); 
         confidenceSrvc.getConfidences(self.cohortId).then(function(confidences) {
 
 
@@ -38,8 +38,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     }
     
     function updateChart (data) {
-        console.log(data);
-    
+        //console.log(data);
         var confidenceValuesObj = {};
         data.forEach(function(item) {
             if (!confidenceValuesObj[item.learningObjective]) {
@@ -54,8 +53,8 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
             confidenceValuesArray.push(confidenceValuesObj[prop]);
             confidenceLabelsArray.push(prop);
         }
-        console.log(confidenceLabelsArray);
-        console.log(confidenceValuesArray);
+        //console.log(confidenceLabelsArray);
+        //console.log(confidenceValuesArray);
 
         self.dataSet = confidenceValuesArray;
     }
@@ -91,7 +90,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     function refreshView(event) {
         
         $scope.gridOptions.api.sizeColumnsToFit();
-        console.log('Grid ready');
+        //console.log('Grid ready');
     }
 
     function cellClicked(cell) {
@@ -108,7 +107,33 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     }
     
     function rowDoubleClicked(row) {
-        console.log('row double clicked', row);
+        //console.log('row double clicked', row);
+//        var getUserId = row.data.user._id;
+//        var getLearningObj = row.data.learningObjective;
+        //console.log(getUserId, getLearningObj);
+        confidenceSrvc.getUserLearningObjConfidences({
+            userId: row.data.user._id,
+            learningObjId: row.data.learningObjective
+        }).then(function(res) {
+            //console.log(res);
+            var datapoints = [];
+            for (var i = 0; i < res.length - 1; i++) {
+                datapoints.push({
+                    timestamp1: res[i].timestamp,
+                    confidence1: res[i].confidence,
+                    timestamp2: res[i+1].timestamp,
+                    confidence2: res[i+1].confidence,
+                    learningObj1: res[i].learningObjective,
+                    learningObj2: res[i+1].learningObjective
+                })
+            }
+            //console.log(datapoints);
+            self.graphData = datapoints;
+            self.showChart = 'individual';
+            
+        }, function(err) {
+            console.log(err);
+        })
     }
     
     function beforeFilterChanged() {
