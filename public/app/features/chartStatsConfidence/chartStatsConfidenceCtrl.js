@@ -3,6 +3,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     var self = this;
     
     var filteredData = [];
+    self.showChart = 'cohort';
     
     $scope.$watch('is.cohortId', function () {
         if (self.cohortId) {
@@ -109,6 +110,30 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     
     function rowDoubleClicked(row) {
         console.log('row double clicked', row);
+//        var getUserId = row.data.user._id;
+//        var getLearningObj = row.data.learningObjective;
+        //console.log(getUserId, getLearningObj);
+        confidenceSrvc.getUserLearningObjConfidences({
+            userId: row.data.user._id,
+            learningObjId: row.data.learningObjective
+        }).then(function(res) {
+            //console.log(res);
+            var datapoints = [];
+            for (var i = 0; i < res.length - 1; i++) {
+                datapoints.push({
+                    timestamp1: res[i].timestamp,
+                    confidence1: res[i].confidence,
+                    timestamp2: res[i+1].timestamp,
+                    confidence2: res[i+1].confidence
+                })
+            }
+            console.log(datapoints);
+            self.graphData = datapoints;
+            self.showChart = 'individual';
+            
+        }, function(err) {
+            console.log(err);
+        })
     }
     
     function beforeFilterChanged() {

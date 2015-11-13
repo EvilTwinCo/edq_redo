@@ -94,6 +94,32 @@ module.exports = {
                 res.json(result);
             }
         })
+    },
+    getUserLearningObjConfidences: function (req, res) {
+        var findObj;
+        
+        if (req.params.userId) {
+            if (req.params.learningObjId !== undefined) {
+                findObj = {
+                    user: req.params.userId,
+                    learningObjective: req.params.learningObjId
+                }   
+            } 
+            else findObj = {user: req.params.userId};
+            console.log('findObj', findObj);
+
+            Confidence.find(findObj).populate({
+                path: 'user',
+                select: 'firstName lastName',
+            }).sort({timestamp: -1}).exec(function (error, result) {
+                if (error) {
+                    console.log(error);
+                    res.send(error);
+                } else {
+                    res.json(result);
+                }
+            })
+        }
     }
 }
     
