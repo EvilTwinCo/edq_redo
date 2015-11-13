@@ -3,21 +3,27 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
   $scope.chartData = [];
   var columnDefs = [{
     headerName: "Student",
-    field: "name"
+    field: "name",
+    filter:'set'
   }, {
     headerName: "Mentor",
-    field: "mentorName"
+    field: "mentorName",
+    filter:'set'
+
   }, {
     headerName: "Day",
+    filter:'set',
     valueGetter: function(params) {
-      return $filter('date')(params.data.timeWhenEntered, "EEE d/M/yy");
+      return $filter('date')(params.data.timeWhenEntered, "yy/M/d EEE");
     }
   }, {
     headerName: "Objective",
-    field: "directive"
+    field: "directive",
+    filter:'set'
   }, {
     headerName: "Category",
-    field: "questionCategory"
+    field: "questionCategory",
+    filter:'set'
   }, {
     headerName: "Time Helped",
     field: "timeHelped",
@@ -40,7 +46,8 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
   $scope.gridOptions = {
     columnDefs: columnDefs,
     rowData: rowData,
-    enableColResize: true
+    enableColResize: true,
+    enableFilter:true
   };
 
   socket.emit('request queue stats');

@@ -1,4 +1,4 @@
-angular.module('theQ').directive('graphStudentQueue', function() {
+ angular.module('theQ').directive('graphStudentQueue', function() {
     return {
         templateUrl: 'app/features/graphStudentQueue/graphStudentQueueTmpl.html',
         controller: 'graphStudentQueueCtrl',
