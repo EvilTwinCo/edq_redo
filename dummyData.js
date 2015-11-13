@@ -1,293 +1,292 @@
 
-[{
-    "trackables": {
+module.exports = {trackables:[
+    {
         "sectionName": "Pre-Reading",
         "sectionId": "",
         "topicName": "Git - The Simple Guide"
     },
-    "trackables": {
+    {
         "sectionName": "Pre-Reading",
         "sectionId": "2",
         "topicName": "Atlassian Git Tutorial"
     },
-    "trackables": {
+    {
         "sectionName": "Pre-Reading",
         "sectionId": "3",
         "topicName": "Make sure you Install Git"
     },
-    "trackables": {
+    {
         "sectionName": "Project",
         "sectionId": "4",
         "topicName": "Learn Git"
     },
-    "trackables": {
+    {
         "sectionName": "Additional Practice",
         "sectionId": "5",
         "topicName": "Learn Git Branching"
     },
-    "trackables": {
+    {
         "sectionName": "Additional Reading",
         "sectionId": "6",
         "topicName": "The Command Line Crash Course"
     },
-    "trackables": {
+    {
         "sectionName": "Additional Reading",
         "sectionId": "7",
         "topicName": "Lecture Archive"
     },
-    "trackables": {
+    {
         "sectionName": "Additional Reading",
         "sectionId": "8",
         "topicName": "Visual Git Guide"
     },
-    "trackables": {
+    {
         "sectionName": "Additional Reading",
         "sectionId": "9",
         "topicName": "Getting Started with Git"
     },
-    "trackables": {
+    {
         "sectionName": "Assessment",
         "sectionId": "10",
         "topicName": "Command Line and Git"
     },
-    "trackables": {
+    {
         "sectionName": "Additional Reading",
         "sectionId": "11",
         "topicName": "Getting Started with Git"
     },
-    "trackables": {
+    {
         "sectionName": "Pre-Reading",
         "sectionId": "12",
         "topicName": "Codeacademy HTML/CSS"
     },
-    "trackables": {
+    {
         "sectionName": "Project",
         "sectionId": "13",
         "topicName": "HTML Layouts"
     },
-    "trackables": {
+    {
         "sectionName": "Assessment",
         "sectionId": "14",
         "topicName": "HTML"
     },
-    "trackables": {
+    {
         "sectionName": "Pre-Reading",
         "sectionId": "15",
         "topicName": "Positioning: MDN"
     },
-    "trackables": {
+    {
         "sectionName": "Projects",
         "sectionId": "16",
         "topicName": "HTML Layout 2"
     },
-    "trackables": {
+    {
         "sectionName": "Projects",
         "sectionId": "17",
         "topicName": "Wikimedia Layout"
     },
-    "trackables": {
+    {
         "sectionName": "Assessment",
         "sectionId": "18",
         "topicName": "CSS Positioning"
     },
-    "trackables": {
+    {
         "sectionName": "Pre-Reading",
         "sectionId": "19",
         "topicName": "Eloquent Javascript - Functions"
     },
-    "trackables": {
+    {
         "sectionName": "Projects",
         "sectionId": "20",
         "topicName": "JavaScript Basics"
     },
-    "trackables": {
+    {
         "sectionName": "Additional Reading",
         "sectionId": "21",
         "topicName": "Everything you need to know about Scopes"
     },
-    "trackables": {
+    {
         "sectionName": "Assessment",
         "sectionId": "22",
         "topicName": "JS Fundamentals I"
     },
-    "trackables": {
+    {
         "sectionName": "Assessment",
         "sectionId": "23",
         "topicName": "Advanced JS Problems"
     },
-    "trackables": {
+    {
         "sectionName": "Pre-Reading",
         "sectionId": "24",
         "topicName": "JS is Sexy - Objects"
     },
-    "trackables": {
+    {
         "sectionName": "Projects",
         "sectionId": "25",
         "topicName": "JavaScript Objects"
     },
-    "trackables": {
+    {
         "sectionName": "Projects",
         "sectionId": "26",
         "topicName": "JavaScript Arrays"
     },
-    "trackables": {
+    {
         "sectionName": "Assessment",
         "sectionId": "27",
         "topicName": "JS Fundamentals II and III"
-    },
+    }
 
-}],
+],
 
-[{
-    "objectives": {
+objectives:[
+     {
         "objectiveId": "1",
         "objectiveName": "Students will understand how to use github in a group setting.",
         "objectiveTopic": "Commmand Line"
     },
-    "objectives": {
+     {
         "objectiveId": "2",
         "objectiveName": "Students will understand what Git and Github are and how they fit into the web app landscape.",
         "objectiveTopic": "Git Hub Uses"
     },
-    "objectives": {
+    {
         "objectiveId": "3",
         "objectiveName": "Students will be able to clone a repo and know its purpose.",
         "objectiveTopic": "Git Hub - Clone"
     },
-    "objectives": {
+    {
         "objectiveId": "4",
         "objectiveName": "Students will be able to add, commit, and push files to github.",
         "objectiveTopic": "Git Hub - Basics"
     },
-    "objectives": {
+    {
         "objectiveId": "5",
         "objectiveName": "Students will understand basic branching.",
         "objectiveTopic": "Git Hub - Branching"
     },
-    "objectives": {
+    {
         "objectiveId": "6",
         "objectiveName": "Students will understand how to use github in a group setting.",
         "objectiveTopic": "Git Hub - Team Uses"
     },
-    "objectives": {
+    {
         "objectiveId": "7",
         "objectiveName": "Students will understand the purpose of HTML.",
         "objectiveTopic": "HTML"
     },
-    "objectives": {
+    {
         "objectiveId": "8",
         "objectiveName": "Students will understand the purpose of CSS.",
         "objectiveTopic": "CSS"
     },
-    "objectives": {
+    {
         "objectiveId": "9",
         "objectiveName": "Students will from scratch, be able to create a skeleton for their html and css page.",
         "objectiveTopic": "HTML setup"
     },
-    "objectives": {
+    {
         "objectiveId": "10",
         "objectiveName": "understand and be able to use the following HTML Elements.",
         "objectiveTopic": "HTML Elements"
     },
-    "objectives": {
+    {
         "objectiveId": "11",
         "objectiveName": "Understand and be able to use the following CSS properties.",
         "objectiveTopic": "CSS Properties"
     },
-    "objectives": {
+    {
         "objectiveId": "12",
         "objectiveName": "Students will be able to use Chrome Dev Tools to inspect their HTML/CSS.",
         "objectiveTopic": "Chrome Dev Tools"
     },
-    "objectives": {
+    {
         "objectiveId": "13",
         "objectiveName": "Students will understand the purpose of CSS.",
         "objectiveTopic": "CSS Purpose"
     },
-    "objectives": {
+    {
         "objectiveId": "14",
         "objectiveName": "Students will be able to compare and contrast fixed, relative, absolute, and static positioning in CSS.",
         "objectiveTopic": "CSS Positioning"
     },
-    "objectives": {
+    {
         "objectiveId": "15",
         "objectiveName": "Students will be able to compare and contrast display block, inline-block, inline, and none.",
         "objectiveTopic": "HTML Positioning"
     },
-    "objectives": {
+    {
         "objectiveId": "16",
         "objectiveName": "Students will be able to compare and contrast overflow hidden, auto, scroll.",
         "objectiveTopic": "CSS Properties"
     },
-    "objectives": {
+    {
         "objectiveId": "17",
         "objectiveName": "Students will understand and be able to use max/min-width and max/min-height.",
         "objectiveTopic": "CSS - Height / Width"
     },
-    "objectives": {
+    {
         "objectiveId": "18",
         "objectiveName": "Students will understand and be able to explain the box model to someone else.",
         "objectiveTopic": "Box Model"
     },
-    "objectives": {
+    {
         "objectiveId": "19",
         "objectiveName": "Students will understand media queries and be able to implement them.",
         "objectiveTopic": "Media Queries"
     },
-    "objectives": {
+    {
         "objectiveId": "20",
         "objectiveName": "Students will understand when and when not to use floating elements.",
         "objectiveTopic": "Floating Elements"
     },
-    "objectives": {
+    {
         "objectiveId": "21",
         "objectiveName": "Students will understand how the web works.",
         "objectiveTopic": "Web Overview"
     },
-    "objectives": {
+    {
         "objectiveId": "22",
         "objectiveName": "Students will understand JavaScript vs jQuery.",
         "objectiveTopic": "Javascript vs JQuery"
     },
-    "objectives": {
+    {
         "objectiveId": "23",
         "objectiveName": "Students will understand what the DOM is.",
         "objectiveTopic": "DOM"
     },
-    "objectives": {
+    {
         "objectiveId": "24",
         "objectiveName": "Students will understand functions.",
         "objectiveTopic": "Functions"
     },
-    "objectives": {
+    {
         "objectiveId": "25",
         "objectiveName": "Students will understand use cases for objects.",
         "objectiveTopic": "Object use cases"
     },
-    "objectives": {
+    {
         "objectiveId": "26",
         "objectiveName": "Students will understand how to create and add properties/values to objects.",
         "objectiveTopic": "Objects"
     },
-    "objectives": {
+    {
         "objectiveId": "27",
         "objectiveName": "Students will understand how to loop through objects.",
         "objectiveTopic": "Loops"
     },
-    "objectives": {
+    {
         "objectiveId": "28",
         "objectiveName": "Students will understand how to create and invoke a method.",
         "objectiveTopic": "Methods"
     },
-    "objectives": {
+    {
         "objectiveId": "29",
         "objectiveName": "Students will understand bracket notation vs dot notation.",
         "objectiveTopic": "Brackets / Dot Notation"
     },
-    "objectives": {
+    {
         "objectiveId": "30",
         "objectiveName": "Students will understand how to remove keys/props from objects (delete).",
         "objectiveTopic": "Object Manipulation"
-    },
-
-}]
+    }
+]};
