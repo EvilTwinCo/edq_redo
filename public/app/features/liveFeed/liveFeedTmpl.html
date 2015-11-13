@@ -1,8 +1,11 @@
 <div class="feedContainer">
-  <div ng-repeat="part in lF.feed">
-    <div class="">
-      <span class="">Question: {{part.question}}</span>
-      <p>Solution: {{part.studentSolution}}</p>
+  <div class="card blue-grey darken-1 center-align liveFeedTitle z-depth-2">Common Questions</div>
+  <div ng-repeat="part in lF.feed | orderBy: 'created_at':true">
+          <div class="card blue-grey darken-1 z-depth-1">
+            <div class="card-content">
+              <div class="center-align liveFeedTitle">Question</div><div class="liveFeedText"> {{part.question}}</div>
+              <div class="center-align liveFeedTitle">Solution</div><div class="liveFeedText"> {{part.studentSolution}}</div>
+            </div>
+          </div>
+      </div>
     </div>
-  </div>
-</div>
