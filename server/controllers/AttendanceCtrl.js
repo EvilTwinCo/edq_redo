@@ -7,26 +7,33 @@ var _ = require('underscore');
 
 module.exports = {
 
-  postAttendance: function(socket, data) {
 
-    Attendance.findById(data._id, function(err, attendance) {
+
+  postAttendance: function(socket, data) {
+console.log('data.todayDate', data.todayDate)
+    Attendance.findOne({'user' :data.user, 'attendanceData.dateOfAttendance':{$gte: data.todayDate}}, function(err, attendance) {
+
 
       if (attendance) {
+
         attendance.attendanceData = data.attendanceData;
         attendance.save(function(err) {
           if (err) {
             console.log(err);
           }
+          console.log('SAving att', attendance)
           socket.emit('attendanceUpdate', attendance)
         })
 
-      } else {
+      }
+      else if(!attendance) {
         new Attendance(data).save(function(error, data) {
+
           if (error) {
             console.log("OMG! Im on fire!!!", error)
           } else {
-            console.log("not on fire")
-            socket.emit("attendanceUpdate", data)
+            console.log("New one from server", data)
+            socket.emit("attendanceUpdateWithNewAttenance", data)
           }
         })
       }
@@ -43,16 +50,34 @@ module.exports = {
 
       User.find({}).exec(function(err, users) {
         Attendance.find({})
-          .where('dateOfAttendance')
-          .gt(morning).exec(function(err, attendances) {
+           .where('attendanceData.dateOfAttendance')
+           .gt(morning)
+            .exec(function(err, attendances) {
+              console.log(morning);
+              console.log(attendances);
+            var daysAttendance = users.map(function(item){
+              console.log(item);
+              return {
+                user: item._id,
+                cohortId:item.devMtn.cohortId,
+                firstName:item.firstName,
+                lastName:item.lastName
+              }
+
+            })
           attendances.forEach(function(item, index, arrrrr) {
+            if (_.findWhere(daysAttendance, {  user: item.user}) ) {
 
-            if (_.findWhere(users, {  _id: item._id}) ) {
-
-              _.findWhere(users, {  _id: item._id  }).attendances = item;
+              var append = _.findWhere(users, {  user: item.user })
+              // append.attendanceData = item.attendanceData;   old
+              item.attendanceData = append.attendanceData;
+              // append._id = item._id;
+              // console.log("asdkfaksjdjjjjjjjjj", item)
             }
           })
-          socket.emit('getInitialAttendance', users)
+
+          console.log("daysAttendance", daysAttendance);
+          socket.emit('getInitialAttendance', daysAttendance)
 
         })
       })
