@@ -1,4 +1,11 @@
+<<<<<<< Updated upstream
 <link href="../../styles/adminDashboardTmpl.css" rel="stylesheet" type="text/css">
+=======
+<a class='dropdown-button btn' href='#' data-activates='dropdownCohortOptions'>Cohort: {{is.currentCohort}}</a>
+<ul id='dropdownCohortOptions' class='dropdown-content'>
+    <li ng-repeat="cohort in is.cohortOptions track by $index"><a ng-click="is.setDropdownValue(cohort)">{{cohort}}</a></li>
+</ul>
+>>>>>>> Stashed changes
 
 
 <!-- <div class='row'> -->
@@ -26,6 +33,16 @@
     <div class="Hi">
       <flash-poll-monitor></flash-poll-monitor>
     </div>
+<<<<<<< Updated upstream
+=======
+    <div class="">
+        <flash-poll-monitor cohort-id="is.currentCohort"></flash-poll-monitor>
+    </div>
+</div>
+<div>
+    <attendance-tracker cohort-id="is.currentCohort" ng-if="false"></attendance-tracker>
+</div>
+>>>>>>> Stashed changes
 
     <script>
       $('.dropdown-button').dropdown({
@@ -36,5 +53,10 @@
         gutter: 0,
         belowOrigin: true,
         alignment: 'left'
+<<<<<<< Updated upstream
       });
     </script>
+=======
+    });
+</script>
+>>>>>>> Stashed changes

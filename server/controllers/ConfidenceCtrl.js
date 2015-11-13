@@ -47,7 +47,7 @@ module.exports = {
             value: obj.value
         });
 
-        console.log(obj);
+        //console.log(obj);
         io.to('instructors').emit('report confidence single', obj);
     },
     handleInstructorLogin: function (socket, obj) {
@@ -62,7 +62,7 @@ module.exports = {
                 filterObj[prop] = currentConfidence[prop];
             }
         }
-        console.log(filterObj);
+        //console.log(filterObj);
         for (var prop in filterObj) {
             var indexStart = prop.indexOf(COHORT_SEPARATOR);
             var indexStop = prop.indexOf(USER_SEPARATOR);
@@ -76,6 +76,24 @@ module.exports = {
                 cohortId: cohortId
             });  
         }
+    },
+    getDatabaseConfidences: function (req, res) {
+        var findObj;
+        if (req.params.cohortId === 'all') findObj = {};
+        else findObj = {cohortId: req.params.cohortId};
+        console.log('findObj', findObj);
+        
+        Confidence.find(findObj).populate({
+                path: 'user',
+                select: 'firstName lastName',
+            }).sort({timestamp: -1}).exec(function (error, result) {
+            if (error) {
+                console.log(error);
+                res.send(error);
+            } else {
+                res.json(result);
+            }
+        })
     }
 }
     

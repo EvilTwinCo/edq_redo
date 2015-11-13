@@ -1,25 +1,17 @@
-angular.module('theQ').controller('adminDashboardCtrl', function (socketIoSrvc) {
+angular.module('theQ').controller('adminDashboardCtrl', function (socketIoSrvc, cohortSrvc) {
     var socket = socketIoSrvc.getSocket();
-
+    var self = this;
     this.currentCohort = "Select ID...";
+    this.cohortOptions = "Please wait...";
     
-    this.cohortOptions = [
-        {
-            label: "26",
-            value: "26"
-        },
-        {
-            label: "27",
-            value: "27"
-        },
-        {
-            label: "28",
-            value: "28"
-        }
-    ]
+    cohortSrvc.getCohortIds().then(function(res) {
+        self.cohortOptions = res;
+    }, function(err) {
+        console.log(err);
+    });
     
     this.setDropdownValue = function (cohort) {
-        this.currentCohort = cohort.value;
+        this.currentCohort = cohort;
         //console.log(this.currentCohort);
         socket.emit('request reset view data');
     }
