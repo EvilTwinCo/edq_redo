@@ -1,18 +1,18 @@
 var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function (socketIoSrvc, $scope, $window, $element, confidenceSrvc, $filter) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
-    
+
     var filteredData = [];
-    
+
     $scope.$watch('is.cohortId', function () {
         if (self.cohortId) {
             getData();
         }
-    })
-    
+    });
+
     function getData() {
-        console.log(self.cohortId); 
-        
+        console.log(self.cohortId);
+
         confidenceSrvc.getConfidences(self.cohortId).then(function(confidences) {
 
 
@@ -22,31 +22,31 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
                 confidences[i].lastName = confidences[i].user.lastName;
                 confidences[i].timestamp = $filter('date')(confidences[i].timestamp, 'medium');
             }
-            
+
             confidences = _.uniq(confidences, false, function(item) {
                 return item.firstName + item.lastName + item.cohortId + item.learningObjective;
             });
-            
+
             $scope.gridOptions.api.setRowData(confidences);
             $scope.gridOptions.api.refreshView();
-            
+
             updateChart(confidences);
-            
+
         }, function(err) {
             console.log(err);
         });
     }
-    
+
     function updateChart (data) {
         console.log(data);
-    
+
         var confidenceValuesObj = {};
         data.forEach(function(item) {
             if (!confidenceValuesObj[item.learningObjective]) {
                 confidenceValuesObj[item.learningObjective] = [];
             }
             confidenceValuesObj[item.learningObjective].push(item.confidence);
-        })
+        });
 
         var confidenceValuesArray = [];
         var confidenceLabelsArray =[];
@@ -59,7 +59,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
 
         self.dataSet = confidenceValuesArray;
     }
-    
+
     var columnDefs = [
         {headerName: "First Name", field: 'firstName', editable: false},
         {headerName: "Last Name", field: 'lastName', editable: false},
@@ -89,7 +89,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
 //    }
 
     function refreshView(event) {
-        
+
         $scope.gridOptions.api.sizeColumnsToFit();
         console.log('Grid ready');
     }
@@ -97,7 +97,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     function cellClicked(cell) {
         //console.log('cell clicked', cell)
     }
-    
+
 
     function cellChanged(changedObj) {
         //console.log(changedObj);
@@ -106,25 +106,25 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     function selectionChanged(row) {
         //console.log('row selected', row);
     }
-    
+
     function rowDoubleClicked(row) {
         console.log('row double clicked', row);
     }
-    
+
     function beforeFilterChanged() {
         console.log('before filter changed');
         filteredData = [];
     }
-    
+
     function afterFilterChanged() {
         console.log('after filter changed');
         $scope.gridOptions.api.forEachNodeAfterFilter(filteredDataAggregator);
         console.log(filteredData);
         updateChart(filteredData);
     }
-    
+
     function filteredDataAggregator (node) {
         filteredData.push(node.data)
     }
-    
+
 });
