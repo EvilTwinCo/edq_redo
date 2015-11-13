@@ -8,5 +8,5 @@ angular.module('theQ').directive('chartStatsQueue', function() {
         scope: {
 
         }
-    }
+    };
 });

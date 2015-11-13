@@ -23,7 +23,7 @@
         <div class="col s10">
             <chart-stats-attendance ng-if="is.currentStatType.value === 'chartStatsAttendance'" cohort-id="is.currentSpecificType.value"></chart-stats-attendance>
             <chart-stats-confidence ng-if="is.currentStatType.value === 'chartStatsConfidence'" cohort-id="is.currentSpecificType.value"></chart-stats-confidence>
-            <queue-stats-chart ng-if="is.currentStatType.value === 'queueStatsChart'" cohort-id="is.currentSpecificType.value"></queue-stats-chart>
+            <chart-stats-queue ng-if="is.currentStatType.value === 'chartStatsQueue'" cohort-id="is.currentSpecificType.value"></chart-stats-queue>
 
         </div>
     </div>
