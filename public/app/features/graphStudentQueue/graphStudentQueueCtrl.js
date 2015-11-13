@@ -28,20 +28,30 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
     var width = 140 - margin.left - margin.right;
     var height = 100 - margin.top - margin.bottom;
 
+    var groupedData = _.groupBy(self.chartData, function(item) {
+      return item.date;
+    });
+
+    console.log(groupedData);
+
     var x = d3.scale.ordinal()
       .rangeRoundBands([0, width], 0.1);
 
-    x.domain(self.chartData.map(function(d) {
-      return d.category;
+    x.domain(_.map(groupedData, function(d, key) {
+      console.log(d, key);
+      return key;
     }));
 
 
     var y = d3.scale.linear()
-      .rangeRound([height, 0]);
+      .rangeRound([height, 0])
+      .domain([0,100000000])
+      .clamp(true);
 
-    y.domain([0, d3.max(self.chartData, function(d) {
-      return d.data[0] + d.data[1] + d.data[2];
-    })]);
+    // y.domain([0, d3.max(groupedData, function(d) {
+    //   console.log(d);
+    //   return d.timeWait + d.timeHelped + d.timeSelfHelp;
+    // })]);
 
     var color = d3.scale.ordinal()
       .range(["red", "yellow", "green"]);
@@ -68,46 +78,49 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
       .style("text-anchor", "start")
       .text("Time");
 
+      groupedData = _.toArray(groupedData);
+      console.log(groupedData);
     var state = chart.selectAll(".day")
-      .data(self.chartData)
+      .data(groupedData)
       .enter().append("g")
       .attr("class", "g")
       .attr("transform", function(d, index) {
         console.log("group", d);
-        return "translate(" + x(d.category) + ")";
+        return "translate(" + x(d[0].date) + ")";
       });
 
-    state.selectAll("rect")
-      .data(function(d) {
-        return d.data.reduce(function(prev, item, index, arr) {
-          if (index > 0) {
-            prev.push({
-              start: prev[index - 1].end,
-              end: prev[index - 1].end + item
-            });
-            return prev;
-          } else {
-            prev.push({
-              start: 0,
-              end: item
-            });
-            return prev;
-          }
-        }, []);
-      }).enter().append("rect")
-      .attr("width", function(d){
-        return x.rangeBand()*0.95;
-      })
-      .attr("y", function(d) {
-        console.log("piece", d);
-        return y(d.end);
-      })
-      .attr("height", function(d) {
-        return -y(d.end) + y(d.start);
-      })
-      .style("fill", function(d, i) {
-        return color(i);
+      console.log(state);
+
+    state.selectAll("rect").data(function (d){
+      var squareData = d.map(function(itm, ind, arr){
+        itm.start = (ind===0?0:arr[ind-1].start+arr[ind-1].timeWait+arr[ind-1].timeHelped+arr[ind-1].timeSelfHelp);
+        return itm;
       });
+      return squareData;
+    })
+      .enter().append("rect")
+      .attr("width",x.rangeBand() )
+      .attr("height",function(d){
+        console.log("y",y(d.timeWait + d.timeHelped + d.timeSelfHelp),"---time",(d.timeWait + d.timeHelped + d.timeSelfHelp));
+          return  y(d.start) - y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp);
+      })
+      .attr("y", function(d){return y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp);})
+      .style("fill", function(d){return d3.rgb(150,150,Math.floor(Math.random()*255));});
+
+      // .attr("width", function(d) {
+      //   console.log(test);
+      //   return x.rangeBand();
+      // })
+      // .attr("y", function(d) {
+      //   console.log("piece", d);
+      //   return y(d.timeWait);
+      // })
+      // .attr("height", function(d) {
+      //   return Math.abs(-y(d.timeWait) + y(d.timeHelped));
+      // })
+      // .style("fill", function(d, i) {
+      //   return color(i);
+      // });
 
 
 

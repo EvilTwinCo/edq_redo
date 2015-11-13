@@ -61,7 +61,7 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
 
     queueData.forEach(function(item) {
       var day = new Date(item.timeWhenEntered);
-      item.date = day.getMonth()+"/"+ day.getDay() +"/"+ day.getYear();
+      item.date = day.getMonth()+"/"+ day.getDay() +"/"+ day.getYear() % 100;
       if (item.mentorName) {
         item.timeHelped = new Date(item.timeQuestionAnswered) - new Date(item.timeMentorBegins);
         item.timeWait = new Date(item.timeMentorBegins) - new Date(item.timeWhenEntered);
@@ -91,7 +91,7 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
       }, {category:key, data:[0,0,0]});
     });
     console.log(chartData);
-    $scope.chartData = chartData;
+    $scope.chartData = queueData;
     $scope.gridOptions.api.setRowData(queueData);
     $scope.gridOptions.api.sizeColumnsToFit();
 
