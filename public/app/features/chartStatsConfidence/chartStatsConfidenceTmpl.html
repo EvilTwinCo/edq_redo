@@ -1,5 +1,11 @@
 <div class="row" style="background-color: white; padding: 10px; box-shadow: 3px 3px 3px black">
+<!--
     <div ng-if="is.showChart==='cohort'" ng-repeat="datum in is.dataSet" class="col s1">
+        <d3-verticle-dot-distribution data="datum"></d3-verticle-dot-distribution>
+    </div>
+-->
+    <div ng-if="is.showChart==='cohort'" ng-repeat="datum in is.dataSet" class="col s1">
+        <p style="height: 20px; text-align: center; font-size: 10px;">{{is.dataLabels[$index]}}</p>
         <d3-verticle-dot-distribution data="datum"></d3-verticle-dot-distribution>
     </div>
     <div class="row" ng-if="is.showChart==='individual'">

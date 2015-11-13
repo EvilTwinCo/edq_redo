@@ -5,6 +5,12 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    learningObjectiveTopic: {
+        type: String,
+    },
+    learningObjectiveName: {
+        type: String
+    },
     cohortId: {
         type: String,
         required: true 
