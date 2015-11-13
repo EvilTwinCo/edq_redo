@@ -1,15 +1,30 @@
 angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc, $scope) {
   var self = this;
   var socket = socketIoSrvc.getSocket();
-  this.hideMenu = false;
+  this.hideMenu = true;
+  this.tempUser = {};
+
+  this.doIt = function() {
+    $('select').material_select();
+  }
+
+  this.setTimeToNineAm = function() {
+    var today = function() {
+      return new Date();
+    }
+    var nineOclock = new Date();
+
+    return new Date(nineOclock.setHours(9, 0, 0));
+
+  }
+
 
   this.getTheUsersForCohort = function() {
     socket.emit('getAttendance');
   }
 
-  this.getTheUsersForCohort();
-
   this.hideDisplay = function() {
+    this.getTheUsersForCohort();
     this.hideMenu = !this.hideMenu;
   }
 
@@ -17,15 +32,65 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
     return new Date();
   }
 
-  this.doIt = function() {
-    $('select').material_select();
-  }
-
   this.timeInButton = function(user) {
-    user.attendanceData.timeIn = this.getDateObject();
+
+    user.attendanceData.timeIn = this.setTimeToNineAm();
     self.formatAndPostAttendance(user);
 
   }.bind(this)
+
+
+
+  this.startChangeTimeIn = function(user) {
+
+    self.tempUser = user;
+
+  }
+
+  this.setNewTimeIn = function(time) {
+
+
+    var hours = time.getHours();
+    var mins = time.getMinutes();
+    var seconds = time.getSeconds();
+    var now = new Date();
+    now.setHours(hours, mins, seconds);
+    self.tempUser.attendanceData.timeIn = now;
+    self.formatAndPostAttendance(self.tempUser);
+
+
+  }
+
+
+
+  this.startChangeTimeOut = function(user) {
+
+    self.tempUser = user;
+
+  }
+
+  this.setNewTimeOut = function(time) {
+
+
+    var hours = time.getHours();
+    var mins = time.getMinutes();
+    var seconds = time.getSeconds();
+    var now = new Date();
+    now.setHours(hours, mins, seconds);
+    self.tempUser.attendanceData.timeOut = now;
+    self.formatAndPostAttendance(self.tempUser);
+
+
+  }
+  $scope.$watch('self.users', function(newValue, oldValue) {
+
+
+  });
+
+
+
+
+
 
   this.timeOutButton = function(user) {
     user.attendanceData.timeOut = this.getDateObject();
@@ -35,10 +100,24 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
 
   this.changeScore = function(user, e) {
     self.formatAndPostAttendance(user);
-    console.log('postAttendance', user)
+
+  }
+
+
+  this.dateForCheckingAttendanceDate = function() {
+    var today = function() {
+      return new Date();
+    }
+    var zeroOclock = new Date();
+    return new Date(zeroOclock.setHours(0, 0, 0, 0));
+
   }
 
   this.formatAndPostAttendance = function(user) {
+
+    var today = self.dateForCheckingAttendanceDate();
+    user.todayDate = today;
+
     if (typeof user.attendanceData.score == 'string') {
 
       switch (user.attendanceData.score) {
@@ -53,27 +132,33 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
           break;
       }
       socket.emit("postAttendance", user);
+
     } else {
       socket.emit("postAttendance", user);
+
     }
   }
 
   this.users = [];
 
-  socket.on('attendanceUpdate', function(data) {
-    this.users.forEach(function(item, index, arr) {
-      if (item.user == data.user) {
-        arr[index].attendanceData = data.attendanceData;
+  socket.on('attendanceUpdateWithNewAttenance', function(data) {
+
+    self.users.forEach(function(item, index, arr) {
+      if (item._id == data.user) {
+        item.attendanceData = data.attendanceData;
       }
     })
   }.bind(this));
 
 
 
-  socket.on('getInitialAttendance', function(data) {
-    var today = self.getDateObject();
-    data.forEach(function(item, index, array) {
-      if (item.devMtn.cohortId == self.cohortId) {
+  socket.on('getInitialAttendance', function(freshUsers) {
+
+    self.users = [];
+    var today = self.dateForCheckingAttendanceDate();
+    freshUsers.forEach(function(item, index, array) {
+      if (item.cohortId == self.cohortId) {
+
         if (!item.attendanceData) {
           item.attendanceData = {
             timeIn: null,
@@ -89,6 +174,7 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
         }
       }
     })
+
     $scope.$apply();
   })
 });
