@@ -1,9 +1,14 @@
-<div class="row" style="background-color: white; padding: 10px;">
+<div class="row" style="background-color: white; padding: 10px; box-shadow: 3px 3px 3px black">
     <div ng-if="is.showChart==='cohort'" ng-repeat="datum in is.dataSet" class="col s1">
         <d3-verticle-dot-distribution data="datum"></d3-verticle-dot-distribution>
     </div>
-    <div ng-if="is.showChart==='individual'" class="col s12" style="height: 50vh">
-        <d3-line-chart data="is.graphData" style="height: 100%;"></d3-line-chart>
+    <div class="row" ng-if="is.showChart==='individual'">
+        <a class="waves-effect waves-light btn" ng-click="is.showChart='cohort'">Reset to Group View</a>
+    </div>
+    <div class="row" ng-if="is.showChart==='individual'">  
+        <div class="col s12" style="height: 50vh">
+            <d3-line-chart data="is.graphData" style="height: 100%;"></d3-line-chart>
+        </div>    
     </div>
 </div>
 
