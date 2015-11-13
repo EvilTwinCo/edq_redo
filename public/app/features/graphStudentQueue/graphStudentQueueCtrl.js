@@ -13,6 +13,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
   $scope.$watch('is.chartData', function() {
     console.log(self.chartData);
     if (self.chartData.length) {
+      svg.empty();
       draw();
     }
   });
@@ -79,6 +80,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
     chart = d3Svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
+
     chart.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -96,6 +98,9 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
 
 
       console.log(groupedData);
+
+      chart.selectAll(".day").data({}).exit().remove();
+
     var state = chart.selectAll(".day")
       .data(groupedData)
       .enter().append("g")

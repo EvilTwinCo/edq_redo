@@ -1,6 +1,8 @@
 var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($scope, socketIoSrvc, $filter) {
   var socket = socketIoSrvc.getSocket();
   $scope.chartData = [];
+  var filteredData = [];
+
   var columnDefs = [{
     headerName: "Student",
     field: "name",
@@ -47,7 +49,9 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
     columnDefs: columnDefs,
     rowData: rowData,
     enableColResize: true,
-    enableFilter:true
+    enableFilter:true,
+    onBeforeFilterChanged: beforeFilterChanged,
+    onAfterFilterChanged: afterFilterChanged
   };
 
   socket.emit('request queue stats');
@@ -104,6 +108,22 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
 
     $scope.$apply();
   });
+
+  function afterFilterChanged(){
+    console.log('after filter changed');
+    $scope.gridOptions.api.forEachNodeAfterFilter(filteredDataAggregator);
+    console.log(filteredData);
+    $scope.chartData = filteredData;
+  }
+
+  function beforeFilterChanged() {
+        console.log('before filter changed');
+        filteredData = [];
+    }
+
+  function filteredDataAggregator (node) {
+        filteredData.push(node.data);
+    }
 
   function miliToTime(params) {
     var day = new Date(params.value);
