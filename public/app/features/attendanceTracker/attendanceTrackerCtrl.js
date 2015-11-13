@@ -2,24 +2,21 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function(socketIoSrvc
   var self = this;
   var socket = socketIoSrvc.getSocket();
   this.hideMenu = true;
-  this.changingTimeIn = false;
-  this.changingTimeOut = false;
-
   this.tempUser = {};
 
   this.doIt = function() {
     $('select').material_select();
   }
 
-this.setTimeToNineAm = function(){
-  var today = function(){
-    return new Date();
-  }
+  this.setTimeToNineAm = function() {
+    var today = function() {
+      return new Date();
+    }
     var nineOclock = new Date();
 
-    return new Date(nineOclock.setHours(9,0,0));
+    return new Date(nineOclock.setHours(9, 0, 0));
 
-}
+  }
 
 
   this.getTheUsersForCohort = function() {
@@ -27,7 +24,7 @@ this.setTimeToNineAm = function(){
   }
 
   this.hideDisplay = function() {
-      this.getTheUsersForCohort();
+    this.getTheUsersForCohort();
     this.hideMenu = !this.hideMenu;
   }
 
@@ -37,61 +34,58 @@ this.setTimeToNineAm = function(){
 
   this.timeInButton = function(user) {
 
-    this.showTimeChangeButton = true;
     user.attendanceData.timeIn = this.setTimeToNineAm();
-    console.log(user, "the time in button");
     self.formatAndPostAttendance(user);
 
   }.bind(this)
 
 
 
-this.startChangeTimeIn = function(user){
-    self.changingTimeIn = !self.changingTimeIn;
+  this.startChangeTimeIn = function(user) {
+
     self.tempUser = user;
 
-}
+  }
 
-this.setNewTimeIn = function(time){
-
-
-  var hours = time.getHours();
-  var mins = time.getMinutes();
-  var seconds = time.getSeconds();
-  var now = new Date();
-  now.setHours(hours, mins, seconds);
-  self.tempUser.attendanceData.timeIn  = now;
-  self.formatAndPostAttendance(self.tempUser);
-  self.changingTimeIn = !self.changingTimeIn;
-
-}
+  this.setNewTimeIn = function(time) {
 
 
+    var hours = time.getHours();
+    var mins = time.getMinutes();
+    var seconds = time.getSeconds();
+    var now = new Date();
+    now.setHours(hours, mins, seconds);
+    self.tempUser.attendanceData.timeIn = now;
+    self.formatAndPostAttendance(self.tempUser);
 
-this.startChangeTimeOut = function(user){
-    self.changingTimeOut = !self.changingTimeOut;
+
+  }
+
+
+
+  this.startChangeTimeOut = function(user) {
+
     self.tempUser = user;
 
-}
+  }
 
-this.setNewTimeOut = function(time){
+  this.setNewTimeOut = function(time) {
 
 
-  var hours = time.getHours();
-  var mins = time.getMinutes();
-  var seconds = time.getSeconds();
-  var now = new Date();
-  now.setHours(hours, mins, seconds);
-  console.log(now);
-  self.tempUser.attendanceData.timeOut  = now;
-  self.formatAndPostAttendance(self.tempUser);
-  self.changingTimeOut = !self.changingTimeOut;
+    var hours = time.getHours();
+    var mins = time.getMinutes();
+    var seconds = time.getSeconds();
+    var now = new Date();
+    now.setHours(hours, mins, seconds);
+    self.tempUser.attendanceData.timeOut = now;
+    self.formatAndPostAttendance(self.tempUser);
 
-}
+
+  }
   $scope.$watch('self.users', function(newValue, oldValue) {
 
 
-});
+  });
 
 
 
@@ -110,13 +104,12 @@ this.setNewTimeOut = function(time){
   }
 
 
-  this.dateForCheckingAttendanceDate = function(){
-    var today = function(){
+  this.dateForCheckingAttendanceDate = function() {
+    var today = function() {
       return new Date();
     }
-      var zeroOclock = new Date();
-
-      return new Date(zeroOclock.setHours(0,0,0,0));
+    var zeroOclock = new Date();
+    return new Date(zeroOclock.setHours(0, 0, 0, 0));
 
   }
 
@@ -138,20 +131,16 @@ this.setNewTimeOut = function(time){
           user.attendanceData.score = 3;
           break;
       }
-      // console.log("postAttendance", user)
       socket.emit("postAttendance", user);
-      console.log("posting", user)
 
     } else {
-      ///////problens herererererere
-            console.log("postAttendance", user)
       socket.emit("postAttendance", user);
 
     }
   }
 
   this.users = [];
-//only new
+
   socket.on('attendanceUpdateWithNewAttenance', function(data) {
 
     self.users.forEach(function(item, index, arr) {
@@ -159,17 +148,13 @@ this.setNewTimeOut = function(time){
         item.attendanceData = data.attendanceData;
       }
     })
-
-    // _.findWhere(this.users,{_id:data.user})._id = data._id;
-
   }.bind(this));
 
 
 
   socket.on('getInitialAttendance', function(freshUsers) {
 
-
-    self.users =[];
+    self.users = [];
     var today = self.dateForCheckingAttendanceDate();
     freshUsers.forEach(function(item, index, array) {
       if (item.cohortId == self.cohortId) {
@@ -189,7 +174,7 @@ this.setNewTimeOut = function(time){
         }
       }
     })
-    // console.log(self.users);
+
     $scope.$apply();
   })
 });
