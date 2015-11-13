@@ -15,8 +15,6 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
         //console.log(self.cohortId); 
         confidenceSrvc.getConfidences(self.cohortId).then(function(confidences) {
 
-
-
             for (var i = 0; i < confidences.length; i++) {
                 confidences[i].firstName = confidences[i].user.firstName;
                 confidences[i].lastName = confidences[i].user.lastName;
@@ -37,32 +35,62 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
         });
     }
     
+//    function updateChart (data) {
+//        //console.log(data);
+//        var confidenceValuesObj = {};
+//        data.forEach(function(item) {
+//            if (!confidenceValuesObj[item.learningObjective]) {
+//                confidenceValuesObj[item.learningObjective] = [];
+//            }
+//            confidenceValuesObj[item.learningObjective].push(item.confidence);
+//        })
+//
+//        var confidenceValuesArray = [];
+//        var confidenceLabelsArray =[];
+//        for (var prop in confidenceValuesObj) {
+//            confidenceValuesArray.push(confidenceValuesObj[prop]);
+//            confidenceLabelsArray.push(prop);
+//        }
+//        console.log(confidenceLabelsArray);
+//        console.log(confidenceValuesArray);
+//
+//        self.dataSet = confidenceValuesArray;
+//    }
+    
     function updateChart (data) {
-        //console.log(data);
-        var confidenceValuesObj = {};
-        data.forEach(function(item) {
-            if (!confidenceValuesObj[item.learningObjective]) {
-                confidenceValuesObj[item.learningObjective] = [];
-            }
-            confidenceValuesObj[item.learningObjective].push(item.confidence);
-        })
-
+        console.log(data);
+        
+        var pushedYetCheckObj = {}
+        var confidenceLabelsArray = [];
         var confidenceValuesArray = [];
-        var confidenceLabelsArray =[];
-        for (var prop in confidenceValuesObj) {
-            confidenceValuesArray.push(confidenceValuesObj[prop]);
-            confidenceLabelsArray.push(prop);
-        }
-        //console.log(confidenceLabelsArray);
-        //console.log(confidenceValuesArray);
+        var confidenceIdsArray = [];
+        
+        arrayLocation = 0;
+        data.forEach(function (item) {
+            if (!pushedYetCheckObj[item.learningObjective]) {
+                pushedYetCheckObj[item.learningObjective] = arrayLocation;
+                arrayLocation++;
+                confidenceValuesArray.push([]);
+                confidenceLabelsArray.push(item.learningObjectiveTopic);
+                confidenceIdsArray.push(item.learningObjective);
+            }
+            confidenceValuesArray[pushedYetCheckObj[item.learningObjective]].push(item.confidence);
+        })
+        
+        console.log(confidenceLabelsArray);
+        console.log(confidenceIdsArray);
+        console.log(confidenceValuesArray);
 
         self.dataSet = confidenceValuesArray;
+        self.dataLabels = confidenceLabelsArray;
     }
     
     var columnDefs = [
         {headerName: "First Name", field: 'firstName', editable: false},
         {headerName: "Last Name", field: 'lastName', editable: false},
-        {headerName: "Learning Objective", field: 'learningObjective', editable: false},
+        {headerName: "LO Id", field: 'learningObjective', editable: false},
+        {headerName: "LO Topic", field: 'learningObjectiveTopic', editable: false},
+        {headerName: "LO Name", field: 'learningObjectiveName', editable: false},
         {headerName: "Confidence", field: 'confidence', editable: false},
         {headerName: "Timestamp", field: 'timestamp', editable: false},
         {headerName: "CohortId", field: 'cohortId', editable: false}

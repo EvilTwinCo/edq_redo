@@ -17,7 +17,7 @@ var app = angular.module("theQ").controller("d3VerticleDotDistributionCtrl", fun
         var chartSize = self.svg[0];
         var h = chartSize.clientHeight;
         var w = chartSize.clientWidth;
-        console.log(h);
+        //console.log(h);
 
         var chart = self.chart;
 
