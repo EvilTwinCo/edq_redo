@@ -1,7 +1,6 @@
-
 <a class='dropdown-button btn' href='#' data-activates='dropdownCohortOptions'>Cohort: {{is.currentCohort}}</a>
 <ul id='dropdownCohortOptions' class='dropdown-content'>
-    <li ng-repeat="cohort in is.cohortOptions"><a ng-click="is.setDropdownValue(cohort)">{{cohort.label}}</a></li>
+    <li ng-repeat="cohort in is.cohortOptions track by $index"><a ng-click="is.setDropdownValue(cohort)">{{cohort}}</a></li>
 </ul>
 
 <div class='row'>
@@ -11,15 +10,12 @@
     <div class="col s12 m6">
         <confidence-live-chart cohort-id="is.currentCohort"></confidence-live-chart>
     </div>
+    <div class="">
+        <flash-poll-monitor cohort-id="is.currentCohort"></flash-poll-monitor>
+    </div>
 </div>
 <div>
-
-
-
-    <attendance-tracker cohort-id="is.currentCohort" ng-if="true"></attendance-tracker>
-</div>
-<div class="">
-    <flash-poll-monitor></flash-poll-monitor>
+    <attendance-tracker cohort-id="is.currentCohort" ng-if="false"></attendance-tracker>
 </div>
 
 <script>
