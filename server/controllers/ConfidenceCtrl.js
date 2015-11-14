@@ -54,10 +54,6 @@ module.exports = {
         //console.log(obj);
         io.to('instructors').emit('report confidence single', obj);
     },
-    handleInstructorLogin: function (socket, obj) {
-        console.log("Instructor Logging In");
-        socket.join('instructors');
-    },
     handleGetCurrentConfidences: function (socket, cohortId) {
         var filterObj = {};
         var returnObj = {};

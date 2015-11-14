@@ -1,6 +1,8 @@
 angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc, $scope) {
     var socket = socketIoSrvc.getSocket();
 
+    socket.emit('student login');
+    
     socket.emit('get all learning objectives');
     socket.on('learning objectives are', function(data){
       console.log(data);

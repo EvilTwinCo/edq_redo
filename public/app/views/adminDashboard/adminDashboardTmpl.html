@@ -3,7 +3,7 @@
     <li ng-repeat="cohort in is.cohortOptions track by $index"><a ng-click="is.setDropdownValue(cohort)">{{cohort}}</a></li>
 </ul>
 
-<div class='row'>
+<div class='row' ng-if="is.currentCohort !== 'Select ID...'">
     <div class="col s12 m6">
         <mentor-queue cohort-id="is.currentCohort"></mentor-queue>
     </div>

@@ -1,5 +1,6 @@
 var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(socketIoSrvc, $scope) {
   var socket = socketIoSrvc.getSocket();
+    var self = this;
   var aCount, bCount, cCount, scale;
 
   socket.on('flashPoll', function(data) {
@@ -49,7 +50,8 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
   var resultSet;
 
   this.clearData = function() {
-    socket.emit('removeStudentFlashPollData')
+    console.log(self.cohortId);
+    socket.emit('removeStudentFlashPollData', self.cohortId)
     $scope.dataSet = [];
     updateResults();
   }
