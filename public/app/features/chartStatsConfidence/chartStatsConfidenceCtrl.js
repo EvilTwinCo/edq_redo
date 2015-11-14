@@ -43,7 +43,22 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
         var confidenceLabelsArray = [];
         var confidenceValuesArray = [];
         var confidenceIdsArray = [];
+        var confidenceValuesObj = {};
 
+        /*data = _.sortBy(data, 'learningObjective');
+        
+        var confidenceLabelObjsArray = _.uniq(data, function(item) {
+            return item.learningObjective;
+        })*/
+        
+//        var confidenceValuesByIdArray = _.groupBy(data, function(item) {
+//            return item.learningObjective;
+//        })
+//        
+//        console.log(confidenceLabelObjsArray);
+//        console.log(confidenceValuesByIdArray);
+        
+        
         arrayLocation = 0;
         data.forEach(function (item) {
             if (!pushedYetCheckObj[item.learningObjective]) {
@@ -53,16 +68,10 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
                 confidenceLabelsArray.push(item.learningObjectiveTopic);
                 confidenceIdsArray.push(item.learningObjective);
             }
-            confidenceValuesObj[item.learningObjective].push(item.confidence);
+            confidenceValuesArray[pushedYetCheckObj[item.learningObjective]].push(item.confidence);
         });
-
-        for (var prop in confidenceValuesObj) {
-            confidenceValuesArray.push(confidenceValuesObj[prop]);
-            confidenceLabelsArray.push(prop);
-        }
-        //console.log(confidenceLabelsArray);
-        //console.log(confidenceValuesArray);
-
+        console.log(confidenceLabelsArray);
+        console.log(confidenceValuesArray);
 
         self.dataSet = confidenceValuesArray;
         self.dataLabels = confidenceLabelsArray;

@@ -6,8 +6,8 @@ var app = angular.module('theQ').directive("flashPollMonitor", function(){
         controllerAs: "fm",
         bindToController: true,
         scope: {
-          votesArray : '='
-
+            votesArray : '=',
+            cohortId: '='
         }
     }
 })

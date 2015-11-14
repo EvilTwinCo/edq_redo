@@ -15,7 +15,7 @@ module.exports = {
             getPositionInQueue(data.name, null, function (position) {
                 socket.emit('position in queue', position);
             });
-            ioServer.emit('questionForQueue', newQuestion);
+            socket.server.to('instructors').emit('questionForQueue', newQuestion);
         });
 
     },
@@ -33,7 +33,7 @@ module.exports = {
                 if (result) {
                     result.studentSolution = data.studentSolution;
                     result.save();
-                    socket.server.emit('new live feed', {
+                    socket.server.to('student cohort:'+socket.request.user.devMtn.cohortId).emit('new live feed', {
                         question: result.question,
                         solution: data.studentSolution
                     });
@@ -104,7 +104,7 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 }
-                ioServer.emit('mentorBegins', result);
+            socket.server.to('instructors').emit('mentorBegins', result);
             });
     },
     questionResolve: function (socket, data) {
@@ -134,11 +134,11 @@ module.exports = {
         if (!question.studentId) {
             question.studentId = socket.request.user.devMtn.id;
         }
-        ioServer.emit('remove question from queue', question);
+        socket.server.to('instructors').emit('remove question from queue', question);
     },
     handleStudentSolution: function (socket, data) {
         console.log('handleStudentSolution Data:', data);
-        socket.emit('liveFeed', data);
+        socket.server.to('student cohort:'+socket.request.user.devMtn.cohortId).emit('liveFeed', data);
     },
     handleStatsQuery: function (socket, query) {
         console.log("Start Query");

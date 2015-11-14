@@ -131,10 +131,8 @@ ioServer.on('connection', function (socket) {
     socket.on('request reset view data', function() {socket.emit('reset view data')});
 
     //User Sockets
-    socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
-    socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
-    socket.on('update user', UserCtrl.updateUserInfo.bind(null, socket));
-    socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
+    socket.on('instructor login', UserCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('student login', UserCtrl.handleStudentLogin.bind(null, socket));
 
     //Learning Objective Sockets
     //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
@@ -144,7 +142,7 @@ ioServer.on('connection', function (socket) {
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
-    socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+   
     socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
     //Question Sockets
