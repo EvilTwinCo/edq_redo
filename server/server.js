@@ -27,6 +27,7 @@ var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 var CohortCtrl = require('./controllers/CohortCtrl');
+var passportLocalCtrl = require('./controllers/LocalPassportCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -77,8 +78,15 @@ passport.use('devmtn', new DevmtnStrategy({
   jwtSecret: process.env.DM_SECRET
 }, DevMtnPassportCtrl.authLogin));
 
-passport.serializeUser(DevMtnPassportCtrl.serializeUser);
-passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
+passportLocalCtrl.setup;
+app.post('/auth/passportLocal', passportLocalCtrl.auth);
+app.get('/auth/passportLocal/setUser', passportLocalCtrl.setUser);
+
+//passport.serializeUser(DevMtnPassportCtrl.serializeUser);
+//passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
+
+passport.serializeUser(function(user, done) {done(null, user);});
+passport.deserializeUser(function(obj, done) {done(null, obj);});
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({
