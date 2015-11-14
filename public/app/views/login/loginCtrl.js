@@ -15,5 +15,5 @@ angular.module('theQ').controller('loginCtrl', function($q, $http, $window, $loc
         $window.location.href = 'http://localhost:8080/auth/devmtn';
    }
 
-   //this.loginWithPassportDevMtn();
+   this.loginWithPassportDevMtn();
 });

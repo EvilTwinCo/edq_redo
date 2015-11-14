@@ -1,6 +1,7 @@
 angular.module('theQ').service('cohortSrvc', function($q, $http) {
 
-    var baseUrl = 'http://192.168.1.100:8080/'
+    //var baseUrl = 'http://192.168.1.100:8080/'
+    var baseUrl = 'http://localhost:8080/'
 
     this.getCohortIds = function() {
         var deferred = $q.defer();
