@@ -1,6 +1,7 @@
-<div>
-  <h1 ng-repeat = "thing in is.attendees">testtttt   {{thing.attendee.firstName}}</h1>
-
-    <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"></div>
+<div ng-show="is.cohortId != 'Select ID...'">
+  <h1>Cohort # {{is.cohortId}}</h1>
+<div id = "targetContainer">
+  <div>
+    <div ag-grid="gridOptions" class="ag-dark" style="height: 100%;"></div>
 
 </div>
