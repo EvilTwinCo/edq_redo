@@ -31,12 +31,14 @@ module.exports = {
         obj.devMtnId = socket.request.user.devMtn.id;
         obj.cohortId = socket.request.user.devMtn.cohortId;
         
-        if (timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId] === undefined) {
-            timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId] = new Date();
+        if (timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_topic + USER_SEPARATOR + obj.devMtnId] === undefined) {
+            timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_topic + USER_SEPARATOR + obj.devMtnId] = new Date();
             setTimeout(recordConfidence.bind(null, {
                 objective_id: obj.objective_id,
                 devMtnId: obj.devMtnId,
-                cohortId: obj.cohortId
+                cohortId: obj.cohortId,
+                objective_topic: obj.objective_topic,
+                objective_name: obj.objective_name
             }), 10000);
         }
         
@@ -44,7 +46,9 @@ module.exports = {
             objective_id: obj.objective_id,
             devMtnId: obj.devMtnId,
             cohortId: obj.cohortId,
-            value: obj.value
+            value: obj.value,
+            objective_topic: obj.objective_topic,
+            objective_name: obj.objective_name
         });
 
         //console.log(obj);
@@ -66,14 +70,14 @@ module.exports = {
         for (var prop in filterObj) {
             var indexStart = prop.indexOf(COHORT_SEPARATOR);
             var indexStop = prop.indexOf(USER_SEPARATOR);
-            var objId = prop.slice(indexStart + COHORT_SEPARATOR.length, indexStop);
+            var objTopic = prop.slice(indexStart + COHORT_SEPARATOR.length, indexStop);
             var cohortId = prop.slice(0,indexStart);
             var userId = prop.slice(indexStop + USER_SEPARATOR.length);
             socket.emit('report confidence single', {
-                objective_id: objId,
+                objective_topic: objTopic,
                 value: String(filterObj[prop]),
                 devMtnId: userId,
-                cohortId: cohortId
+                cohortId: cohortId,
             });  
         }
     },
@@ -94,11 +98,37 @@ module.exports = {
                 res.json(result);
             }
         })
+    },
+    getUserLearningObjConfidences: function (req, res) {
+        var findObj;
+        
+        if (req.params.userId) {
+            if (req.params.learningObjId !== undefined) {
+                findObj = {
+                    user: req.params.userId,
+                    learningObjective: req.params.learningObjId
+                }   
+            } 
+            else findObj = {user: req.params.userId};
+            console.log('findObj', findObj);
+
+            Confidence.find(findObj).populate({
+                path: 'user',
+                select: 'firstName lastName',
+            }).sort({timestamp: -1}).exec(function (error, result) {
+                if (error) {
+                    console.log(error);
+                    res.send(error);
+                } else {
+                    res.json(result);
+                }
+            })
+        }
     }
 }
     
 function updateConfidence(obj) {
-    currentConfidence[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId] = obj.value;
+    currentConfidence[obj.cohortId + COHORT_SEPARATOR + obj.objective_topic + USER_SEPARATOR + obj.devMtnId] = obj.value;
 }
 
 function recordConfidence(obj) {
@@ -108,11 +138,14 @@ function recordConfidence(obj) {
         } else {            
             Confidence.create({
                 learningObjective: obj.objective_id,
+                learningObjectiveTopic: obj.objective_topic,
+                learningObjectiveName: obj.objective_name,
                 cohortId: obj.cohortId,
                 classId: 'testClassId', //TODO: update once we have an actual classId
                 user: userResult._id,
-                confidence: currentConfidence[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId],
-                timestamp: timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId]
+                confidence: currentConfidence[obj.cohortId + COHORT_SEPARATOR + obj.objective_topic + USER_SEPARATOR + obj.devMtnId],
+                timestamp: timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_topic + USER_SEPARATOR + obj.devMtnId],
+
             }, function (err, confidenceResult) {
                 if (err) {
                     console.log(err);
@@ -121,7 +154,7 @@ function recordConfidence(obj) {
                 }
             })
             
-            delete timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_id + USER_SEPARATOR + obj.devMtnId];
+            delete timeoutQueue[obj.cohortId + COHORT_SEPARATOR + obj.objective_topic + USER_SEPARATOR + obj.devMtnId];
         }
     })
 }

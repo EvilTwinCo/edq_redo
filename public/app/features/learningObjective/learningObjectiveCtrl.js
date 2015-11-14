@@ -2,17 +2,12 @@ var app = angular.module("theQ").controller("learningObjectiveCtrl", function(so
 
     var socket = socketIoSrvc.getSocket();
 
-    // this.learningObjectives = [
-    //     {id: "123456", title: "Creating a folder", percentage: 0},
-    //     {id: "ABCDEF", title: "Creating a file", percentage: 0},
-    //     {id: "xyz", title: "Editing a file", percentage: 0},
-    //     {id: "098765", title: "Changing Directories", percentage: 0}
-    // ]
-
-    this.submitConfidence = function(objective_id, value) {
+    this.submitConfidence = function(objective_id, value, objective_topic, objective_name) {
         var confidenceObj = {
             objective_id: objective_id,
-            value: value
+            value: value,
+            objective_topic: objective_topic,
+            objective_name: objective_name
         }
 
         //console.log('submitting confidence: ', confidenceObj);

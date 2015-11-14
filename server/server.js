@@ -106,6 +106,7 @@ function onAuthorizeFail(data, message, error, accept) {
 
 app.get('/admin/confidences/:cohortId', ConfidenceCtrl.getDatabaseConfidences);
 app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
+app.get('/admin/confidences/user/:userId/:learningObjId', ConfidenceCtrl.getUserLearningObjConfidences);
 
 ioServer.on('connection', function (socket) {
     var devMtnId = socket.request.user.devMtn.id;

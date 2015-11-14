@@ -7,8 +7,9 @@
 
     <div class="col s4 l4">
         <form>
+
             <p class="range-field">
-                <input ng-model="objective.percentage" type="range" id="range-slider" default = "0" min="0" max="100" step="1" ng-change="is.submitConfidence(objective.objectiveId, objective.percentage)" />
+                <input ng-model="objective.percentage" type="range" id="range-slider" default = "0" min="0" max="100" step="1" ng-change="is.submitConfidence(objective.objectiveId, objective.percentage, objective.objectiveTopic, objective.objectiveName)" />
             </p>
         </form>
     </div>

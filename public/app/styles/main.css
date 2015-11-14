@@ -86,3 +86,11 @@ nav img{
   width:55px;
   margin:4px;
 }
+
+graph-student-queue{
+  display:block;
+  background-color: mintcream;
+  border-radius:50px;
+  box-shadow: 2px 2px 2px #131313;
+  margin-bottom: 5px;
+}

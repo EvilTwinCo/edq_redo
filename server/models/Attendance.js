@@ -22,7 +22,7 @@ var attendancesSchema = new mongoose.Schema({
     score: {
       type: Number
     },
-    
+
     dateOfAttendance: {
       type: Date
     }
