@@ -8,8 +8,28 @@
 
 }
 .oddClass{
-  background-color: #D2CFD0;
+  background-color: #fafafa;
 }
 
+.title {
+  display: flex;
+  align-self: center;
+}
+.mentorBorder {
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-self: center;
+}
+.studentTitle {
+  border-bottom: 1px solid black;
+}
+.questionWrapper {
+  display: flex;
+  flex-direction: row;
+}
+.questionInput {
+  margin-top: 20px;
+}
 
 /*NOT BEING USED*/
