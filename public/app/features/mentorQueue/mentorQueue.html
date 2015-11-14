@@ -1,26 +1,30 @@
-<div class = "row">
-  <ul class="collection s12" ng-repeat = "part in mq.questions">
-      <li ng-if = "!part.solved" class="collection-item avatar"  ng-init = "mq.ObjectEntersQ(part)" ng-class-odd= "'grey lighten-2'">
-        <img ng-src = "app/logoonly.png" alt="studentPicture" class="circle">
-        <div class="center-align studentTitle">{{part.name}}</div>
-        <div class="center-align"><p>{{part.question}}</p></div>
+<div class="row">
+  <ul class="collection s12" ng-repeat="part in mq.questions">
+    <li ng-if="!part.solved" class="collection-item avatar" ng-init="mq.ObjectEntersQ(part)" ng-class-odd="'grey lighten-2'">
+      <img ng-src="app/logoonly.png" alt="studentPicture" class="circle">
+      <div class="center-align studentTitle">{{part.name}}</div>
+      <div class="center-align">
+        <p>{{part.question}}</p>
+      </div>
 
-        <div ng-if = "part.mentorName" ng-class-odd= "'grey lighten-2'" class="center-align mentorBorder"><p><b>{{part.mentorName}}</b></p></div>
+      <div ng-if="part.mentorName" ng-class-odd="'grey lighten-2'" class="center-align mentorBorder">
+        <p><b>{{part.mentorName}}</b></p>
+      </div>
 
-        <a ng-if = "!part.mentorName"  class="waves-effect waves-light btn questionInput" ng-click = "mq.mentorBegins(part)">Help</a>
-        <span><a class="waves-effect waves-light btn red questionInput" ng-click = "mq.questionResolve(part)">Remove</a></span>
+      <a ng-if="!part.mentorName" class="waves-effect waves-light btn questionInput" ng-click="mq.mentorBegins(part)">Help</a>
+      <span><a class="waves-effect waves-light btn red questionInput" ng-click="mq.questionResolve(part)">Remove</a></span>
 
-      <div class = "row" ng-if= "part.removing">
-        <div class="input-field col ">
-          <input id="question" type="text" class="validate" ng-model = "part.reviewedQuestion">
+      <div class="row" ng-if="part.removing">
+        <div class="input-field col s12">
+          <input id="question" type="text" class="validate" ng-model="part.reviewedQuestion">
           <label for="question">Question?</label>
         </div>
-        <div class="input-field col ">
-          <input id="solution" type="text" class="validate" ng-model = "part.reviewedAnswer">
+        <div class="input-field col s12">
+          <input id="solution" type="text" class="validate" ng-model="part.reviewedAnswer">
           <label for="solution">Solution?</label>
         </div>
-                <div><a ng-if = "part.removing" class="waves-effect waves-light btn" ng-click = "mq.addingQuestionAndSolution(part)">Done!</a></div>
+        <div><a ng-if="part.removing" class="waves-effect waves-light btn" ng-click="mq.addingQuestionAndSolution(part)">Done!</a></div>
       </div>
-      </li>
-    </ul>
+    </li>
+  </ul>
 </div>

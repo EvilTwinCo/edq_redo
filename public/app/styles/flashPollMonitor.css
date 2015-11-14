@@ -1,13 +1,10 @@
-.containers {
+/*.containers {
     width: 500px;
     height: 500px;
     margin: 0 auto;
 }
 
-#svgChart {
-    width: 100%;
-    height: 100%;
-}
+
 
 #xAxis {
     background-color: white;
@@ -35,4 +32,4 @@ canvasDiv {
     font-size: 40px;
     font-family: sans-serif;
     color: gray;
-}
+}*/

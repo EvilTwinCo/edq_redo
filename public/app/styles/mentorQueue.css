@@ -1,3 +1,7 @@
+* {
+  outline: 1px solid red;
+}
+
 .warningColor {
   background-color: red;
 }
@@ -8,7 +12,7 @@
 
 }
 .oddClass{
-  background-color: #D2CFD0;
+  background-color: #fafafa;
 }
 .title {
   display: flex;
