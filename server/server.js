@@ -155,6 +155,8 @@ ioServer.on('connection', function (socket) {
     //Attendance Sockets
     socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));
     socket.on('getAttendance', AttendanceCtrl.getAttendance.bind(null, socket));
+    socket.on('getAllAttendanceOfCohort', AttendanceCtrl.getAllAttendanceOfCohort.bind(null, socket));
+
 });
 
 mongoose.set('debug', true);
