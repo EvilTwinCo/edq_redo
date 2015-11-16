@@ -6,7 +6,7 @@ angular.module('theQ').directive('chartStatsQueue', function() {
         bindToController: true,
         attribute: 'E',
         scope: {
-
+          cohortId:"="
         }
     };
 });
