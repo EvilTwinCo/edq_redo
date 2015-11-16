@@ -12,24 +12,21 @@
   height:1.5em;
 }
 
-.redBackground {
-  background-color: #E74C3C;
-}
 
 .redBackground {
-  background-color: #E74C3C;
+  background-color: #D24D57;
 }
 .greenBackground {
-  background-color: #2ECC71;
+  background-color: #03C9A9;
 }
 .yellowBackground {
-  background-color: #F1C40F;
+  background-color: #F5D76E;
 }
 .greyBackground {
-  background-color: #7F8C8D;
+  background-color: #BDC3C7;
 }
 .purpleBackground {
-  background-color: #cb69d6;
+  background-color: #BE90D4;
 }
 
 .ancorDiv {
