@@ -5,7 +5,6 @@ module.exports = {
     getCohortIdOptions: function (req, res) {
 
         var cohorts = [];
-        console.log('Hi Brack');
         //Find all cohortIds tied to database confidences.
         Confidence.find({}, function (error, result) {
             if (error) {
