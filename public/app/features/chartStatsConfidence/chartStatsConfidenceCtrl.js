@@ -4,16 +4,21 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
 
     var filteredData = [];
 
+
+
     self.showChart = 'cohort';
+
 
     $scope.$watch('is.cohortId', function () {
         if (self.cohortId) {
             getData();
         }
+
     });
 
     function getData() {
         //console.log(self.cohortId);
+
         confidenceSrvc.getConfidences(self.cohortId).then(function(confidences) {
 
             for (var i = 0; i < confidences.length; i++) {
@@ -39,12 +44,14 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     function updateChart (data) {
         console.log(data);
 
+
+
         var pushedYetCheckObj = {};
         var confidenceLabelsArray = [];
         var confidenceValuesArray = [];
         var confidenceIdsArray = [];
         var confidenceValuesObj = {};
-        
+
         arrayLocation = 0;
         data.forEach(function (item) {
             if (!pushedYetCheckObj[item.learningObjective]) {

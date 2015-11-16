@@ -7,10 +7,45 @@ var _ = require('underscore');
 
 module.exports = {
 
+  getAllAttendanceOfCohort: function(socket, data){
+    var cohortAttendance = [];
+
+    User.find({}).where('devMtn.cohortId').equals(data).exec(function(err, users){
+      users.forEach(function(item){
+        Attendance.find({'user': item._id}).exec(function(error, attendance){
+            var userWithAttendance = {
+              attendee: item,
+              attendance: attendance
+            };
+            // console.log(userWithAttendance)
+                socket.emit('All attendance for a cohort', userWithAttendance)
+            // cohortAttendance.push(userWithAttendance);
+          })
+      })
+    })
+
+    // socket.emit('All attendance for a cohort', cohortAttendance)
+  },
+
+
+  //
+  // getAllAttendanceOfCohort: function(socket, data){
+  //   var cohortAttendance = [];
+  //
+  //   Attendance.find({})
+  //     .where('cohort')
+  //       .equals(data)
+  //       .populate('user')
+  //       .exec(function(err, result){
+  //         console.log('result', result)
+  //       })
+  //   socket.emit('All attendance for a cohort', cohortAttendance)
+  // },
+  //
+  //
 
 
   postAttendance: function(socket, data) {
-console.log('data.todayDate', data.todayDate)
     Attendance.findOne({'user' :data.user, 'attendanceData.dateOfAttendance':{$gte: data.todayDate}}, function(err, attendance) {
 
 
@@ -21,7 +56,7 @@ console.log('data.todayDate', data.todayDate)
           if (err) {
             console.log(err);
           }
-          console.log('SAving att', attendance)
+          console.log('Saving attendance', attendance)
           socket.emit('attendanceUpdate', attendance)
         })
 
@@ -32,7 +67,7 @@ console.log('data.todayDate', data.todayDate)
           if (error) {
             console.log("OMG! Im on fire!!!", error)
           } else {
-            console.log("New one from server", data)
+            console.log("New attendance record from server", data)
             socket.emit("attendanceUpdateWithNewAttenance", data)
           }
         })
@@ -53,10 +88,9 @@ console.log('data.todayDate', data.todayDate)
            .where('attendanceData.dateOfAttendance')
            .gt(morning)
             .exec(function(err, attendances) {
-              console.log(morning);
-              console.log(attendances);
+
             var daysAttendance = users.map(function(item){
-              console.log(item);
+
               return {
                 user: item._id,
                 cohortId:item.devMtn.cohortId,
@@ -76,7 +110,7 @@ console.log('data.todayDate', data.todayDate)
             }
           })
 
-          console.log("daysAttendance", daysAttendance);
+          // console.log("daysAttendance", daysAttendance);
           socket.emit('getInitialAttendance', daysAttendance)
 
         })
