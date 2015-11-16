@@ -94,3 +94,33 @@ graph-student-queue{
   box-shadow: 2px 2px 2px #131313;
   margin-bottom: 5px;
 }
+
+student-flash-poll .hiddenFlash{
+  height:0px;
+  width:0px;
+  position:absolute;
+  overflow:hidden;
+  transition:1s;
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+student-flash-poll .shownFlash{
+  height:auto;
+  width:80vw;
+  overflow:hidden;
+  transition:1s;
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+student-flash-poll h2{
+  text-align: center;
+  overflow: hidden;
+  display:block;
+  max-height: 1em;
+}
