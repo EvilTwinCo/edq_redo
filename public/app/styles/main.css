@@ -64,8 +64,33 @@ html {
 
 #canvasDiv {
   display: inline-block;
-  height: 500px;
-  width: 500px;
+  width: 100%;
+  max-height: 330px;
+  margin:0 auto;
+  position:relative;
+
+}
+
+#canvasDiv div{
+  position:relative;
+  display:inline-block;
+}
+
+#canvasDiv svg{
+  height:100%;
+  margin:0 auto;
+}
+
+#canvasDiv input{
+  position:absolute;
+  top:5px;
+  right:5px;
+}
+
+.mentorQueueView{
+  height:calc(100vh - 534px);
+  background:#f9f9f9;
+  overflow:auto;
 }
 
 /*bryan end*/
@@ -123,4 +148,9 @@ student-flash-poll h2{
   overflow: hidden;
   display:block;
   max-height: 1em;
+}
+
+.cheeseburger{
+  display:flex;
+  justify-content: space-between;
 }

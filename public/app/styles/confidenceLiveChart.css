@@ -2,7 +2,7 @@ confidence-live-chart {
     display: block;
     width: 500px;
     height: 330px;
-    background-color: #fafafa;
+    background-color: #f9f9f9;
 }
 
 .confidenceSvg {
