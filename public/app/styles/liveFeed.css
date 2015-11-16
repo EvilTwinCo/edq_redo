@@ -5,13 +5,16 @@
   color: white;
 }
 .liveFeedText {
-  font-size: 12px;
+  font-size: 14px;
   color: white;
   margin-top: 5px;
 }
 .liveFeedTitle {
   color: white;
-  border-bottom: 1px white solid;
-  font-size: 14px;
-
+  /*border-bottom: 1px white solid;*/
+  font-size: 20px;
+  margin-top: 5px;
+}
+.feedContainer {
+  padding: 5px;
 }

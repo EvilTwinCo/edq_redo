@@ -1,19 +1,18 @@
-<!--Warning very hacky solution to getting the daynotes and Learning Objectives to sit on the bottom of the row.  It flips the entire row over, then flips each individual piece back over.  This changes the top to the bottom on the first flip, and corrects the orientation of the text on the second flip. Hacky as all get out, but it'll work without breaking materilizes grid system.-->
 <div class="row" style="margin-top:1em;">
   <div id="studentDashboard" class="col s12">
-    <div class="col s12 m8 l10">
-      <div class="row flip">
+    <div class="col s12 m8 l8">
+      <div class="row">
 
-        <div class="learningObjectives col s12 m12 l7 flip">
+
+
+        <div class="hide-on-large-only col s12" style="height:1.5em"></div>
+
+        <div class="learningObjectives">
           <learning-objective objectives = "objectives"></learning-objective>
           <div class="colorBlock redBackground"></div>
         </div>
-        <div class="hide-on-large-only col s12" style="height:1.5em"></div>
 
-        <div class="dayNotes col s12 m12 l5 flip" style=>
-          <day-notes trackables = "trackables"></day-notes>
-          <div class="colorBlock yellowBackground"></div>
-        </div>
+
 
       </div>
       <div class="row">
@@ -25,13 +24,23 @@
       <div class="row">
         <div class="flashPoll col s12">
           <student-flash-poll></student-flash-poll>
-          
+          <div class="colorBlock purpleBackground"></div>
         </div>
       </div>
     </div>
-    <div class="liveFeed col s12 m4 l2">
+    <div class="liveFeed col s12 m4 l4">
+      <div class="row">
+      <div class="dayNotes">
+
+        <day-notes trackables = "trackables"></day-notes>
+        <div class="colorBlock yellowBackground"></div>
+      </div>
+      </div>
+      <div class="row">
       <live-feed></live-feed>
-      <div class="colorBlock greyBackground"></div>
+    </div>
+
+      <!-- <div class="colorBlock greyBackground"></div> -->
     </div>
   </div>
 </div>
