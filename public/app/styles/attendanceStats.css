@@ -1,0 +1,33 @@
+.pieChartBody {
+  font: 10px sans-serif;
+}
+
+.arc path {
+  stroke: #fff;
+}
+.ChartText {
+ font-size: 18pt;
+
+}
+
+#targetContainer{
+  padding: 10px;
+  /*margin-bottom: 20px;*/
+  height: 100%;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+
+}
+.agGrid {
+
+}
+
+.gridContainer{
+display: flex;
+justify-content: center;
+
+}
+.gridMaster{
+  justify-content: center;
+}

@@ -1,28 +1,35 @@
 angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope){
 
+    var socket = socketIoSrvc.getSocket();
+    var self = this;
+    this.feed = [];
+    resetData();
 
-var socket = socketIoSrvc.getSocket();
-//console.log(socket);
+    socket.on('reset view data', function () {
+        console.log('resetting data view - liveFeed');
+        resetData();
+        $scope.$apply();
+    })
+    
+    socket.on('liveFeed', function(data){
+      self.feed.push(data);
+        $scope.$apply();
+    })
 
-this.feed = [];
+    socket.on('serversLiveFeedStore', function(data){
+      self.feed = data;
+        $scope.$apply();
+    })
 
-var self = this;
-socket.on('liveFeed', function(data){
-  console.log('12121212', data);
-  self.feed.push(data);
-    $scope.$apply();
-})
-
-socket.on('serversLiveFeedStore', function(data){
-  // console.log('55555555', data);
-  self.feed = data;
-    $scope.$apply();
-})
-
-
-
-
-
-// $broadcast
+    socket.on('server response: initial live feed queue', function(data) {
+        console.log(data);
+        self.feed = data;
+        $scope.$apply();
+    })
+    
+    function resetData () {
+        console.log(self.cohortId)
+        socket.emit('client request: initial live feed queue', self.cohortId); 
+    }
 
 });

@@ -3,6 +3,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
     var self = this;
   var aCount, bCount, cCount, scale;
 
+
   socket.on('flashPoll', function(data) {
     $scope.dataSet = data
     updateResults();
