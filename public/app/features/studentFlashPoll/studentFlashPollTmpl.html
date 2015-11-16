@@ -1,5 +1,9 @@
-<div style="display:flex" ng-show="showPolls">
-  <a class="waves-effect waves-light btn-large" style="flex:1;margin-right:1em;margin-left:1em" ng-click="is.submitPoll('A')">A</a>
-  <a class="waves-effect waves-light btn-large" style="flex:1;margin-right:1em;margin-left:1em" ng-click="is.submitPoll('B')">B</a>
-  <a class="waves-effect waves-light btn-large" style="flex:1;margin-right:1em;margin-left:1em" ng-click="is.submitPoll('C')">C</a>
+<div ng-class="{hiddenFlash:!showPolls, shownFlash:showPolls}">
+  <h2>Flash Poll</h2>
+  <div style ="width:100%; display:flex">
+    <a class="waves-effect waves-light btn-large" style="flex:1;margin-right:1em;margin-left:1em" ng-click="is.submitPoll('A')">A</a>
+    <a class="waves-effect waves-light btn-large" style="flex:1;margin-right:1em;margin-left:1em" ng-click="is.submitPoll('B')">B</a>
+    <a class="waves-effect waves-light btn-large" style="flex:1;margin-right:1em;margin-left:1em" ng-click="is.submitPoll('C')">C</a>
+  </div>
+  <div class="colorBlock purpleBackground"></div>
 </div>
