@@ -3,6 +3,11 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
   $scope.chartData = [];
   var filteredData = [];
 
+  $scope.$watch('is.cohortId', function(newValue, oldValue){
+    console.log('cohortId:', newValue);
+    $scope.gridOptions.api.onFilterChanged();
+  });
+
   var columnDefs = [{
     headerName: "Student",
     field: "name",
@@ -27,16 +32,19 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
     field: "questionCategory",
     filter:'set'
   }, {
-    headerName: "Time Helped",
-    field: "timeHelped",
-    cellRenderer: miliToTime
-  }, {
     headerName: "Time Waited",
     field: "timeWait",
+    aggFunc:"sum",
+    cellRenderer: miliToTime
+  }, {
+    headerName: "Time Helped",
+    field: "timeHelped",
+    aggFunc:"sum",
     cellRenderer: miliToTime
   }, {
     headerName: "Time Self Helped",
     field: "timeSelfHelp",
+    aggFunc:"sum",
     cellRenderer: miliToTime
   }];
 
@@ -51,8 +59,20 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
     enableColResize: true,
     enableFilter:true,
     onBeforeFilterChanged: beforeFilterChanged,
-    onAfterFilterChanged: afterFilterChanged
+    onAfterFilterChanged: afterFilterChanged,
+    isExternalFilterPresent:isExternalFilterPresent,
+    doesExternalFilterPass:doesExternalFilterPass
   };
+
+  function isExternalFilterPresent(){
+    console.log($scope.is.cohortId !== 'all' && $scope.is.cohortId !== undefined && $scope.is.cohortId !== null);
+      return $scope.is.cohortId !== 'all' && $scope.is.cohortId !== undefined && $scope.is.cohortId !== null;
+  }
+
+  function doesExternalFilterPass(node){
+    console.log(node);
+    return $scope.is.cohortId == node.data.cohortId;
+  }
 
   socket.emit('request queue stats');
   socket.on('report queue stat data', function(queueData) {
