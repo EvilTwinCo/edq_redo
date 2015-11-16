@@ -9,5 +9,5 @@ var app = angular.module('theQ').directive("flashPollMonitor", function(){
             votesArray : '=',
             cohortId: '='
         }
-    }
-})
+    };
+});
