@@ -29,6 +29,7 @@ var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 var CohortCtrl = require('./controllers/CohortCtrl');
 //var passportLocalCtrl = require('./controllers/LocalPassportCtrl');
 
+
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
   origin: function(origin, callback) {
@@ -120,7 +121,7 @@ ioServer.on('connection', function (socket) {
     console.log('user ' + devMtnId + ' connected');
 
     socket.on('disconnect', function () {
-        console.log('user ' + devMtnId + ' disconnected');
+    console.log('user ' + devMtnId + ' disconnected');
     });
 
     // Flash poll Sockets
@@ -135,10 +136,7 @@ ioServer.on('connection', function (socket) {
     socket.on('student login', UserCtrl.handleStudentLogin.bind(null, socket));
 
     //Learning Objective Sockets
-    //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
     socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
-    //socket.on('update learning objective', LearningObjectiveCtrl.updateObjective.bind(null, ioServer));
-    //socket.on('remove objective', LearningObjectiveCtrl.removeObjective.bind(null, ioServer, socket));
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
@@ -169,8 +167,8 @@ ioServer.on('connection', function (socket) {
 mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
   console.log('Connected to MongoDB: ' + mongoURI);
-})
+});
 
 httpServer.listen(serverPort, function() {
   console.log("Server listening on port: " + serverPort);
-})
+});
