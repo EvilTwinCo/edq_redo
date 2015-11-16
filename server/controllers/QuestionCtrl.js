@@ -2,6 +2,39 @@ var Question = require('../models/Question');
 var passportSocketIo = require('passport.socketio');
 var _ = require('underscore');
 
+var liveFeedQueue = {
+    28: [
+        {
+            question: '28 test question 1',
+            studentSolution: '28 test solution 1'
+        },
+        {
+            question: '28 test question 2',
+            studentSolution: '28 test solution 2'
+        }
+    ],
+    27: [
+        {
+            question: '27 test question 1',
+            studentSolution: '27 test solution 1'
+        },
+        {
+            question: '27 test question 2',
+            studentSolution: '27 test solution 2'
+        }
+    ],
+    26: [
+        {
+            question: '26 test question 1',
+            studentSolution: '26 test solution 1'
+        },
+        {
+            question: '26 test question 2',
+            studentSolution: '26 test solution 2'
+        }
+    ]  
+}
+
 module.exports = {
     handleStudentQuestionSubmit: function (socket, ioServer, data) {
         data.name = socket.request.user.firstName + " " + socket.request.user.lastName;
@@ -137,8 +170,28 @@ module.exports = {
         socket.server.to('instructors').emit('remove question from queue', question);
     },
     handleStudentSolution: function (socket, data) {
+        var cohortId = socket.request.user.devMtn.cohortId;
+        var numberToKeep = 10;
         console.log('handleStudentSolution Data:', data);
-        socket.server.to('student cohort:'+socket.request.user.devMtn.cohortId).emit('liveFeed', data);
+        if (!liveFeedQueue[cohortId]) {
+            liveFeedQueue[cohortId] = [];
+        }
+        liveFeedQueue[cohortId].push({question: data.question, studentSolution: data.studentSolution})
+        for (var i=0; i < liveFeedQueue[cohortId].length - numberToKeep; i++) {
+            liveFeedQueue[cohortId].shift();
+        }
+
+        socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
+    },
+    handleLiveFeedQueueRequest: function (socket, adminSelectedCohortId) {
+        console.log(adminSelectedCohortId);
+    if (adminSelectedCohortId) {
+        cohortId = adminSelectedCohortId;
+    } else {
+        cohortId = socket.request.user.devMtn.cohortId;
+    }
+    console.log(cohortId);
+    socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId])    
     },
     handleStatsQuery: function (socket, query) {
         console.log("Start Query");
