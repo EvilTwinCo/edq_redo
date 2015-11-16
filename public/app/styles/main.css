@@ -4,7 +4,12 @@ html body {
 }
 
 html {
-  background-color: #2699D9;
+  background-color: #536B74;
+}
+.navBarTitle {
+  font-size: 20px;
+  color: white;
+  margin-left: 70px;
 }
 .fakeTitle {
   width: 100%;
@@ -96,20 +101,21 @@ html {
 /*bryan end*/
 
 nav {
-  background-color: #FAFAFA;
+  background-color: #444444;
   color: black;
 }
 
 nav ul a {
-  color:#2699D9;
-  font-size: 1.35em;
-  font-weight:300;
-  text-shadow:#eee 1px 1px 1px;
+  color:#FAFAFA;
+  /*font-size: 1.35em;*/
+  /*font-weight:300;*/
+  font-family: proxima-nova;
 }
 
 nav img{
   width:55px;
   margin:4px;
+
 }
 
 graph-student-queue{
@@ -150,7 +156,7 @@ student-flash-poll h2{
   max-height: 1em;
 }
 
-.cheeseburger{
+.flex-space{
   display:flex;
   justify-content: space-between;
 }
