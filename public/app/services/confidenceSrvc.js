@@ -1,5 +1,6 @@
 angular.module('theQ').service('confidenceSrvc', function($q, $http) {
    
+    //var baseUrl = 'http://192.168.1.100:8080/'
     var baseUrl = 'http://localhost:8080/'
     
     this.getConfidences = function(cohortId) {
@@ -15,4 +16,19 @@ angular.module('theQ').service('confidenceSrvc', function($q, $http) {
 
         return deferred.promise;
     }
+    
+    this.getUserLearningObjConfidences = function(obj) {
+        var deferred = $q.defer();
+
+        $http.get(baseUrl + 'admin/confidences/user/' + obj.userId + '/' + obj.learningObjId).then(function (res) {
+            //console.log(res);
+            deferred.resolve(res.data);
+        }, function (err) {
+            console.log(err);
+            deferred.reject(err);
+        })
+
+        return deferred.promise;
+    }
+
 });

@@ -4,18 +4,22 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
 
     var filteredData = [];
 
+
+
+    self.showChart = 'cohort';
+
+
     $scope.$watch('is.cohortId', function () {
         if (self.cohortId) {
             getData();
         }
-    })
+
+    });
 
     function getData() {
-        console.log(self.cohortId);
+        //console.log(self.cohortId);
 
         confidenceSrvc.getConfidences(self.cohortId).then(function(confidences) {
-
-
 
             for (var i = 0; i < confidences.length; i++) {
                 confidences[i].firstName = confidences[i].user.firstName;
@@ -40,34 +44,42 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     function updateChart (data) {
         console.log(data);
 
-        var confidenceValuesObj = {};
-        data.forEach(function(item) {
-            if (!confidenceValuesObj[item.learningObjective]) {
-                confidenceValuesObj[item.learningObjective] = [];
-            }
-            confidenceValuesObj[item.learningObjective].push(item.confidence);
-        })
 
+
+        var pushedYetCheckObj = {};
+        var confidenceLabelsArray = [];
         var confidenceValuesArray = [];
-        var confidenceLabelsArray =[];
-        for (var prop in confidenceValuesObj) {
-            confidenceValuesArray.push(confidenceValuesObj[prop]);
-            confidenceLabelsArray.push(prop);
-        }
+        var confidenceIdsArray = [];
+        var confidenceValuesObj = {};
+
+        arrayLocation = 0;
+        data.forEach(function (item) {
+            if (!pushedYetCheckObj[item.learningObjective]) {
+                pushedYetCheckObj[item.learningObjective] = arrayLocation;
+                arrayLocation++;
+                confidenceValuesArray.push([]);
+                confidenceLabelsArray.push(item.learningObjectiveTopic);
+                confidenceIdsArray.push(item.learningObjective);
+            }
+            confidenceValuesArray[pushedYetCheckObj[item.learningObjective]].push(item.confidence);
+        });
         console.log(confidenceLabelsArray);
         console.log(confidenceValuesArray);
 
         self.dataSet = confidenceValuesArray;
+        self.dataLabels = confidenceLabelsArray;
     }
 
     var columnDefs = [
         {headerName: "First Name", field: 'firstName', editable: false},
         {headerName: "Last Name", field: 'lastName', editable: false},
-        {headerName: "Learning Objective", field: 'learningObjective', editable: false},
+        {headerName: "LO Id", field: 'learningObjective', editable: false},
+        {headerName: "LO Topic", field: 'learningObjectiveTopic', editable: false},
+        {headerName: "LO Name", field: 'learningObjectiveName', editable: false},
         {headerName: "Confidence", field: 'confidence', editable: false},
         {headerName: "Timestamp", field: 'timestamp', editable: false},
         {headerName: "CohortId", field: 'cohortId', editable: false}
-    ]
+    ];
 
     $scope.gridOptions = {
         columnDefs: columnDefs,
@@ -82,7 +94,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
         onRowDoubleClicked: rowDoubleClicked,
         onBeforeFilterChanged: beforeFilterChanged,
         onAfterFilterChanged: afterFilterChanged
-    }
+    };
 
 //    $window.onresize = function() {
 //        $scope.gridOptions.columnApi.sizeColumnsToFit(100);
@@ -91,7 +103,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     function refreshView(event) {
 
         $scope.gridOptions.api.sizeColumnsToFit();
-        console.log('Grid ready');
+        //console.log('Grid ready');
     }
 
     function cellClicked(cell) {
@@ -108,7 +120,33 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     }
 
     function rowDoubleClicked(row) {
-        console.log('row double clicked', row);
+        //console.log('row double clicked', row);
+//        var getUserId = row.data.user._id;
+//        var getLearningObj = row.data.learningObjective;
+        //console.log(getUserId, getLearningObj);
+        confidenceSrvc.getUserLearningObjConfidences({
+            userId: row.data.user._id,
+            learningObjId: row.data.learningObjective
+        }).then(function(res) {
+            //console.log(res);
+            var datapoints = [];
+            for (var i = 0; i < res.length - 1; i++) {
+                datapoints.push({
+                    timestamp1: res[i].timestamp,
+                    confidence1: res[i].confidence,
+                    timestamp2: res[i+1].timestamp,
+                    confidence2: res[i+1].confidence,
+                    learningObj1: res[i].learningObjective,
+                    learningObj2: res[i+1].learningObjective
+                });
+            }
+            //console.log(datapoints);
+            self.graphData = datapoints;
+            self.showChart = 'individual';
+
+        }, function(err) {
+            console.log(err);
+        });
     }
 
     function beforeFilterChanged() {
@@ -124,7 +162,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     }
 
     function filteredDataAggregator (node) {
-        filteredData.push(node.data)
+        filteredData.push(node.data);
     }
 
 });

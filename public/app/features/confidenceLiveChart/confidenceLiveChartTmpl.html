@@ -1,5 +1,6 @@
 <div class="row">
     <div ng-repeat="datum in is.data" class="col s2">
+        <p style="height: 20px; text-align: center; font-size: 10px;">{{is.dataLabels[$index]}}</p>
         <d3-verticle-dot-distribution data="datum"></d3-verticle-dot-distribution>
     </div>
 </div>

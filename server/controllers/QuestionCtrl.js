@@ -15,7 +15,7 @@ module.exports = {
             getPositionInQueue(data.name, null, function (position) {
                 socket.emit('position in queue', position);
             });
-            ioServer.emit('questionForQueue', newQuestion);
+            socket.server.to('instructors').emit('questionForQueue', newQuestion);
         });
 
     },
@@ -28,17 +28,17 @@ module.exports = {
             })
             .exec(function (err, result) {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 }
                 if (result) {
                     result.studentSolution = data.studentSolution;
                     result.save();
-                    socket.server.emit('new live feed', {
+                    socket.server.to('student cohort:'+socket.request.user.devMtn.cohortId).emit('new live feed', {
                         question: result.question,
                         solution: data.studentSolution
                     });
                 }
-            })
+            });
     },
     handleStudentDropFromQueue: function (socket, time) {
         Question.findOne({
@@ -48,7 +48,7 @@ module.exports = {
             .exec(function (err, result) {
                 result.timeQuestionAnswered = new Date();
                 result.save();
-            })
+            });
     },
     qetMyCurrentQuestion: function (socket) {
         var that = this;
@@ -58,12 +58,12 @@ module.exports = {
             })
             .exec(function (err, result) {
                 if (result) {
-                    socket.emit('my current question is', result)
+                    socket.emit('my current question is', result);
                     getPositionInQueue(result.name, null, function (position) {
                         socket.emit('position in queue', position);
                     });
                 }
-            })
+            });
     },
     getAllQuestionsAsked: function (socket, data) {
         Question.find({
@@ -82,7 +82,7 @@ module.exports = {
         dataToUpdate = {
             mentorSolution: data.reviewedAnswer,
             questionCategory: data.reviewedQuestion
-        }
+        };
         Question.findByIdAndUpdate(data._id, dataToUpdate)
             .exec(function (err, result) {
                 if (err) {
@@ -95,7 +95,7 @@ module.exports = {
             _id: data._id,
             mentorName: socket.request.user.firstName + " " + socket.request.user.lastName,
             timeMentorBegins: new Date()
-        }
+        };
         console.log("Mentor Begins", dataToUpdate);
         Question.findByIdAndUpdate(data._id, dataToUpdate, {
                 new: true
@@ -104,14 +104,14 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 }
-                ioServer.emit('mentorBegins', result);
+            socket.server.to('instructors').emit('mentorBegins', result);
             });
     },
     questionResolve: function (socket, data) {
         var dataToUpdate = {
             _id: data._id,
             timeQuestionAnswered: new Date()
-        }
+        };
         Question.findByIdAndUpdate(data._id, dataToUpdate, {
                 new: true
             })
@@ -121,10 +121,10 @@ module.exports = {
                 }
                 console.log("question Resolve Emit");
                 passportSocketIo.filterSocketsByUser(socket.server, function (user) {
-                    return user.devMtn.id === result.studentId
+                    return user.devMtn.id === result.studentId;
                 }).forEach(function (socket) {
 
-                    socket.emit('my current question is', result)
+                    socket.emit('my current question is', result);
                 });
                 emitAllPositionsInQueue(socket.server, null);
             });
@@ -134,11 +134,11 @@ module.exports = {
         if (!question.studentId) {
             question.studentId = socket.request.user.devMtn.id;
         }
-        ioServer.emit('remove question from queue', question);
+        socket.server.to('instructors').emit('remove question from queue', question);
     },
     handleStudentSolution: function (socket, data) {
         console.log('handleStudentSolution Data:', data);
-        socket.emit('liveFeed', data);
+        socket.server.to('student cohort:'+socket.request.user.devMtn.cohortId).emit('liveFeed', data);
     },
     handleStatsQuery: function (socket, query) {
         console.log("Start Query");
@@ -148,8 +148,8 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 }
-                socket.emit('report queue stat data', result)
-            })
+                socket.emit('report queue stat data', result);
+            });
     }
 };
 
@@ -162,7 +162,7 @@ function getPositionInQueue(student, cohort, callback) {
         .exec(function (err, result) {
             var names = _.pluck(result, 'name');
             callback(_.indexOf(names, student));
-        })
+        });
 }
 
 function emitAllPositionsInQueue(ioServer, cohort) {
@@ -173,10 +173,10 @@ function emitAllPositionsInQueue(ioServer, cohort) {
         .exec(function (err, result) {
             result.forEach(function (studentId, index) {
                 passportSocketIo.filterSocketsByUser(ioServer, function (user) {
-                    return user.devMtn.id = studentId;
+                    return user.devMtn.id === studentId;
                 }).forEach(function (socket) {
-                    socket.emit('position in queue', index)
+                    socket.emit('position in queue', index);
                 });
-            })
-        })
+            });
+        });
 }
