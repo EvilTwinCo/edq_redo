@@ -1,19 +1,18 @@
-angular.module('theQ').controller('loginCtrl', function($q, $http, $window) {
+angular.module('theQ').controller('loginCtrl', function($q, $http, $window, $location) {
 
+    this.go = function() {
+        console.log('here')
+        var deferred = $q.defer();
+        
+        $http.post('/auth/passportLocal', {username: this.user, password: 'any'}).then(function(res) {
+            $location.path('/studentDashboard');
+        }, function (err) {
+            console.log(err);
+        })
+    }
+    
    this.loginWithPassportDevMtn = function() {
-
-       $window.location.href = 'http://localhost:8080/auth/devmtn';
-
-       /*
-       var deferred = $q.defer();
-
-       $http.get('http://localhost:8080/auth/devmtn').then(function(res) {
-           deferred.resolve(res);
-       }, function (err) {
-           deferred.reject('PassportDevMtn login error')
-       })
-
-       return deferred.promise;*/
+        $window.location.href = 'http://localhost:8080/auth/devmtn';
    }
 
    this.loginWithPassportDevMtn();

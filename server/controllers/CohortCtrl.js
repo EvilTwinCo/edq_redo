@@ -5,13 +5,14 @@ module.exports = {
     getCohortIdOptions: function (req, res) {
 
         var cohorts = [];
-
+        console.log('Hi Brack');
         //Find all cohortIds tied to database confidences.
         Confidence.find({}, function (error, result) {
             if (error) {
                 console.log(error);
                 res.send(error);
             } else {
+                //console.log(result);
                 for (var i = 0; i < result.length; i++) {
                     if (cohorts.indexOf(result[i].cohortId) === -1) {
                         cohorts.push(result[i].cohortId);

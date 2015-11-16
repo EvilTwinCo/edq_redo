@@ -1,5 +1,6 @@
 angular.module('theQ').service('confidenceSrvc', function($q, $http) {
    
+    //var baseUrl = 'http://192.168.1.100:8080/'
     var baseUrl = 'http://localhost:8080/'
     
     this.getConfidences = function(cohortId) {

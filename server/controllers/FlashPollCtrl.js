@@ -9,9 +9,9 @@ module.exports = {
     socket.server.to('instructors').emit('flashPoll', studentVotes);
   },
 
-  handleFlashPollRemoval: function(socket) {
+  handleFlashPollRemoval: function(socket, cohortId) {
     studentVotes = [];
-    socket.server.emit('togglePolls', true);
+      socket.server.to('student cohort:'+cohortId).emit('togglePolls', true);
   }
 
 };

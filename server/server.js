@@ -27,6 +27,7 @@ var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 var CohortCtrl = require('./controllers/CohortCtrl');
+//var passportLocalCtrl = require('./controllers/LocalPassportCtrl');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -77,8 +78,15 @@ passport.use('devmtn', new DevmtnStrategy({
   jwtSecret: process.env.DM_SECRET
 }, DevMtnPassportCtrl.authLogin));
 
+//passportLocalCtrl.setup;
+//app.post('/auth/passportLocal', passportLocalCtrl.auth);
+//app.get('/auth/passportLocal/setUser', passportLocalCtrl.setUser);
+
 passport.serializeUser(DevMtnPassportCtrl.serializeUser);
 passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
+
+//passport.serializeUser(function(user, done) {done(null, user);});
+//passport.deserializeUser(function(obj, done) {done(null, obj);});
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({
@@ -123,10 +131,8 @@ ioServer.on('connection', function (socket) {
     socket.on('request reset view data', function() {socket.emit('reset view data')});
 
     //User Sockets
-    socket.on('create user', UserCtrl.handleCreateUser.bind(null, socket));
-    socket.on('get users', UserCtrl.getAllUsers.bind(null, socket));
-    socket.on('update user', UserCtrl.updateUserInfo.bind(null, socket));
-    socket.on('remove user', UserCtrl.removeUser.bind(null, socket));
+    socket.on('instructor login', UserCtrl.handleInstructorLogin.bind(null, socket));
+    socket.on('student login', UserCtrl.handleStudentLogin.bind(null, socket));
 
     //Learning Objective Sockets
     //socket.on('create learning objective', LearningObjectiveCtrl.handleCreateObjective.bind(null, ioServer, socket));
@@ -136,7 +142,7 @@ ioServer.on('connection', function (socket) {
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
-    socket.on('instructor login', ConfidenceCtrl.handleInstructorLogin.bind(null, socket));
+   
     socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
     //Question Sockets

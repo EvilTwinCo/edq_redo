@@ -11,7 +11,9 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
 
     socket.on('questionForQueue', function (data) {
       console.log(data);
-      if( data.cohortId === self.mq.cohortId){
+        console.log(data.cohortId);
+        console.log(self.cohortId);
+      if( data.cohortId === self.cohortId){
         self.questions.push(data);
         $scope.$apply();
       }

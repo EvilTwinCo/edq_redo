@@ -7,13 +7,13 @@
     <div <a class="accountText" href>Need an account?</a>
   </div>
   <div>
-    <input class="enterEmail" placeholder="Enter email">
+    <input ng-model="is.user" class="enterEmail" placeholder="Enter email">
   </div>
   <div class="passwordContainer">
     <input class="enterPassword" placeholder="Enter password">
   </div>
   <div class="buttonContainer">
-    <button class="submitButton">Submit</button>
+    <button class="submitButton" ng-click="is.go()">Submit</button>
   </div>
   <div class="forgotPassword">Forgot password?</div>
   <div class="socialContainer">
