@@ -5,7 +5,6 @@ angular.module('theQ').service('cohortSrvc', function($q, $http) {
 
     this.getCohortIds = function() {
         var deferred = $q.defer();
-        //console.log('I am an idiot');
         $http.get(baseUrl + 'admin/cohorts').then(function (res) {
             console.log(res.data);
             res.data.sort(function(a,b) {return a-b});

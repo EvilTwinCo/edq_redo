@@ -134,6 +134,7 @@ ioServer.on('connection', function (socket) {
     //User Sockets
     socket.on('instructor login', UserCtrl.handleInstructorLogin.bind(null, socket));
     socket.on('student login', UserCtrl.handleStudentLogin.bind(null, socket));
+    socket.on('client request: get auth level', UserCtrl.handleGetAuthRequest.bind(null, socket));
 
     //Learning Objective Sockets
     socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
