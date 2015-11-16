@@ -10,7 +10,8 @@ var App = angular.module('theQ').directive('liveFeed', function(){
     bindToController: true,
     attribute: 'E',
     scope: {
-      props: '='
+        props: '=',
+        cohortId: '='
 
     }
   }

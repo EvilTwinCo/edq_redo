@@ -158,6 +158,7 @@ ioServer.on('connection', function (socket) {
     socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
     socket.on('request queue stats', QuestionCtrl.handleStatsQuery.bind(null, socket));
+    socket.on('client request: initial live feed queue', QuestionCtrl.handleLiveFeedQueueRequest.bind(null, socket));
 
     //Attendance Sockets
     socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));
