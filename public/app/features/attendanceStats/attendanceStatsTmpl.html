@@ -1,7 +1,13 @@
-<div ng-show="is.cohortId != 'Select ID...'">
-  <h1>Cohort # {{is.cohortId}}</h1>
-<div id = "targetContainer">
-  <div>
-    <div ag-grid="gridOptions" class="ag-dark" style="height: 100%;"></div>
+<div id = "sizeTester">
+  <div ng-show="is.cohortId != 'Select ID...'">
+    <h1>Cohort #
+      {{is.cohortId}}
+      information</h1>
+    <div>
+      <h5>Cohort's Total Average From Total of Classes Held</h5>
+      <div id="targetContainer"></div>
 
-</div>
+      <div class="gridContainer"><h5>Student's individual Attendance</h5>
+        <div ag-grid="gridOptions" class="ag-dark" class="agGrid" style="height: 100%;"></div>
+      </div>
+    </div>

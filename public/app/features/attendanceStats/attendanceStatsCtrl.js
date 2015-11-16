@@ -3,38 +3,40 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
   var socket = socketIoSrvc.getSocket();
   var self = this;
   self.attendees = [];
+  this.showGraphs = false;
 
+  //the first makes empty graphs. This will activate the newChart(data) function on 1 and only 1
+  self.countChartCall = 0;
   //////
   ///sockets to get data
-  //////[{attendance[], attendee{fnam, lastname}}]
+
 
   $scope.$watch('is.cohortId', function() {
     if (self.cohortId) {
-
-
       socket.emit("getAllAttendanceOfCohort", self.cohortId);
     }
   })
 
   socket.on('All attendance for a cohort', function(users) {
-      self.attendees.push(users);
-      $scope.$apply();
+
+    self.attendees.push(users);
+    $scope.$apply();
 
 
-      createRowData(self.attendees);
-      $scope.gridOptions.api.setRowData(createRowData(self.attendees));
-      var targetParent = document.getElementById('targetContainer');
-        console.log(rowData);
+    createRowData(self.attendees);
+    $scope.gridOptions.api.setRowData(createRowData(self.attendees));
+    var targetParent = document.getElementById('targetContainer');
+
+    if (self.countChartCall == 1) {
+      self.dataArray.forEach(function(item) {
+        self.countChartCall += 1;
+        newChart(item);
+      })
+    }
+    self.countChartCall += 1;
 
 
-        //here is whewre I want to format the data
-
-    })
-
-
-    /////////
-    //sockets end
-    ///////
+  })
 
   ////????////////////////////
   //??%%%%    ag-grid start /////
@@ -81,9 +83,10 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
   };
 
 
-var rowData = [];
+  var rowData = [];
+
   function createRowData(attendees) {
-  rowData = [];
+    rowData = [];
 
     for (var i = 0; i < self.attendees.length; i++) {
       rowData.push({
@@ -97,8 +100,11 @@ var rowData = [];
 
       });
     }
+    getDataForChart(rowData);
+    self.showGraphs = true;
 
     return rowData;
+
   }
 
   function computeScore(attendanceObj) {
@@ -183,11 +189,10 @@ var rowData = [];
 
   }
 
-//////colors not showing css conflict??
+  //////colors not showing css conflict??
 
   function percentCellRenderer(params) {
     var value = params.value;
-    console.log(value)
     var eDivPercentBar = document.createElement('div');
     eDivPercentBar.className = 'div-percent-bar';
     eDivPercentBar.style.width = value + '%';
@@ -195,7 +200,7 @@ var rowData = [];
       eDivPercentBar.style.backgroundColor = 'red';
     } else if (value < 60) {
       eDivPercentBar.style.backgroundColor = '#ff9900';
-    } else if(value >90) {
+    } else if (value > 90) {
       eDivPercentBar.style.backgroundColor = '#00A000';
     }
 
@@ -225,7 +230,7 @@ var rowData = [];
       eDivPercentBar.style.backgroundColor = 'red';
     } else if (value < 90) {
       eDivPercentBar.style.backgroundColor = '#ff9900';
-    } else if(value >90){
+    } else if (value > 90) {
       eDivPercentBar.style.backgroundColor = '#00A000';
     }
 
@@ -241,10 +246,6 @@ var rowData = [];
     return eOuterDiv;
   }
 
-
-
-
-
   function onModelUpdated() {
     var model = $scope.gridOptions.api.getModel();
     var totalRows = $scope.gridOptions.rowData.length;
@@ -252,73 +253,138 @@ var rowData = [];
     $scope.rowCount = processedRows.toLocaleString() + ' / ' + totalRows.toLocaleString();
   }
 
-
-  //// ----ag-grid end----////
-
-/////////////////
+  /////////////////
   //////    D3
-//////////////self.attendees
-var test = {test1: 12, test2:44};
+  // //////////////self.attendees
+  function getDataForChart(arr) {
+    self.groupAttendance = 0;
+    self.groupScore = 0;
+    self.groupTardiness = 0;
+    self.groupEarlyLeaving = 0;
+
+    for (var i = 0; i < arr.length; i++) {
+      self.groupAttendance += arr[i]['attendence'];
+    }
+    for (var i = 0; i < arr.length; i++) {
+      self.groupScore += arr[i]['score'];
+    }
+    for (var i = 0; i < arr.length; i++) {
+      self.groupTardiness += arr[i]['tardiness'];
+    }
+    for (var i = 0; i < arr.length; i++) {
+      self.groupEarlyLeaving += arr[i]['earlyLeft'];
+    }
+
+    self.groupAttendance = self.groupAttendance / arr.length;
+    self.groupAttendanceOpposite = 100 - self.groupAttendance;
+    self.attendanceData = [
+
+      {
+        "label": "",
+        "value": self.groupAttendanceOpposite
+      },
+      {
+      "label": "Classes Missed: " + self.groupAttendance + "%",
+      "value": self.groupAttendance
+    }
+  ];
+
+
+    self.groupScore = self.groupScore / arr.length;
+    self.groupScoreOpposite = 3 - self.groupScore;
+    self.scoreData = [{
+      "label": "Score: " + self.groupScore + " of 3",
+      "value": self.groupScore
+    }, {
+      "label": "",
+      "value": self.groupScoreOpposite
+    }];
+
+    self.groupTardiness = self.groupTardiness / arr.length;
+    self.groupTardinessOpposite = 100 - self.groupTardiness;
+    self.tardinessData = [{
+      "label": "",
+      "value": self.groupTardinessOpposite
+    },{
+      "label": "Tardiness: " + self.groupTardiness + "%",
+      "value": self.groupTardiness
+    }
+  ];
+
+    self.groupEarlyLeaving = self.groupEarlyLeaving / arr.length;
+    self.groupEarlyLeavingOpposite = 100 - self.groupEarlyLeaving;
+    self.earlyLeavingData = [{
+      "label": "",
+      "value": self.groupEarlyLeavingOpposite
+    },
+    {
+      "label": "Left Early: " + self.groupEarlyLeaving + "%",
+      "value": self.groupEarlyLeaving
+    }
+  ];
+
+    self.dataArray = [self.attendanceData, self.earlyLeavingData, self.tardinessData, self.scoreData];
+
+  }
 
 
 
+  ///make a chart function
+  function newChart(data) {
 
-var test = [{"label":"one", "value":20},
-        {"label":"two", "value":50},
-        {"label":"three", "value":30}];
+var widthOfWindow = document.getElementById("sizeTester").clientWidth;
 
-var windowWidth =  window.innerWidth - 20;
+var heightOfWindow = document.getElementById("sizeTester").clientHeight;
 
+    var w = widthOfWindow/4 -50;
+    var h = w + 50;
+    var r = Math.min(w, h) / 2;
+    var color = d3.scale.category10();
+    //builtin range of colors
+    var vis = d3.select("#targetContainer")
+      .append("svg:svg")
+      .data([data])
+      .attr("width", w)
+      .attr("height", h)
+      .append("svg:g")
+      .attr("transform", "translate(" + r + "," + r + ")")
 
-var width = windowWidth/4;
-var height = window.innerHeight * 0.7;
-var radius = Math.min(width, height) / 2;
-console.log(width);
-console.log(height);
-console.log(radius);
-var color = d3.scale.ordinal().range(["#016A2B", "#967601", "#79241D"]);
-//first will be maped to the first element in values
+    var arc = d3.svg.arc()
+      .outerRadius(r);
 
+    var pie = d3.layout.pie()
+      .value(function(d) {
+        return d.value;
+      });
 
-var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
+    var arcs = vis.selectAll("g.slice")
+      .data(pie)
+      .enter()
+      .append("svg:g")
+      .attr("class", "slice");
 
-var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.value; });
+    arcs.append("svg:path")
+      .attr("fill", function(d, i) {
+        console.log(i);
+        return color((i+2));
+      })
+      .attr("d", arc);
 
-var svg = d3.select("#targetContainer").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    vis.append("svg:text")
 
+      .attr("x", 0)
+      .attr("y", w/2 + 20)
+      .attr("class", "ChartText")
+      .attr("text-anchor", "middle")
+      .text(function(d, i) {
+        if(data[i].label != ""){
+        return data[i].label;
+      }
+      else{
+        return data[i+1].label;
+      }
+      });
 
-  var g = svg.selectAll(".arc")
-      .data([test])
-    .enter().append("g")
-      .attr("class", "arc");
-console.log(rowData);
-  g.append("path")
-      .attr("d", arc)
-      .style("fill", function(d,i) {
-
-
-         return color(i);
-       });
-
-  g.append("text")
-      .attr("transform", function(d) {
-
-         return "translate(" + arc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d) {
-         return d.data; });
-
-
-
-/////////   END    d3
+  }
 
 })

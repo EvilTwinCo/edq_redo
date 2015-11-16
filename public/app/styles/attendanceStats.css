@@ -5,3 +5,21 @@
 .arc path {
   stroke: #fff;
 }
+.ChartText {
+ font-size: 18pt;
+
+}
+
+#targetContainer{
+  padding: 10px;
+  /*margin-bottom: 20px;*/
+  height: 100%;
+
+}
+.agGrid {
+
+}
+
+.gridContainer{
+
+}
