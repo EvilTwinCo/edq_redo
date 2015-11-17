@@ -9,6 +9,16 @@
   padding-right: 3px;
 }
 
+.flashPollTitle {
+  position: absolute;
+  z-index: 1;
+  left:3px;
+  top: 3px;
+  font-size: 1em;
+  font-weight: bold;
+  padding-left: 3px;
+  padding-right: 3px;
+}
 
 /*.containers {
     width: 500px;

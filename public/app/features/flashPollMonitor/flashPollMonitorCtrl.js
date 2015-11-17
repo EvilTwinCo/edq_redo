@@ -4,7 +4,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
   var aCount, bCount, cCount, scale;
 
   socket.on('flashPoll', flashPoll);
-    
+
   function flashPoll (data) {
       $scope.dataSet = data;
       updateResults();
@@ -44,7 +44,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
     })
     .attr('y', 98)
     .attr("font-family", "sans-serif")
-    .attr('fill', "black")
+    .attr("fill", "black")
     .attr('font-size', "10")
     .attr("text-anchor", "middle")
     .classed('labels', true);
@@ -85,9 +85,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
       .attr('y', function(d, i) {
         return 90 - scale(d);
       })
-      .attr("fill", function(d) {
-        return "rgb(0, 0, " + (d * 2) + ")";
-      });
+    .attr("fill", "hsl(" + (Math.random() * 360) + ",100%,50%)")
 
     voteNumber = baseBox.selectAll(".voteNumbers")
       .data(resultSet)
@@ -104,7 +102,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
       .attr('font-size', "10")
       .attr("text-anchor", "middle");
   }
-    
+
     $element.on('$destroy', function () {
         socket.off('flashPoll', flashPoll);
     })
