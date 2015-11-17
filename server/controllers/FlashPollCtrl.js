@@ -12,7 +12,6 @@ module.exports = {
 
   handleFlashPollRemoval: function(socket, cohortId) {
     studentVotes = [];
-      console.log('flash poll', cohortId);
       socket.server.to('student cohort:'+cohortId).emit('togglePolls', true);
   }
 
