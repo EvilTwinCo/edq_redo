@@ -1,24 +1,16 @@
 var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function (socketIoSrvc, $scope, $window, $element, confidenceSrvc, $filter) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
-
     var filteredData = [];
-
-
-
     self.showChart = 'cohort';
-
 
     $scope.$watch('is.cohortId', function () {
         if (self.cohortId) {
             getData();
         }
-
     });
 
     function getData() {
-        //console.log(self.cohortId);
-
         confidenceSrvc.getConfidences(self.cohortId).then(function(confidences) {
 
             for (var i = 0; i < confidences.length; i++) {
@@ -43,8 +35,6 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
 
     function updateChart (data) {
         console.log(data);
-
-
 
         var pushedYetCheckObj = {};
         var confidenceLabelsArray = [];
@@ -96,10 +86,6 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
         onAfterFilterChanged: afterFilterChanged
     };
 
-//    $window.onresize = function() {
-//        $scope.gridOptions.columnApi.sizeColumnsToFit(100);
-//    }
-
     function refreshView(event) {
 
         $scope.gridOptions.api.sizeColumnsToFit();
@@ -110,7 +96,6 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
         //console.log('cell clicked', cell)
     }
 
-
     function cellChanged(changedObj) {
         //console.log(changedObj);
     }
@@ -120,15 +105,10 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     }
 
     function rowDoubleClicked(row) {
-        //console.log('row double clicked', row);
-//        var getUserId = row.data.user._id;
-//        var getLearningObj = row.data.learningObjective;
-        //console.log(getUserId, getLearningObj);
         confidenceSrvc.getUserLearningObjConfidences({
             userId: row.data.user._id,
             learningObjId: row.data.learningObjective
         }).then(function(res) {
-            //console.log(res);
             var datapoints = [];
             for (var i = 0; i < res.length - 1; i++) {
                 datapoints.push({
@@ -140,10 +120,8 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
                     learningObj2: res[i+1].learningObjective
                 });
             }
-            //console.log(datapoints);
             self.graphData = datapoints;
             self.showChart = 'individual';
-
         }, function(err) {
             console.log(err);
         });
@@ -164,5 +142,4 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     function filteredDataAggregator (node) {
         filteredData.push(node.data);
     }
-
 });
