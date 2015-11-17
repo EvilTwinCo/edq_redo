@@ -15,8 +15,8 @@ var User = require('./models/User.js');
 var passportSocketIo = require("passport.socketio");
 var cookieParser = require("cookie-parser");
 
-var serverPort = 8080;
-var mongoURI = 'mongodb://localhost:27017/theQ';
+var serverPort = process.env.PORT || 8080;
+var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost:27017/theQ';
 
 //Controllers
 var UserCtrl = require('./controllers/UserCtrl.js');
@@ -141,7 +141,7 @@ ioServer.on('connection', function (socket) {
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
-   
+
     socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
     //Question Sockets
