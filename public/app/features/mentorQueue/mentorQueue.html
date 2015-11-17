@@ -14,16 +14,21 @@
       <a ng-if="!part.mentorName" class="waves-effect waves-light btn questionInput" ng-click="mq.mentorBegins(part)">Help</a>
       <span><a class="waves-effect waves-light btn red questionInput" ng-click="mq.questionResolve(part)">Remove</a></span>
 
-      <div class="row" ng-if="part.removing">
-        <div class="input-field col s12">
-          <input id="question" type="text" class="validate" ng-model="part.reviewedQuestion">
-          <label for="question">Question?</label>
+      <div class="row" ng-if="part.removing" ng-init = "mq.initSelect()">
+        <div class="input-field col s12" >
+          <select ng-model = "part.questionCategory" class = "browser-default">
+            <option value="" disabled selected>Question Category</option>
+            <option value="concept">Conceptual</option>
+            <option value="syntax">Syntax</option>
+            <option value="technology">Technology</option>
+          </select>
         </div>
         <div class="input-field col s12">
-          <input id="solution" type="text" class="validate" ng-model="part.reviewedAnswer">
+          <input id="solution" type="text" class="validate" ng-model="part.mentorSolution">
           <label for="solution">Solution?</label>
         </div>
-        <div><a ng-if="part.removing" class="waves-effect waves-light btn" ng-click="mq.addingQuestionAndSolution(part)">Done!</a></div>
+        <div><a ng-if="part.removing" class="waves-effect waves-light btn" ng-click="mq.addingQuestionAndSolution(part, true)">Share!</a>
+        <a ng-if="part.removing" class="waves-effect waves-light red btn" ng-click="mq.addingQuestionAndSolution(part, false)">Don't Share!</a></div>
       </div>
     </li>
   </ul>

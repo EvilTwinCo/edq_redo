@@ -22,11 +22,14 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
     }
     
     socket.on('liveFeed', function(data){
-      
-        console.log('liveFeed', data);
-        self.feed.unshift(data);
+        var existingQuestion = _.findWhere(self.feed,{timeQuestionAnswered:data.timeQuestionAnswered});
+        if(existingQuestion){
+            existingQuestion = _.extend(existingQuestion, data);
+        }else{
+            self.feed.push(data);
+        }
         $scope.$apply();
-    })
+    });
 
 //    socket.on('serversLiveFeedStore', function(data){
 //      self.feed = data;
@@ -44,6 +47,5 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
     function resetData () {
         console.log('client request: initial live feed queue', self.cohortId)
         socket.emit('client request: initial live feed queue', self.cohortId); 
-    }
-    
+    });
 });
