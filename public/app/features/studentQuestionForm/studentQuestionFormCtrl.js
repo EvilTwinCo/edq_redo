@@ -40,6 +40,6 @@ angular.module('theQ').controller('studentQuestionFormCtrl', function (socketIoS
             this.currentQuestion = null;
         }
         this.state = state;
-        console.log(this.state);
+        //console.log(this.state);
     }
 });
