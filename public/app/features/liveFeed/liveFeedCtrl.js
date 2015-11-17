@@ -1,27 +1,26 @@
-angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope){
+angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope, $element){
 
     var socket = socketIoSrvc.getSocket();
     var self = this;
     this.feed = [];
-
-    console.log(socket);
 
     $scope.$watch('lF.cohortId', function() {
         console.log('watch cohortId seen');
         resetData();
     });
 
-    console.log(socket._callbacks['reset view data']);
-    if (socket._callbacks['reset view data'] === undefined) {
-        socket.on('reset view data', function () {
-            console.log(socket);
-            console.log('resetting data view - liveFeed');
-            resetData();
-            $scope.$apply();
-        });
+    socket.on('reset view data', resetViewData);
+    socket.on('liveFeed', liveFeed);
+    socket.on('server response: initial live feed queue', serverResponseInitialLiveFeedQueue);
+
+    function resetViewData () {
+        console.log(socket);
+        console.log('resetting data view - liveFeed');
+        resetData();
+        $scope.$apply();
     }
 
-    socket.on('liveFeed', function(data){
+    function liveFeed (data) {
         var existingQuestion = _.findWhere(self.feed,{timeQuestionAnswered:data.timeQuestionAnswered});
         if(existingQuestion){
             existingQuestion = _.extend(existingQuestion, data);
@@ -29,23 +28,25 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
             self.feed.push(data);
         }
         $scope.$apply();
-    });
+    }
 
-//    socket.on('serversLiveFeedStore', function(data){
-//      self.feed = data;
-//        $scope.$apply();
-//    })
-
-    socket.on('server response: initial live feed queue', function(data) {
+    function serverResponseInitialLiveFeedQueue (data) {
         data.reverse();
         console.log('server response: initial live feed queue: reversed:', data);
         self.feed = data;
         $scope.$apply();
         console.log('============');
-    });
+
+    }
 
     function resetData () {
         console.log('client request: initial live feed queue', self.cohortId);
         socket.emit('client request: initial live feed queue', self.cohortId);
     }
+
+    $element.on('$destroy', function() {
+        socket.off('reset view data', resetViewData);
+        socket.off('liveFeed', liveFeed);
+        socket.off('server response: initial live feed queue', serverResponseInitialLiveFeedQueue);
+    });
 });
