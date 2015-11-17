@@ -8,5 +8,5 @@ var app = angular.module('theQ').directive("confidenceLiveChart", function () {
         scope: {
             cohortId: '='
         }
-    }
-})
+    };
+});
