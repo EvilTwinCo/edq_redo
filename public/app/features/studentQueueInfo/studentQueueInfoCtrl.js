@@ -17,6 +17,6 @@ angular.module('theQ').controller('studentQueueInfoCtrl', function (socketIoSrvc
     }
     
     $element.on('$destroy', function() {
-        socket.on('position in queue', positionInQueue);
+        socket.off('position in queue', positionInQueue);
     })
 })
