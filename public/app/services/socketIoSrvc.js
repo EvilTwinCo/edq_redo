@@ -44,10 +44,6 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
     // EVENT CAPTURES
       //mentorQueue information coming back in an object
     socket.on('exit queue information', function(obj) {
-
-      //example obj coming
-      //{name:'bob', pictureUrl: string, reviewedQuestion: string, reviewedAnswer: string
-      // question:"how do I tie shoes??", solution: '', mentorName: 'MARK', removing: bool, timeQuestionAnswered:dateObj, timeMentorBegins:dateObj, timeWhenEnteredQ:dateObj}
         console.log('exit queue information: ', obj);
     });
 
