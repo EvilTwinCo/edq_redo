@@ -347,7 +347,7 @@ var heightOfWindow = document.getElementById("sizeTester").clientHeight;
       .attr("width", w)
       .attr("height", h)
       .append("svg:g")
-      .attr("transform", "translate(" + r + "," + r + ")")
+      .attr("transform", "translate(" + r + "," + r + ")");
 
     var arc = d3.svg.arc()
       .outerRadius(r);

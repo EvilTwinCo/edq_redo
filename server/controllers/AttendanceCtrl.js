@@ -9,7 +9,25 @@ module.exports = {
 
   getAllAttendanceOfCohort: function(socket, data){
     var cohortAttendance = [];
+    console.log(data);
+    if(data =="all"){
 
+      User.find({}).exec(function(err, users){
+        users.forEach(function(item){
+          Attendance.find({'user': item._id}).exec(function(error, attendance){
+            var userWithAttendance = {
+              attendee:item,
+              attendance: attendance
+            };
+            socket.emit('All attendance for a cohort', userWithAttendance);
+          });
+    });
+
+  });
+
+
+
+}else{
     User.find({}).where('devMtn.cohortId').equals(data).exec(function(err, users){
       users.forEach(function(item){
         Attendance.find({'user': item._id}).exec(function(error, attendance){
@@ -17,32 +35,15 @@ module.exports = {
               attendee: item,
               attendance: attendance
             };
-            // console.log(userWithAttendance)
-                socket.emit('All attendance for a cohort', userWithAttendance)
-            // cohortAttendance.push(userWithAttendance);
-          })
-      })
-    })
 
-    // socket.emit('All attendance for a cohort', cohortAttendance)
+                socket.emit('All attendance for a cohort', userWithAttendance);
+
+          });
+      });
+    });
+}
+
   },
-
-
-  //
-  // getAllAttendanceOfCohort: function(socket, data){
-  //   var cohortAttendance = [];
-  //
-  //   Attendance.find({})
-  //     .where('cohort')
-  //       .equals(data)
-  //       .populate('user')
-  //       .exec(function(err, result){
-  //         console.log('result', result)
-  //       })
-  //   socket.emit('All attendance for a cohort', cohortAttendance)
-  // },
-  //
-  //
 
 
   postAttendance: function(socket, data) {
@@ -56,24 +57,24 @@ module.exports = {
           if (err) {
             console.log(err);
           }
-          console.log('Saving attendance', attendance)
-          socket.emit('attendanceUpdate', attendance)
-        })
+          console.log('Saving attendance', attendance);
+          socket.emit('attendanceUpdate', attendance);
+        });
 
       }
       else if(!attendance) {
         new Attendance(data).save(function(error, data) {
 
           if (error) {
-            console.log("OMG! Im on fire!!!", error)
+            console.log("OMG! Im on fire!!!", error);
           } else {
-            console.log("New attendance record from server", data)
-            socket.emit("attendanceUpdateWithNewAttenance", data)
+            console.log("New attendance record from server", data);
+            socket.emit("attendanceUpdateWithNewAttenance", data);
           }
-        })
+        });
       }
 
-    })
+    });
   },
 
   getAttendance: function(socket, data) {

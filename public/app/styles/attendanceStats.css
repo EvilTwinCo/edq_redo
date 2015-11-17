@@ -9,11 +9,14 @@
  font-size: 18pt;
 
 }
-
+.flexGrid {
+  display: flex;
+  justify-content: center;
+}
 #targetContainer{
   padding: 10px;
   /*margin-bottom: 20px;*/
-  height: 100%;
+  /*height: 100%;*/
 display: flex;
 flex-wrap: wrap;
 justify-content: space-between;
