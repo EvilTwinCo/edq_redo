@@ -3,12 +3,12 @@
 
 <div class = "row card grey lighten-3" style = "background-color='white'">
   <form class = "row">
-    <span class = "col 3" ng-click = "viewingChart = !viewingChart"  type = "text">Toggle Chart</span>
+    <span class = "col 3 btn" ng-click = "viewingChart = !viewingChart"  type = "text">Toggle Chart</span>
     <input class = "col 9" type="text" id="queue-chart-filter" class="input" ng-model="gridOptions.quickFilterText" placeholder="Filter text...">
   </form>
-  <div ng-if = "viewingChart" class = "col s12 l6">
+  <div ng-if = "viewingChart" class = "col s12 l12">
     <graph-student-queue chart-data = "chartData"></graph-student-queue>
   </div>
 <div>
 <!-- {{chartData}} -->
-<div ag-grid = "gridOptions" class = "ag-fresh col s12" ng-class = "{l6:viewingChart, l12:!viewingChart}" style = "height:80vh"></div>
+<div ag-grid = "gridOptions" class = "ag-fresh col s12 l12" style = "height:80vh"></div>
