@@ -3,10 +3,11 @@
     <div class="col s12 day-notes">
       <div class="curriculmTitle"style="text-align:center"><b>Curriculum</b></div>
       <ol>
-        <a href="" ng-repeat = "trackable in is.trackables " class = "row" style = "margin-bottom:0">
+        <li ng-repeat = "trackable in is.trackables " class = "row" style = "margin-bottom:0">
+            <a ng-href="{{trackable.link}}" ng-show="trackable.link">{{trackable.topicName}}</a>
+            <span ng-hide="trackable.link">{{trackable.topicName}}</span>
+        </li>
 
-          <li>{{trackable.topicName}}</li>
-        </a>
       </ol>
     </div>
   </div>
