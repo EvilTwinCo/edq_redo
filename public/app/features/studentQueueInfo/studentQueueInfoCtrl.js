@@ -1,13 +1,14 @@
-angular.module('theQ').controller('studentQueueInfoCtrl', function (socketIoSrvc, $scope) {
+angular.module('theQ').controller('studentQueueInfoCtrl', function (socketIoSrvc, $scope, $element) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
     
-    socket.on('position in queue', function (index) {
-        self.position = index;
-        //console.log(index);
-        $scope.$apply();
-    });
+    socket.on('position in queue', positionInQueue);
 
+    function positionInQueue (index) {
+        self.position = index;
+        $scope.$apply();
+    }
+              
     this.removeSelfFromQueue = function () {
         this.question.timeQuestionAnswered = new Date();
         //console.log(this.question);
@@ -15,4 +16,8 @@ angular.module('theQ').controller('studentQueueInfoCtrl', function (socketIoSrvc
         socket.emit("request question removal", this.question);
         this.done();
     }
+    
+    $element.on('$destroy', function() {
+        socket.on('position in queue', positionInQueue);
+    })
 })
