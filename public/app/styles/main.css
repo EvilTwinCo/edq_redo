@@ -71,7 +71,7 @@ html {
 #canvasDiv {
   display: inline-block;
   width: 100%;
-  max-height: 330px;
+  max-height: 220px;
   margin:0 auto;
   position:relative;
   background-color: #fafafa;
@@ -120,7 +120,7 @@ nav img{
 
 graph-student-queue{
   display:block;
-  background-color: mintcream;
+  background-color: #f9f9f9;
   border-radius:50px;
   box-shadow: 2px 2px 2px #131313;
   margin-bottom: 5px;
