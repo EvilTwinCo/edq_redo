@@ -16,13 +16,12 @@
 
       <div class="row" ng-if="part.removing" ng-init = "mq.initSelect()">
         <div class="input-field col s12" >
-          <select ng-model = "mq.part.reviewedQuestion">
+          <select ng-model = "part.questionCategory" class = "browser-default">
             <option value="" disabled selected>Question Category</option>
-            <option value="conept">Conceptual</option>
+            <option value="concept">Conceptual</option>
             <option value="syntax">Syntax</option>
             <option value=technology>Technology</option>
           </select>
-          <label for="question">Question?</label>
         </div>
         <div class="input-field col s12">
           <input id="solution" type="text" class="validate" ng-model="part.mentorSolution">

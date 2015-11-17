@@ -111,9 +111,10 @@ module.exports = {
             });
     },
     addingQuestionAndSolution: function (socket, data) {
+      console.log(data);
         dataToUpdate = {
             mentorSolution: data.mentorSolution,
-            questionCategory: data.reviewedQuestion
+            questionCategory: data.questionCategory
         };
         Question.findByIdAndUpdate(data._id, dataToUpdate)
             .exec(function (err, result) {
