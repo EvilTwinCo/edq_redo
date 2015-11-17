@@ -31,13 +31,12 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
     });
 
     socket.on('server response: initial live feed queue', function(data) {
-        console.log(data);
+
         self.feed = data;
         $scope.$apply();
     });
 
     function resetData () {
-        console.log(self.cohortId);
         socket.emit('client request: initial live feed queue', self.cohortId);
     }
 

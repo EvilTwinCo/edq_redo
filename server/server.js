@@ -127,6 +127,7 @@ ioServer.on('connection', function (socket) {
     // Flash poll Sockets
     socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
     socket.on('removeStudentFlashPollData', FlashPollCtrl.handleFlashPollRemoval.bind(null, socket));
+    socket.on('client request: get flash poll status', FlashPollCtrl.handleFlashPollGetStatus.bind(null, socket));
 
     //View Sockets
     socket.on('request reset view data', function() {socket.emit('reset view data')});

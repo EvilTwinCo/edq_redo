@@ -10,9 +10,6 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     });
 
     socket.on('questionForQueue', function (data) {
-      console.log(data);
-        console.log(data.cohortId);
-        console.log(self.cohortId);
       if( data.cohortId === self.cohortId){
         self.questions.push(data);
         $scope.$apply();
@@ -45,9 +42,6 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
 
     this.mentorBegins = function (object) {
         object.timeMentorBegins = new Date();
-        //need mentor name
-        //object.mentorName = "Smelly guy"
-        console.log(object);
         socket.emit('mentor begins', object);
     };
 
@@ -77,4 +71,5 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
       $('select').material_select();
       console.log($('select'));
     };
+
 });
