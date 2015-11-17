@@ -3,137 +3,168 @@ module.exports = {trackables:[
     {
         "sectionName": "Pre-Reading",
         "sectionId": "",
-        "topicName": "Git - The Simple Guide"
+        "topicName": "Git - The Simple Guide",
+        "link": "http://rogerdudler.github.io/git-guide/"
     },
     {
         "sectionName": "Pre-Reading",
         "sectionId": "2",
-        "topicName": "Atlassian Git Tutorial"
+        "topicName": "Atlassian Git Tutorial",
+        "link": "https://www.atlassian.com/git/tutorials/setting-up-a-repository/"
+
     },
     {
         "sectionName": "Pre-Reading",
         "sectionId": "3",
-        "topicName": "Make sure you Install Git"
+        "topicName": "Make sure you Install Git",
+        "link": "https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
     },
     {
         "sectionName": "Project",
         "sectionId": "4",
-        "topicName": "Learn Git"
+        "topicName": "Learn Git",
+        "link": "https://github.com/DevMountain/learn-git"
+
     },
     {
         "sectionName": "Additional Practice",
         "sectionId": "5",
-        "topicName": "Learn Git Branching"
+        "topicName": "Learn Git Branching",
+        "link": "http://pcottle.github.io/learnGitBranching/"
     },
     {
         "sectionName": "Additional Reading",
         "sectionId": "6",
-        "topicName": "The Command Line Crash Course"
+        "topicName": "The Command Line Crash Course",
+        "link": "http://cli.learncodethehardway.org/book/"
+
     },
     {
         "sectionName": "Additional Reading",
         "sectionId": "7",
-        "topicName": "Lecture Archive"
+        "topicName": "Lecture Archive",
+        "link": "https://vimeo.com/groups/331341/videos/142188795"
     },
     {
         "sectionName": "Additional Reading",
         "sectionId": "8",
-        "topicName": "Visual Git Guide"
+        "topicName": "Visual Git Guide",
+        "link": "http://marklodato.github.io/visual-git-guide/index-en.html"
+
     },
     {
         "sectionName": "Additional Reading",
         "sectionId": "9",
-        "topicName": "Getting Started with Git"
+        "topicName": "Getting Started with Git",
+        "link": "http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control"
     },
     {
         "sectionName": "Assessment",
         "sectionId": "10",
-        "topicName": "Command Line and Git"
+        "topicName": "Command Line and Git",
+        "link": "http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control"
     },
     {
         "sectionName": "Additional Reading",
         "sectionId": "11",
-        "topicName": "Getting Started with Git"
+        "topicName": "Getting Started with Git",
+        "link": "http://rogerdudler.github.io/git-guide/"
     },
     {
         "sectionName": "Pre-Reading",
         "sectionId": "12",
-        "topicName": "Codeacademy HTML/CSS"
+        "topicName": "Codeacademy HTML/CSS",
+        "link": "https://www.codecademy.com/learn/web"
     },
     {
         "sectionName": "Project",
         "sectionId": "13",
-        "topicName": "HTML Layouts"
+        "topicName": "HTML Layouts",
+        "link": "https://github.com/DevMountain/html-layout"
     },
     {
         "sectionName": "Assessment",
         "sectionId": "14",
-        "topicName": "HTML"
+        "topicName": "HTML",
+        "link": "https://codecard.io/a/login?redirect=%257B%2522state%2522%253A%2522authed.cardio_preview%2522%252C%2522params%2522%253A%257B%2522id%2522%253A%2522BE04fHLj2%2522%257D%257D"
     },
     {
         "sectionName": "Pre-Reading",
         "sectionId": "15",
-        "topicName": "Positioning: MDN"
+        "topicName": "Positioning: MDN",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/position"
     },
     {
         "sectionName": "Projects",
         "sectionId": "16",
-        "topicName": "HTML Layout 2"
+        "topicName": "HTML Layout 2",
+        "link": "https://github.com/DevMountain/html-layouts-2"
     },
     {
         "sectionName": "Projects",
         "sectionId": "17",
-        "topicName": "Wikimedia Layout"
+        "topicName": "Wikimedia Layout",
+        "link": "https://github.com/DevMountain/wikimedia-layout"
     },
     {
         "sectionName": "Assessment",
         "sectionId": "18",
-        "topicName": "CSS Positioning"
+        "topicName": "CSS Positioning",
+        "link": "https://codecard.io/a/login?redirect=%257B%2522state%2522%253A%2522authed.cardio_preview%2522%252C%2522params%2522%253A%257B%2522id%2522%253A%2522N48JWYIl2%2522%257D%257D"
     },
     {
         "sectionName": "Pre-Reading",
         "sectionId": "19",
-        "topicName": "Eloquent Javascript - Functions"
+        "topicName": "Eloquent Javascript - Functions",
+        "link": "http://eloquentjavascript.net/03_functions.html"
     },
     {
         "sectionName": "Projects",
         "sectionId": "20",
-        "topicName": "JavaScript Basics"
+        "topicName": "JavaScript Basics",
+        "link": "https://github.com/DevMountain/JS-Basics"
     },
     {
         "sectionName": "Additional Reading",
         "sectionId": "21",
-        "topicName": "Everything you need to know about Scopes"
+        "topicName": "Everything you need to know about Scopes",
+        "link": "http://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/"
     },
     {
         "sectionName": "Assessment",
         "sectionId": "22",
-        "topicName": "JS Fundamentals I"
+        "topicName": "JS Fundamentals I",
+        "link": "http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control"
     },
     {
         "sectionName": "Assessment",
         "sectionId": "23",
-        "topicName": "Advanced JS Problems"
+        "topicName": "Advanced JS Problems",
+        "link": "http://rogerdudler.github.io/git-guide/"
     },
     {
         "sectionName": "Pre-Reading",
         "sectionId": "24",
-        "topicName": "JS is Sexy - Objects"
+        "topicName": "JS is Sexy - Objects",
+        "link": "http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control"
     },
     {
         "sectionName": "Projects",
         "sectionId": "25",
-        "topicName": "JavaScript Objects"
+        "topicName": "JavaScript Objects",
+        "link": "http://rogerdudler.github.io/git-guide/"
     },
     {
         "sectionName": "Projects",
         "sectionId": "26",
-        "topicName": "JavaScript Arrays"
+        "topicName": "JavaScript Arrays",
+        "link": "http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control"
     },
     {
         "sectionName": "Assessment",
         "sectionId": "27",
-        "topicName": "JS Fundamentals II and III"
+        "topicName": "JS Fundamentals II and III",
+        "link": "http://rogerdudler.github.io/git-guide/"
     }
 
 ],

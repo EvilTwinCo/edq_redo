@@ -1,0 +1,21 @@
+.flexImageCenter {
+  display: flex;
+justify-content: center;
+/*margin-top: 20px;*/
+}
+
+.landingPagePosition{
+  margin-top: 5%;
+}
+.loginNowText{
+  color : #34ACE0;
+  font-weight: bolder;
+
+}
+
+.card .card-image img {
+display: flex;
+
+ width: 60%;
+
+}
