@@ -181,6 +181,7 @@ module.exports = {
             liveFeedQueue[cohortId].shift();
         }
 
+        console.log('submitting to student cohort:' + cohortId + 'the following:' + data);
         socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
     },
     handleLiveFeedQueueRequest: function (socket, adminSelectedCohortId) {
@@ -220,14 +221,17 @@ function getPositionInQueue(student, cohort, callback) {
 
 function emitAllPositionsInQueue(ioServer, cohort) {
     //TODO include logic to limit to cohort/track
+    console.log('emitAllPositionsInQueue function');
     Question.find({
             timeQuestionAnswered: null
         }).select('studentId')
         .exec(function (err, result) {
+            console.log('result',result);
             result.forEach(function (studentId, index) {
                 passportSocketIo.filterSocketsByUser(ioServer, function (user) {
                     return user.devMtn.id === studentId;
                 }).forEach(function (socket) {
+                    console.log('emitting position in queue:' + index)
                     socket.emit('position in queue', index);
                 });
             });

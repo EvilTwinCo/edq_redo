@@ -6,10 +6,10 @@ angular.module('theQ').controller('studentFlashPollCtrl', function(socketIoSrvc,
         console.log('submitting ' + answer + '...');
         socket.emit('studentFlashPoll', answer);
         $scope.showPolls = false;
-        $scope.$apply();
     };
 
     socket.on('togglePolls', function(data){
+        console.log('togglePolls',data);
       $scope.showPolls = data;
       $scope.$apply();
     });
