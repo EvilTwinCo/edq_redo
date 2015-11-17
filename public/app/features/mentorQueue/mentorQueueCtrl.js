@@ -7,7 +7,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         //console.log('resetting data view - queue');
         resetData();
         $scope.$apply();
-    })
+    });
 
     socket.on('questionForQueue', function (data) {
       console.log(data);
@@ -27,7 +27,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     socket.on('remove question from queue', function (question) {
         self.questions = _.filter(self.questions, function (item) {
             return item.studentId !== question.studentId;
-        })
+        });
         $scope.$apply();
     });
 
@@ -41,14 +41,14 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
 
     this.ObjectEntersQ = function (object) {
         object.timeWhenEnteredQ = new Date();
-    }
+    };
 
     this.mentorBegins = function (object) {
         object.timeMentorBegins = new Date();
         //need mentor name
         //object.mentorName = "Smelly guy"
         console.log(object);
-        socket.emit('mentor begins', object)
+        socket.emit('mentor begins', object);
     };
 
     this.questionResolve = function (object) {
@@ -66,4 +66,8 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         self.questions = [];
         socket.emit('get questions asked', {cohortId: self.cohortId});
     }
-})
+
+    this.initSelect = function(){
+      $('select').material_select();
+    };
+});
