@@ -46,6 +46,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+
 app.options(cors(corsOptions));
 
 var SessionStore = new MongoStore({
@@ -141,7 +142,7 @@ ioServer.on('connection', function (socket) {
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
-   
+
     socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
     //Question Sockets
