@@ -3,8 +3,5 @@ confidence-live-chart {
     width: 500px;
     height: 330px;
     background-color: #f9f9f9;
-}
-
-.confidenceSvg {
-  height: 100%;
+    
 }

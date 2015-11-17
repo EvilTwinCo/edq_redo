@@ -1,21 +1,15 @@
-<div id = "sizeTester">
+<div id="sizeTester">
   <div ng-show="is.cohortId != 'Select ID...'">
-    <h1>Cohort # {{is.cohortId}} Information</h1>
-    <div>
 
-
-      <h5>Cohort's Total Average From Total of Classes Held</h5>
-
+    <div class='row'>
+      <h5 class = "center-align"><bold>Total Group Average</bold></h5>
       <div id="targetContainer"></div>
 
-<div class = 'row'>
+      <div class="flexGrid">
+        <div class="col s7">
 
-  <div class = "col s12">
-  <span class = "flow-text"><bold>Student's individual Attendance</bold></span>
-  </div>
-
-      <div class="col s7">
-        <div ag-grid="gridOptions" class="ag-dark" class="agGrid" style="height: 100%;"></div>
+          <div ag-grid="gridOptions" class="ag-fresh" class="agGrid" style="height: 35vh;"></div>
+        </div>
       </div>
     </div>
   </div>
