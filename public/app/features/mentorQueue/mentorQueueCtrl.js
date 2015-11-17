@@ -52,9 +52,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     };
 
     this.addingQuestionAndSolution = function (object, share) {
-      console.log("Resovle Mentor Solution");
         if (share){
-          console.log("Should Share", object);
           socket.emit("mentor post: live feed", object);
         }
         socket.emit('add mentor notes', object);
@@ -67,9 +65,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     }
 
     this.initSelect = function(){
-      console.log("Init Select");
       $('select').material_select();
-      console.log($('select'));
     };
 
 });

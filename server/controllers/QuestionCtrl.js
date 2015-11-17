@@ -106,7 +106,6 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 }
-                console.log(result);
                 socket.emit('getAllQuestionsAsked', result);
             });
     },
@@ -194,7 +193,6 @@ module.exports = {
     socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
     },
     handleMentorLiveFeed: function(socket, data){
-      console.log("handle Mentor Feed: data", data);
       var cohortId = data.cohortId;
       socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
     },
