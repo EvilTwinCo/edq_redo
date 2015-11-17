@@ -4,7 +4,7 @@
       <div class="curriculmTitle"style="text-align:center"><b>Curriculum</b></div>
       <ol>
         <li ng-repeat = "trackable in is.trackables " class = "row" style = "margin-bottom:0">
-            <a ng-href="{{trackable.link}}" ng-show="trackable.link">{{trackable.topicName}}</a>
+            <a ng-href="{{trackable.link}}" target="_blank" ng-show="trackable.link">{{trackable.topicName}}</a>
             <span ng-hide="trackable.link">{{trackable.topicName}}</span>
         </li>
 
