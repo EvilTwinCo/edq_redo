@@ -4,7 +4,7 @@ angular.module('theQ').controller('studentQueueInfoCtrl', function (socketIoSrvc
     
     socket.on('position in queue', function (index) {
         self.position = index;
-        console.log(index);
+        //console.log(index);
         $scope.$apply();
     });
 

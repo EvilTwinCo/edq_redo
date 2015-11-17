@@ -1,33 +1,39 @@
-angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $scope) {
+angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $scope, $element) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
-    resetData();
-
-    socket.on('reset view data', function () {
-        //console.log('resetting data view - queue');
+    
+    $scope.$watch('mq.cohortId', function() {
+        console.log('watch cohortId seen');
         resetData();
         $scope.$apply();
-    })
+    });
+
+    socket.on('getAllQuestionsAsked', getAllQuestionsAsked);
+    socket.on('reset view data', resetViewData)
 
     socket.on('questionForQueue', function (data) {
-      console.log(data);
-        console.log(data.cohortId);
-        console.log(self.cohortId);
       if( data.cohortId === self.cohortId){
         self.questions.push(data);
         $scope.$apply();
       }
     });
 
-    socket.on('getAllQuestionsAsked', function (data) {
+    function getAllQuestionsAsked (data) {
         self.questions = data;
         $scope.$apply();
-    });
+    }
+    
+    function resetViewData () {
+        console.log(socket);
+        console.log('resetting data view - liveFeed');
+        resetData();
+        $scope.$apply();
+    }
 
     socket.on('remove question from queue', function (question) {
         self.questions = _.filter(self.questions, function (item) {
             return item.studentId !== question.studentId;
-        })
+        });
         $scope.$apply();
     });
 
@@ -41,14 +47,11 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
 
     this.ObjectEntersQ = function (object) {
         object.timeWhenEnteredQ = new Date();
-    }
+    };
 
     this.mentorBegins = function (object) {
         object.timeMentorBegins = new Date();
-        //need mentor name
-        //object.mentorName = "Smelly guy"
-        console.log(object);
-        socket.emit('mentor begins', object)
+        socket.emit('mentor begins', object);
     };
 
     this.questionResolve = function (object) {
@@ -57,7 +60,10 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         socket.emit('mentor resolves question', object);
     };
 
-    this.addingQuestionAndSolution = function (object) {
+    this.addingQuestionAndSolution = function (object, share) {
+        if (share){
+          socket.emit("mentor post: live feed", object);
+        }
         socket.emit('add mentor notes', object);
         socket.emit('request question removal', object);
     };
@@ -66,4 +72,15 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         self.questions = [];
         socket.emit('get questions asked', {cohortId: self.cohortId});
     }
-})
+    
+    $element.on('$destroy', function() {
+        socket.off('getAllQuestionsAsked', getAllQuestionsAsked);
+        socket.off('reset view data', resetViewData);
+    })
+
+    this.initSelect = function(){
+      $('select').material_select();
+    };
+
+});
+

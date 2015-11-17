@@ -12,8 +12,7 @@
   left: 0;
   top: 0;
   overflow: scroll;
-  z-index: 5;
-  
+  z-index: 1;
 }
 .attendanceContainer.ng-hide{
   margin-left: -100%;
@@ -112,9 +111,7 @@ attendance-tracker .s4>*{
   /*outline: 1px solid pink;*/
 }
 .showAttendanceButton{
-    background-color: #fff;
     position:fixed;
     bottom:0px;
-
-
+    margin-left: 10px;
 }
