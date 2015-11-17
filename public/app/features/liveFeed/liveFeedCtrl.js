@@ -3,14 +3,14 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
     var socket = socketIoSrvc.getSocket();
     var self = this;
     this.feed = [];
-    
+
     console.log(socket);
 
     $scope.$watch('lF.cohortId', function() {
         console.log('watch cohortId seen');
         resetData();
-    })
-    
+    });
+
     console.log(socket._callbacks['reset view data']);
     if (socket._callbacks['reset view data'] === undefined) {
         socket.on('reset view data', function () {
@@ -18,9 +18,9 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
             console.log('resetting data view - liveFeed');
             resetData();
             $scope.$apply();
-        })
+        });
     }
-    
+
     socket.on('liveFeed', function(data){
         var existingQuestion = _.findWhere(self.feed,{timeQuestionAnswered:data.timeQuestionAnswered});
         if(existingQuestion){
@@ -42,10 +42,10 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
         self.feed = data;
         $scope.$apply();
         console.log('============');
-    })
-    
-    function resetData () {
-        console.log('client request: initial live feed queue', self.cohortId)
-        socket.emit('client request: initial live feed queue', self.cohortId); 
     });
+
+    function resetData () {
+        console.log('client request: initial live feed queue', self.cohortId);
+        socket.emit('client request: initial live feed queue', self.cohortId);
+    }
 });
