@@ -1,4 +1,8 @@
 
+.row .col.l12 {
+  padding-left: 0px;
+}
+
 confidence-live-chart {
   margin-right: 10px;
   width: 100%;
