@@ -1,13 +1,14 @@
-var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(socketIoSrvc, $scope) {
+var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(socketIoSrvc, $scope, $element) {
   var socket = socketIoSrvc.getSocket();
     var self = this;
   var aCount, bCount, cCount, scale;
 
-
-  socket.on('flashPoll', function(data) {
-    $scope.dataSet = data;
-    updateResults();
-  });
+  socket.on('flashPoll', flashPoll);
+    
+  function flashPoll (data) {
+      $scope.dataSet = data;
+      updateResults();
+  }
 
   $scope.dataSet = [];
   var labels = ['A', 'B', 'C'];
@@ -103,4 +104,8 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
       .attr('font-size', "10")
       .attr("text-anchor", "middle");
   }
+    
+    $element.on('$destroy', function () {
+        socket.off('flashPoll', flashPoll);
+    })
 });
