@@ -94,7 +94,7 @@ html {
 }
 
 .mentorQueueView{
-  height:calc(100vh - 534px);
+  height:calc(100vh - 75px);
   background:#f9f9f9;
   overflow:auto;
 }

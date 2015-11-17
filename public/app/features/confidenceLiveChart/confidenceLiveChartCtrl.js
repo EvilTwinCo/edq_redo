@@ -1,12 +1,16 @@
-var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function ($scope, socketIoSrvc, $timeout) {
+var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function ($scope, socketIoSrvc, $timeout, $element) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
-    resetData();
 
-    socket.emit('instructor login');
-
-    socket.on('report confidence single', function (data) {
-        //console.log('recieved report confidence single', data);
+    $scope.$watch('is.cohortId', function() {
+        console.log('watch cohortId seen');
+        resetData();
+    })
+    
+    socket.on('report confidence single', reportConfidenceSingle);
+    socket.on('reset view data', resetViewData);
+    
+    function reportConfidenceSingle (data) {
         if (data.cohortId === self.cohortId) {
             if (self.objData[data.objective_topic]) {
                 self.objData[data.objective_topic][data.devMtnId] = data.value;
@@ -17,21 +21,20 @@ var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function 
             }
             cleanData();
         }
-    });
-
-    socket.on('reset view data', function () {
-        //console.log('resetting data view');
+    }
+    
+    function resetViewData () {
+        console.log(socket);
+        console.log('resetting data view');
         resetData();
         $scope.$apply();
-    });
+    }
 
     function cleanData() {
         self.data = _.mapObject(self.objData, function (object, index) {
             return _.values(object);
         });
-        
         self.dataLabels = _.keys(self.objData);
-        //console.log(self.dataLabels);
         $scope.$apply();
     }
 
@@ -40,4 +43,9 @@ var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function 
         self.data = {};
         socket.emit('get current confidences', self.cohortId);
     }
+    
+    $element.on('$destroy', function() {
+        socket.off('report confidence single', reportConfidenceSingle);
+        socket.off('reset view data', resetViewData);
+    })
 });

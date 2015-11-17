@@ -110,9 +110,10 @@ module.exports = {
             });
     },
     addingQuestionAndSolution: function (socket, data) {
+      console.log(data);
         dataToUpdate = {
-            mentorSolution: data.reviewedAnswer,
-            questionCategory: data.reviewedQuestion
+            mentorSolution: data.mentorSolution,
+            questionCategory: data.questionCategory
         };
         Question.findByIdAndUpdate(data._id, dataToUpdate)
             .exec(function (err, result) {
@@ -179,17 +180,25 @@ module.exports = {
             liveFeedQueue[cohortId].shift();
         }
         console.log('submitting to student cohort:' + cohortId + 'the following:' + data);
+        console.log('handleStudentSolution called');
         socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
     },
     handleLiveFeedQueueRequest: function (socket, adminSelectedCohortId) {
 
-    if (adminSelectedCohortId) {
-        cohortId = adminSelectedCohortId;
-    } else {
-        cohortId = socket.request.user.devMtn.cohortId;
-    }
+        if (adminSelectedCohortId) {
+            cohortId = adminSelectedCohortId;
+        } else {
+            cohortId = socket.request.user.devMtn.cohortId;
+        }
 
-    socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
+        if (liveFeedQueue[cohortId]) {
+            console.log('handleLiveFeedQueueRequest called', adminSelectedCohortId);
+            socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
+        }
+    },
+    handleMentorLiveFeed: function(socket, data){
+      var cohortId = data.cohortId;
+      socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
     },
     handleStatsQuery: function (socket, query) {
 
@@ -224,10 +233,10 @@ function emitAllPositionsInQueue(ioServer, cohort) {
         }).select('studentId')
         .exec(function (err, result) {
 
-            result.forEach(function (studentId, index) {
+            result.forEach(function (item, index) {
 
                 passportSocketIo.filterSocketsByUser(ioServer, function (user) {
-                    return user.devMtn.id === questions.studentId;
+                    return user.devMtn.id === item.studentId;
                 }).forEach(function (socket) {
                     socket.emit('position in queue', index);
                 });

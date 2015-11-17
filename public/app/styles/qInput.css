@@ -2,10 +2,17 @@
   outline: 1px solid red;
 }*/
 
-q-input{
-  padding:8px;
-  display:block;
+q-input {
+  padding: 8px;
+  display: block;
 }
 .questionStyle {
   font-size: 20px;
+}
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #000000;
+  box-shadow: 0 1px 0 0 #000;
+}
+.input-field input[type=text]:focus + label {
+  color: #000000;
 }

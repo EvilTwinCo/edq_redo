@@ -1,20 +1,24 @@
 <div class="row" style="margin-top:1em;">
     <div id="studentDashboard" class="col s12">
+
         <div class="col s12 m8 l8">
-            <div class="row">
+
+            <div class="row col s12">
                 <div class="hide-on-large-only col s12" style="height:1.5em"></div>
                 <div class="learningObjectives">
                     <learning-objective objectives="objectives"></learning-objective>
                     <div class="colorBlock redBackground"></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="queueInput col s12">
+
+            <div class="row col s12">
+
                     <student-question-form objectives="objectives"></student-question-form>
                     <div class="colorBlock greenBackground"></div>
-                </div>
+
             </div>
         </div>
+
         <div class="col s12 m4 l4">
             <div class="row">
                 <div class="dayNotes">
@@ -24,9 +28,10 @@
             </div>
             <div class="row">
                 <live-feed></live-feed>
-                <!-- <div class="colorBlock greyBackground"></div> -->
+
             </div>
         </div>
+
         <div class="flashPoll col s12">
             <student-flash-poll></student-flash-poll>
         </div>
