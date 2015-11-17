@@ -180,17 +180,21 @@ module.exports = {
             liveFeedQueue[cohortId].shift();
         }
         console.log('submitting to student cohort:' + cohortId + 'the following:' + data);
+        console.log('handleStudentSolution called');
         socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
     },
     handleLiveFeedQueueRequest: function (socket, adminSelectedCohortId) {
 
-    if (adminSelectedCohortId) {
-        cohortId = adminSelectedCohortId;
-    } else {
-        cohortId = socket.request.user.devMtn.cohortId;
-    }
+        if (adminSelectedCohortId) {
+            cohortId = adminSelectedCohortId;
+        } else {
+            cohortId = socket.request.user.devMtn.cohortId;
+        }
 
-    socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
+        if (liveFeedQueue[cohortId]) {
+            console.log('handleLiveFeedQueueRequest called', adminSelectedCohortId);
+            socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
+        }
     },
     handleMentorLiveFeed: function(socket, data){
       var cohortId = data.cohortId;

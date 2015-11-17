@@ -1,13 +1,15 @@
-angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $scope) {
+angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $scope, $element) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
-    resetData();
-
-    socket.on('reset view data', function () {
-        //console.log('resetting data view - queue');
+    
+    $scope.$watch('mq.cohortId', function() {
+        console.log('watch cohortId seen');
         resetData();
         $scope.$apply();
     });
+
+    socket.on('getAllQuestionsAsked', getAllQuestionsAsked);
+    socket.on('reset view data', resetViewData)
 
     socket.on('questionForQueue', function (data) {
       if( data.cohortId === self.cohortId){
@@ -16,10 +18,17 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
       }
     });
 
-    socket.on('getAllQuestionsAsked', function (data) {
+    function getAllQuestionsAsked (data) {
         self.questions = data;
         $scope.$apply();
-    });
+    }
+    
+    function resetViewData () {
+        console.log(socket);
+        console.log('resetting data view - liveFeed');
+        resetData();
+        $scope.$apply();
+    }
 
     socket.on('remove question from queue', function (question) {
         self.questions = _.filter(self.questions, function (item) {
@@ -63,9 +72,15 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         self.questions = [];
         socket.emit('get questions asked', {cohortId: self.cohortId});
     }
+    
+    $element.on('$destroy', function() {
+        socket.off('getAllQuestionsAsked', getAllQuestionsAsked);
+        socket.off('reset view data', resetViewData);
+    })
 
     this.initSelect = function(){
       $('select').material_select();
     };
 
 });
+

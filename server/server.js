@@ -130,7 +130,10 @@ ioServer.on('connection', function (socket) {
     socket.on('client request: get flash poll status', FlashPollCtrl.handleFlashPollGetStatus.bind(null, socket));
 
     //View Sockets
-    socket.on('request reset view data', function() {socket.emit('reset view data')});
+    socket.on('request reset view data', function() {
+        console.log('server emitting reset view data');
+        socket.emit('reset view data')
+    });
 
     //User Sockets
     socket.on('instructor login', UserCtrl.handleInstructorLogin.bind(null, socket));
@@ -167,7 +170,7 @@ ioServer.on('connection', function (socket) {
 
 });
 
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
   console.log('Connected to MongoDB: ' + mongoURI);
 });

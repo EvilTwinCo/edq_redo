@@ -1,10 +1,14 @@
 var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function ($scope, socketIoSrvc, $timeout) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
-    resetData();
 
-    socket.emit('instructor login');
+    //socket.emit('instructor login');
 
+    $scope.$watch('is.cohortId', function() {
+        console.log('watch cohortId seen');
+        resetData();
+    })
+    
     socket.on('report confidence single', function (data) {
         //console.log('recieved report confidence single', data);
         if (data.cohortId === self.cohortId) {
@@ -19,11 +23,15 @@ var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function 
         }
     });
 
-    socket.on('reset view data', function () {
-        //console.log('resetting data view');
-        resetData();
-        $scope.$apply();
-    });
+    console.log(socket._callbacks['reset view data']);
+    if (socket._callbacks['reset view data'] === undefined) {
+        socket.on('reset view data', function () {
+            console.log(socket);
+            console.log('resetting data view');
+            resetData();
+            $scope.$apply();
+        })
+    }
 
     function cleanData() {
         self.data = _.mapObject(self.objData, function (object, index) {
