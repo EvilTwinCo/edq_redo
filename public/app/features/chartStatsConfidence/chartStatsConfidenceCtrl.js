@@ -7,6 +7,9 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     $scope.$watch('is.cohortId', function () {
         if (self.cohortId) {
             getData();
+            self.showData = true;
+        } else {
+            self.showData = false;
         }
     });
 
@@ -34,7 +37,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     }
 
     function updateChart (data) {
-        console.log(data);
+        //console.log(data);
 
         var pushedYetCheckObj = {};
         var confidenceLabelsArray = [];
@@ -53,11 +56,12 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
             }
             confidenceValuesArray[pushedYetCheckObj[item.learningObjective]].push(item.confidence);
         });
-        console.log(confidenceLabelsArray);
-        console.log(confidenceValuesArray);
+        //console.log(confidenceLabelsArray);
+        //console.log(confidenceValuesArray);
 
         self.dataSet = confidenceValuesArray;
         self.dataLabels = confidenceLabelsArray;
+        console.log(self.dataLabels);
     }
 
     var columnDefs = [
