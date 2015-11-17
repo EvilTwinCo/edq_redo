@@ -106,12 +106,13 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 }
+                console.log(result);
                 socket.emit('getAllQuestionsAsked', result);
             });
     },
     addingQuestionAndSolution: function (socket, data) {
         dataToUpdate = {
-            mentorSolution: data.reviewedAnswer,
+            mentorSolution: data.mentorSolution,
             questionCategory: data.reviewedQuestion
         };
         Question.findByIdAndUpdate(data._id, dataToUpdate)
@@ -192,7 +193,7 @@ module.exports = {
     socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
     },
     handleMentorLiveFeed: function(socket, data){
-      console.log("handle Mentor Feed: data", data)
+      console.log("handle Mentor Feed: data", data);
       var cohortId = data.cohortId;
       socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
     },

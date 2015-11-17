@@ -9,27 +9,36 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope)
         console.log('resetting data view - liveFeed');
         resetData();
         $scope.$apply();
-    })
-    
+    });
+
     socket.on('liveFeed', function(data){
-      self.feed.push(data);
-        $scope.$apply();
-    })
+      var existingQuestion = _.findWhere(self.feed,{timeQuestionAnswered:data.timeQuestionAnswered});
+      console.log(self.feed);
+      console.log(existingQuestion);
+      if(existingQuestion){
+        console.log("Extend Solution");
+          existingQuestion = _.extend(existingQuestion, data);
+      }else{
+        console.log("Push New Solution");
+        self.feed.push(data);
+      }
+      $scope.$apply();
+    });
 
     socket.on('serversLiveFeedStore', function(data){
       self.feed = data;
         $scope.$apply();
-    })
+    });
 
     socket.on('server response: initial live feed queue', function(data) {
         console.log(data);
         self.feed = data;
         $scope.$apply();
-    })
-    
+    });
+
     function resetData () {
-        console.log(self.cohortId)
-        socket.emit('client request: initial live feed queue', self.cohortId); 
+        console.log(self.cohortId);
+        socket.emit('client request: initial live feed queue', self.cohortId);
     }
 
 });
