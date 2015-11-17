@@ -25,18 +25,15 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope,
         if(existingQuestion){
             existingQuestion = _.extend(existingQuestion, data);
         }else{
-            self.feed.push(data);
+            self.feed.unshift(data);
         }
         $scope.$apply();
     }
 
     function serverResponseInitialLiveFeedQueue (data) {
         data.reverse();
-        console.log('server response: initial live feed queue: reversed:', data);
         self.feed = data;
         $scope.$apply();
-        console.log('============');
-
     }
 
     function resetData () {

@@ -2,36 +2,36 @@ var Question = require('../models/Question');
 var _ = require('underscore');
 passportSocketIo = require('passport.socketio');
 var liveFeedQueue = {
-    28: [
-        {
-            question: '28 test question 1',
-            studentSolution: '28 test solution 1'
-        },
-        {
-            question: '28 test question 2',
-            studentSolution: '28 test solution 2'
-        }
-    ],
-    27: [
-        {
-            question: '27 test question 1',
-            studentSolution: '27 test solution 1'
-        },
-        {
-            question: '27 test question 2',
-            studentSolution: '27 test solution 2'
-        }
-    ],
-    26: [
-        {
-            question: '26 test question 1',
-            studentSolution: '26 test solution 1'
-        },
-        {
-            question: '26 test question 2',
-            studentSolution: '26 test solution 2'
-        }
-    ]
+//    28: [
+//        {
+//            question: '28 test question 1',
+//            studentSolution: '28 test solution 1'
+//        },
+//        {
+//            question: '28 test question 2',
+//            studentSolution: '28 test solution 2'
+//        }
+//    ],
+//    27: [
+//        {
+//            question: '27 test question 1',
+//            studentSolution: '27 test solution 1'
+//        },
+//        {
+//            question: '27 test question 2',
+//            studentSolution: '27 test solution 2'
+//        }
+//    ],
+//    26: [
+//        {
+//            question: '26 test question 1',
+//            studentSolution: '26 test solution 1'
+//        },
+//        {
+//            question: '26 test question 2',
+//            studentSolution: '26 test solution 2'
+//        }
+//    ]
 };
 
 module.exports = {
