@@ -1,10 +1,10 @@
 angular.module('theQ').controller('solutionInputCtrl', function (socketIoSrvc) {
-    
+
     var socket = socketIoSrvc.getSocket();
 
     this.noShareinput = function () {
-        this.done()
-    }
+        this.done();
+    };
 
     this.shareInput = function () {
         if (this.question.studentSolution !== '') {
@@ -13,5 +13,5 @@ angular.module('theQ').controller('solutionInputCtrl', function (socketIoSrvc) {
         } else {
             alert('You must add a solution first...');
         }
-    }
-})
+    };
+});
