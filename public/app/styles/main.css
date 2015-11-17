@@ -74,7 +74,7 @@ html {
   max-height: 330px;
   margin:0 auto;
   position:relative;
-
+  background-color: #fafafa;
 }
 
 #canvasDiv div{
@@ -110,7 +110,6 @@ nav ul a {
   color:#FAFAFA;
   /*font-size: 1.35em;*/
   /*font-weight:300;*/
-  font-family: proxima-nova;
 }
 
 nav img{
