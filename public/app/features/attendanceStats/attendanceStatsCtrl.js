@@ -375,6 +375,7 @@ var heightOfWindow = document.getElementById("sizeTester").clientHeight;
       .attr("x", 0)
       .attr("y", w/2 + 40)
       .attr("class", "flow-text")
+      .attr("class", 'pieT')
       .attr("text-anchor", "middle")
       .text(function(d, i) {
         if(data[i].label != ""){
