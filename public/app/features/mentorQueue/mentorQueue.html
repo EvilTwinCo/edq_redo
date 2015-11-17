@@ -14,9 +14,9 @@
       <a ng-if="!part.mentorName" class="waves-effect waves-light btn questionInput" ng-click="mq.mentorBegins(part)">Help</a>
       <span><a class="waves-effect waves-light btn red questionInput" ng-click="mq.questionResolve(part)">Remove</a></span>
 
-      <div class="row" ng-if="part.removing">
-        <div class="input-field col s12" ng-init = "mq.initSelect()">
-          <select class="browser-default" disabled>
+      <div class="row" ng-if="part.removing" ng-init = "mq.initSelect()">
+        <div class="input-field col s12" >
+          <select ng-model = "mq.part.reviewedQuestion">
             <option value="" disabled selected>Question Category</option>
             <option value="conept">Conceptual</option>
             <option value="syntax">Syntax</option>

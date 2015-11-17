@@ -141,14 +141,13 @@ ioServer.on('connection', function (socket) {
 
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
-   
+
     socket.on('get current confidences', ConfidenceCtrl.handleGetCurrentConfidences.bind(null, socket));
 
     //Question Sockets
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
     socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, socket, ioServer));
     socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
-    socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
@@ -158,6 +157,7 @@ ioServer.on('connection', function (socket) {
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
     socket.on('request queue stats', QuestionCtrl.handleStatsQuery.bind(null, socket));
     socket.on('client request: initial live feed queue', QuestionCtrl.handleLiveFeedQueueRequest.bind(null, socket));
+    socket.on('mentor post: live feed', QuestionCtrl.handleMentorLiveFeed.bind(null, socket));
 
     //Attendance Sockets
     socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));

@@ -57,7 +57,12 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         socket.emit('mentor resolves question', object);
     };
 
-    this.addingQuestionAndSolution = function (object) {
+    this.addingQuestionAndSolution = function (object, share) {
+      console.log("Resovle Mentor Solution");
+        if (share){
+          console.log("Should Share");
+          socket.emit("mentor post: live feed", object);
+        }
         socket.emit('add mentor notes', object);
         socket.emit('request question removal', object);
     };
@@ -68,6 +73,8 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     }
 
     this.initSelect = function(){
+      console.log("Init Select");
       $('select').material_select();
+      console.log($('select'));
     };
 });

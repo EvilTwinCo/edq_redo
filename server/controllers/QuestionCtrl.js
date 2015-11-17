@@ -191,6 +191,11 @@ module.exports = {
 
     socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
     },
+    handleMentorLiveFeed: function(socket, data){
+      console.log("handle Mentor Feed: data", data)
+      var cohortId = data.cohortId;
+      socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
+    },
     handleStatsQuery: function (socket, query) {
 
         Question.find({})
@@ -224,10 +229,10 @@ function emitAllPositionsInQueue(ioServer, cohort) {
         }).select('studentId')
         .exec(function (err, result) {
 
-            result.forEach(function (studentId, index) {
+            result.forEach(function (item, index) {
 
                 passportSocketIo.filterSocketsByUser(ioServer, function (user) {
-                    return user.devMtn.id === questions.studentId;
+                    return user.devMtn.id === item.studentId;
                 }).forEach(function (socket) {
                     socket.emit('position in queue', index);
                 });
