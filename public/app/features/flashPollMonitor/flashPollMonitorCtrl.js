@@ -57,6 +57,8 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
   };
 
   function updateResults() {
+    var ColorInterpolater = d3.interpolateRgb("black", "blue");
+
     aCount = $scope.dataSet.filter(function(item) {
       return (item === "A" ? true : false);
     }).length;
@@ -85,7 +87,10 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
       .attr('y', function(d, i) {
         return 90 - scale(d);
       })
-    .attr("fill", "hsl(" + (Math.random() * 360) + ",100%,50%)")
+      .attr("fill", function(d) {
+        return ColorInterpolater(d/$scope.dataSet.length);
+      });
+
 
     voteNumber = baseBox.selectAll(".voteNumbers")
       .data(resultSet)
@@ -105,5 +110,5 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
 
     $element.on('$destroy', function () {
         socket.off('flashPoll', flashPoll);
-    })
+    });
 });
