@@ -29,6 +29,9 @@ DevMountain is a coding school located in Provo, UT.  It is a comprehensive tech
 * Student has ability to share question and anwer if he or she feels it will benefit the class
 * Shared questions and answers can be viewed by entire cohort in "Common Questions" section
 
+
+![alt text](http://i.imgur.com/PLvZVoE.png)
+
 ### Admin Dashboard Features
 
 * Admin can view where help is needed by each cohort
@@ -39,11 +42,17 @@ DevMountain is a coding school located in Provo, UT.  It is a comprehensive tech
 * Mentors have the ability to share common questions and answers so program leaders can make strategic decisions
 * Mentors will be able to view questions and answers students share
 
+
+![alt text](http://i.imgur.com/dd4kSkX.png)
+
 ### Statistics Dashboard Features
 
 * Admin can view overall attendance across all cohorts, single cohort, and by student
 * Admin can view learning objective confidence levels across all cohorts, single cohort, and by student
 * Admin can view student questions across all cohorts, single cohort, and by student
+
+
+![alt text](http://i.imgur.com/dd4kSkX.png)
 
 ### Technologies
 * Angular JS
@@ -60,12 +69,11 @@ DevMountain is a coding school located in Provo, UT.  It is a comprehensive tech
 * Express
 * Socket.io
 
-## Screenshots
+## Additional Screenshots
 
-* [Student Dashboard](http://i.imgur.com/PLvZVoE.png)
-* [Admin Dashboard](http://i.imgur.com/dd4kSkX.png)
+* [Student Dashboard w/ Flash Poll](http://i.imgur.com/QWXKHfK.png)
 * [Admin Dashboard w/ Attendance](http://i.imgur.com/teQKNBL.png)
-* Statistics Dashboard()
+* [Statistics Dashboard](http://i.imgur.com/BxDAr5u.png)
 * [Responsive Student Dashboard](http://i.imgur.com/LutDqa5.png)
 * [Responsive Admin Dashboard](http://i.imgur.com/pDGCwuJ.png)
 
