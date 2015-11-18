@@ -47,14 +47,17 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
 
         arrayLocation = 0;
         data.forEach(function (item) {
+            console.log(item.learningObjective);
+            console.log(!pushedYetCheckObj[item.learningObjective]);
             if (!pushedYetCheckObj[item.learningObjective]) {
-                pushedYetCheckObj[item.learningObjective] = arrayLocation;
+                console.log('pushing ' + item.learningObjective);
+                pushedYetCheckObj[item.learningObjective] = arrayLocation.toString();
                 arrayLocation++;
                 confidenceValuesArray.push([]);
                 confidenceLabelsArray.push(item.learningObjectiveTopic);
                 confidenceIdsArray.push(item.learningObjective);
             }
-            confidenceValuesArray[pushedYetCheckObj[item.learningObjective]].push(item.confidence);
+            confidenceValuesArray[parseInt(pushedYetCheckObj[item.learningObjective])].push(item.confidence);
         });
         //console.log(confidenceLabelsArray);
         //console.log(confidenceValuesArray);
