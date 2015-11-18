@@ -1,12 +1,16 @@
 <div class="feedContainer">
-  <div style="font-size: 20px" class="center-align"><b>Common Questions</b></div>
+  <div style="font-size: 20px" class="commonQuestions center-align"><b>Common Questions</b></div>
   <div ng-repeat="part in lF.feed">
-          <div class="card blue-grey darken-1 z-depth-1">
-            <div class="card-content">
-              <div class="center-align liveFeedText">Question</div><div class="liveFeedText"> {{part.question}}</div>
-              <div class="center-align liveFeedText" ng-show = "part.studentSolution">Solution</div><div class="liveFeedText"> {{part.studentSolution}}</div>
-              <div class="center-align liveFeedText" ng-show = "part.mentorSolution">Solution</div><div class="liveFeedText"> {{part.mentorSolution}}</div>
+          <div class="">
+            <div class="liveFeedContainer">
+              <span class="center-align liveFeedTitle">Question :</span><span class="liveFeedText"> {{part.question}}</span>
+              <div>
+              <span class="center-align liveFeedTitle" ng-show = "part.studentSolution">Solution :</span><span class="liveFeedText"> {{part.studentSolution}}</span>
+              <span class="center-align liveFeedTitle" ng-show = "part.mentorSolution">Solution :</span><span class="liveFeedText"> {{part.mentorSolution}}</span>
             </div>
+            </div>
+            <div class="colorBlockCommon pewterBackground"></div>
+
           </div>
       </div>
     </div>

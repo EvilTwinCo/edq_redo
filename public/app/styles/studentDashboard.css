@@ -11,6 +11,11 @@
   width:100%;
   height:1.5em;
 }
+.colorBlockCommon {
+  width:100%;
+  height:.33em;
+  margin-top: 10px;
+}
 
 .redBackground {
   background-color: #8D2F27;
@@ -26,6 +31,9 @@
 }
 .purpleBackground {
   background-color: #47054E;
+}
+.pewterBackground {
+  background-color: #6f7d85;
 }
 
 .ancorDiv {
