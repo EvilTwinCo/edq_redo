@@ -83,6 +83,16 @@ passportLocalCtrl.setup;
 app.post('/auth/passportLocal', passportLocalCtrl.auth);
 app.get('/auth/passportLocal/setUser', passportLocalCtrl.setUser);
 
+app.get('/logout', function(req, res){
+  console.log('Logging out user', req.user);
+  req.logout();
+  console.log('req.session', req.session);
+  req.session.destroy(function(err){console.log('this be err', err);});
+  console.log('req.session', req.session);
+  res.redirect('/#/logout');
+
+});
+
 //passport.serializeUser(DevMtnPassportCtrl.serializeUser);
 //passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
 
