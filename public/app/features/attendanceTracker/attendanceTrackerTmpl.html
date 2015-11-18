@@ -1,49 +1,40 @@
-<!-- this button can be moved as long as you add attribue to the element hideMenu = !hideMenu -->
-  <a class="showAttendanceButton waves-effect waves-light btn" ng-click="is.hideDisplay()">Show Attendance</a>
+<a class="showAttendanceButton waves-effect waves-light btn" ng-click="is.toggleDisplay()">Show Attendance</a>
 
 <div class="attendanceContainer" ng-cloak ng-show='users !=[] && !is.hideMenu'>
-  <div class="attendanceHeader">
-    <img class="logo" src="app/logoonly.png">
-    <div class="attendanceText">Attendance</div>
-  </div>
-
-  <a class="waves-effect waves-light btn" ng-click="is.hideDisplay()">Hide Attendance</a>
-
-  <div class="studentAttendanceContainer row" ng-repeat="user in is.users">
-    <div class="studentName">{{user.firstName}}
-      {{user.lastName}}</div>
-    <div class="checkInContainer row">
-      <div class="col s4">
-
-        <button class="waves-effect waves-light btn checkIn" ng-click="is.timeInButton(user); showTimeChangeButton = true;" ng-hide="user.attendanceData.timeIn || (changingTimeOut || changingTimeIn)">Time In</button>
-        <input id="exampleInput" name="input" ng-model="newtime.timeIn" ng-show="changingTimeIn" type="time"/>
-        <button ng-click="is.startChangeTimeIn(user); changingTimeIn = !changingTimeIn;" ng-hide="!user.attendanceData.timeIn" ng-show="!changingTimeIn && !changingTimeOut">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
-        <input name="input" ng-model="newtime.timeOut" ng-show="changingTimeOut" type="time"/>
-
-      </div>
-
-      <div class="col s4">
-
-        <button class="waves-effect waves-light btn checkOut" ng-click="is.timeOutButton(user)" ng-hide="user.attendanceData.timeOut || (changingTimeOut || changingTimeIn)">Time Out</button>
-        <button class="waves-effect waves-light btn checkOut" ng-click="is.setNewTimeIn(newtime.timeIn); changingTimeIn = !changingTimeIn;" ng-show="changingTimeIn">Time-In</button>
-        <button class="waves-effect waves-light btn checkOut" ng-click="is.setNewTimeOut(newtime.timeOut); changingTimeOut = !changingTimeOut;" ng-show="changingTimeOut">Time-Out</button>
-        <button ng-click="is.startChangeTimeOut(user); changingTimeOut = !changingTimeOut;" ng-hide="!user.attendanceData.timeOut" ng-show="changingTimeIn && changingTimeOut">{{ user.attendanceData.timeOut | date: "MM/dd/yyyy 'at' h:mma"}}</button>
-
-      </div>
-
-      <div class="col s4" ng-init="is.doIt()" ng-show="!changingTimeIn && !changingTimeOut">
-
-        <select class="browser-default multiScore " ng-change="is.changeScore(user)" ng-class="{multiScoreValueAdded: user.attendanceData.score}" ng-model="user.attendanceData.score">
-          <option disabled selected value="">Daily Score</option>
-          <option value="number:1">1 of 3</option>
-          <option value="number:2">2 of 3</option>
-          <option value="number:3">3 of 3</option>
-
-        </select>
-
-      </div>
-
+    <div class="attendanceHeader">
+        <img class="logo" src="app/logoonly.png">
+        <div class="attendanceText">Attendance</div>
     </div>
-  </div>
+        <div>
+           <a class="waves-effect waves-light btn" ng-click="is.toggleDisplay()">Hide Attendance</a> 
+        </div>
+    
+        <div class="studentAttendanceContainer row" ng-repeat="user in is.users">
+            <div class="studentName">{{user.firstName}} {{user.lastName}}
+            </div>
+            <div class="checkInContainer row">
+                <div class="col s4">
+                    <button class="waves-effect waves-light btn checkIn" ng-click="is.timeInButton(user); showTimeChangeButton = true;" ng-hide="user.attendanceData.timeIn || (changingTimeOut || changingTimeIn)">Time In</button>
+                    <input id="exampleInput" name="input" ng-model="newtime.timeIn" ng-show="changingTimeIn" type="time" />
+                    <button ng-click="is.startChangeTimeIn(user); changingTimeIn = !changingTimeIn;" ng-show="!changingTimeIn && !changingTimeOut && user.attendanceData.timeIn">{{ user.attendanceData.timeIn | date:"MM/dd/yyyy 'at' h:mma"}}</button>
+                    <input name="input" ng-model="newtime.timeOut" ng-show="changingTimeOut" type="time" />
+                </div>
+                <div class="col s4">
+                    <button class="waves-effect waves-light btn checkOut" ng-click="is.timeOutButton(user)" ng-hide="user.attendanceData.timeOut || (changingTimeOut || changingTimeIn)">Time Out</button>
+                    <button class="waves-effect waves-light btn checkOut" ng-click="is.setNewTimeIn(newtime.timeIn); changingTimeIn = !changingTimeIn;" ng-show="changingTimeIn">Time-In</button>
+                    <button class="waves-effect waves-light btn checkOut" ng-click="is.setNewTimeOut(newtime.timeOut); changingTimeOut = !changingTimeOut;" ng-show="changingTimeOut">Time-Out</button>
+                    <button ng-click="is.startChangeTimeOut(user); changingTimeOut = !changingTimeOut;" ng-show="!changingTimeIn && !changingTimeOut && user.attendanceData.timeOut">{{ user.attendanceData.timeOut | date: "MM/dd/yyyy 'at' h:mma"}}</button>
+                </div>
+                <div class="col s4" ng-init="is.doIt()" ng-show="!changingTimeIn && !changingTimeOut">
+                    <select ng-hide="user.attendanceData.score" class="browser-default multiScore" ng-change="is.changeScore(user)" ng-class="{multiScoreValueAdded: user.attendanceData.score}" ng-model="user.attendanceData.score">
+                        <option disabled selected value="">Select Score...</option>
+                        <option value="number:1">1 of 3</option>
+                        <option value="number:2">2 of 3</option>
+                        <option value="number:3">3 of 3</option>
+                    </select>
+                    <button ng-show="user.attendanceData.score" class="waves-effect waves-dark btn grey lighten-3" style="color: black" ng-click="user.attendanceData.score = undefined">{{ user.attendanceData.score }}</button>
 
+                </div>
+            </div>
+        </div>
 </div>
