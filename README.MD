@@ -11,6 +11,7 @@ DevMountain is a coding school located in Provo, UT.  It is a comprehensive tech
 
 ## Team Members
 
+* [Shawn Chambless](https://github.com/ShawnChambless)
 * [David Giles](https://github.com/jairuzu)
 * [Brack Carmony](https://github.com/Kedirech)
 * [Bryan Schuarte](https://github.com/Bryanschauerte)
