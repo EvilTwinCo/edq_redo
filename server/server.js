@@ -27,7 +27,7 @@ var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 var CohortCtrl = require('./controllers/CohortCtrl');
-var passportLocalCtrl = require('./controllers/LocalPassportCtrl');
+//var passportLocalCtrl = require('./controllers/LocalPassportCtrl');
 
 
 var corsWhiteList = ['http://localhost:' + serverPort];
@@ -79,9 +79,9 @@ passport.use('devmtn', new DevmtnStrategy({
   jwtSecret: process.env.DM_SECRET
 }, DevMtnPassportCtrl.authLogin));
 
-passportLocalCtrl.setup;
-app.post('/auth/passportLocal', passportLocalCtrl.auth);
-app.get('/auth/passportLocal/setUser', passportLocalCtrl.setUser);
+//passportLocalCtrl.setup;
+//app.post('/auth/passportLocal', passportLocalCtrl.auth);
+//app.get('/auth/passportLocal/setUser', passportLocalCtrl.setUser);
 
 app.get('/logout', function(req, res){
   console.log('Logging out user', req.user);
@@ -93,11 +93,11 @@ app.get('/logout', function(req, res){
 
 });
 
-//passport.serializeUser(DevMtnPassportCtrl.serializeUser);
-//passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
+passport.serializeUser(DevMtnPassportCtrl.serializeUser);
+passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
 
-passport.serializeUser(function(user, done) {done(null, user);});
-passport.deserializeUser(function(obj, done) {done(null, obj);});
+// passport.serializeUser(function(user, done) {done(null, user);});
+// passport.deserializeUser(function(obj, done) {done(null, obj);});
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({
