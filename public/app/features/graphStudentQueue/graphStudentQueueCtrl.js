@@ -156,19 +156,19 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
           console.log("here");
           console.log(d);
           return d;})
-        .attr("x", 1000)
-        .attr("y", function(d, i){return 50+50*i;})
+        .attr("x", 1100)
+        .attr("y", function(d, i){return 30+40*i;})
         .attr("font-family", "sans-serif")
-        .attr("font-size", "40px")
+        .attr("font-size", "30px")
         .attr("fill", function(d,i){return color(i);});
 
         d3Svg.selectAll(".legend-box").data(legendArray)
         .enter()
         .append("rect")
-        .attr("x", 1000-40)
-        .attr("y", function(d,i){return 15+50*i;})
-        .attr("height", 40)
-        .attr("width", 40)
+        .attr("x", 1100-35)
+        .attr("y", function(d,i){return 5+40*i;})
+        .attr("height", 30)
+        .attr("width", 30)
         .attr("fill", function(d,i){return color(i);});
 
       //.style("fill", function(d){return d3.rgb(150,150,Math.floor(Math.random()*255));});

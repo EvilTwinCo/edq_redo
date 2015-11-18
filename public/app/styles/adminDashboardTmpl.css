@@ -19,10 +19,3 @@ confidence-live-chart {
 admin-dashboard .confidenceSvg {
   height:80%
 }
-
-
-@media only screen and (min-width: 601px) {
-  .liveFeedContainer {
-    margin-top: 3em;
-  }
-}
