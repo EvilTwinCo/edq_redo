@@ -47,7 +47,6 @@ DevMountain is a coding school located in Provo, UT.  It is a comprehensive tech
 
 ### Technologies
 * Angular JS
- * All project components were made using directives to align with current web standards
 * HTML
 * CSS
 * Materialize CSS
