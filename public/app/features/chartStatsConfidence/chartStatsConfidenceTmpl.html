@@ -4,16 +4,16 @@
         <a class="waves-effect waves-light btn col s2" ng-click="is.toggleGraph=!is.toggleGraph">Toggle Graph</a>
     </div>
 
-    <div ng-show="is.toggleGraph" class="row" style="background-color: white; padding: 10px; box-shadow: 3px 3px 3px black; height: 350px; overflow: auto;">
-        <div ng-if="is.showChart==='cohort'" ng-repeat="datum in is.dataSet" class="col s1">
+    <div ng-show="is.toggleGraph" class="row" style="background-color: white; padding: 10px; box-shadow: 3px 3px 3px black; height: 350px; overflow: auto; position: relative">
+        <div ng-if="is.showChart==='cohort'" ng-repeat="datum in is.dataSet" style="width: 58px; margin: 0 6px; display: inline-block;">
             <p style="height: 20px; text-align: center; font-size: 10px;">{{is.dataLabels[$index]}}</p>
             <d3-verticle-dot-distribution data="datum"></d3-verticle-dot-distribution>
         </div>
-        <div class="row" ng-if="is.showChart==='individual'">
+        <div class="row" ng-if="is.showChart==='individual'" style="position: absolute; left: 100px">
             <a class="waves-effect waves-light btn" ng-click="is.showChart='cohort'">Reset to Group View</a>
         </div>
         <div class="row" ng-if="is.showChart==='individual'">
-            <div class="col s12" style="height: 50vh">
+            <div class="col s12" style="height: inherit; padding-bottom: 50px;">
                 <d3-line-chart data="is.graphData" style="height: 100%;"></d3-line-chart>
             </div>
         </div>

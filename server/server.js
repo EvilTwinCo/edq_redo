@@ -46,6 +46,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+
 app.options(cors(corsOptions));
 
 var SessionStore = new MongoStore({
@@ -83,11 +84,21 @@ passport.use('devmtn', new DevmtnStrategy({
 //app.post('/auth/passportLocal', passportLocalCtrl.auth);
 //app.get('/auth/passportLocal/setUser', passportLocalCtrl.setUser);
 
+app.get('/logout', function(req, res){
+  console.log('Logging out user', req.user);
+  req.logout();
+  console.log('req.session', req.session);
+  req.session.destroy(function(err){console.log('this be err', err);});
+  console.log('req.session', req.session);
+  res.redirect('/#/logout');
+
+});
+
 passport.serializeUser(DevMtnPassportCtrl.serializeUser);
 passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
 
-//passport.serializeUser(function(user, done) {done(null, user);});
-//passport.deserializeUser(function(obj, done) {done(null, obj);});
+// passport.serializeUser(function(user, done) {done(null, user);});
+// passport.deserializeUser(function(obj, done) {done(null, obj);});
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({
@@ -155,7 +166,7 @@ ioServer.on('connection', function (socket) {
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
-    socket.on('get my current question', QuestionCtrl.qetMyCurrentQuestion.bind(null, socket));
+    socket.on('get my current question', QuestionCtrl.getMyCurrentQuestion.bind(null, socket));
     socket.on('studentSolution', QuestionCtrl.handleStudentSolution.bind(null, socket));
     socket.on('studentDropFromQueueTime', QuestionCtrl.handleStudentDropFromQueue.bind(null, socket));
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));

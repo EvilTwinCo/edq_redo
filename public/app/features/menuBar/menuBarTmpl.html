@@ -6,7 +6,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a ng-if="is.showAdminTags === true" href="#/adminDashboard">Admin Dashboard</a></li>
             <li><a ng-if="is.showAdminTags === true" href="#/statsDashboard">Stats Dashboard</a></li>
-            <li><a href="#/logout">Logout</a></li>
+            <li><a ng-click = "is.logoutUser()">Logout</a></li>
         </ul>
 
 
@@ -14,7 +14,7 @@
             <li><a ng-if="is.showAdminTags === true" href="#/adminDashboard">Admin Dashboard</a></li>
             <li><a ng-if="is.showAdminTags === true" href="#/statsDashboard">Stats Dashboard</a></li>
             <li class="divider"></li>
-            <li><a href="#/logout">Logout</a></li>
+            <li><a ng-click = "is.logoutUser()">Logout</a></li>
         </ul>
 
         <ul id="nav-mobile" class="right hide-on-large-only">
