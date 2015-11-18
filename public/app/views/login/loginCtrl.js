@@ -12,7 +12,7 @@ angular.module('theQ').controller('loginCtrl', function($q, $http, $window, $loc
     };
 
    this.loginWithPassportDevMtn = function() {
-        $window.location.href = 'http://localhost:8080/auth/devmtn';
+        $window.location.path = '/auth/devmtn';
    };
 
    this.loginWithPassportDevMtn();
