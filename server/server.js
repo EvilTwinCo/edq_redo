@@ -120,12 +120,12 @@ function onAuthorizeFail(data, message, error, accept) {
   if (error) throw new Error(message);
   // send the (not-fatal) error-message to the client and deny the connection
   return accept(new Error(message));
-
 }
 
 app.get('/admin/confidences/:cohortId', ConfidenceCtrl.getDatabaseConfidences);
 app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
 app.get('/admin/confidences/user/:userId/:learningObjId', ConfidenceCtrl.getUserLearningObjConfidences);
+app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendanceForDateByCohort);
 
 ioServer.on('connection', function (socket) {
     var devMtnId = socket.request.user.devMtn.id;
