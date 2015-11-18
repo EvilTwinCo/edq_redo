@@ -65,7 +65,7 @@ student-flash-poll a{
 
 student-flash-poll > div{
   background-color: mintcream;
-  border: 1px solid #aaa;
+  outline: 1px solid #aaa;
   box-shadow: 5px 5px 20px rgba(0,0,0,.5);
 }
 
