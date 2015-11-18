@@ -20,19 +20,19 @@ module.exports = {
       setTimeout(removeOpenPoll.bind(null, cohortId), 1000*60*5);
       socket.server.to('student cohort:'+cohortId).emit('togglePolls', true);
   },
-    
+
     handleFlashPollGetStatus: function(socket) {
         var cohortId = socket.request.user.devMtn.cohortId;
         var studentId = socket.request.user.devMtn.id;
         if (openCohortPolls[cohortId]) {
             if (openCohortPolls[cohortId].indexOf(studentId) === -1) {
-                socket.server.to('student cohort:'+cohortId).emit('togglePolls', true);
+                socket.emit('togglePolls', true);
             }
         }
     }
 };
 
 function removeOpenPoll(cohortId) {
-    console.log('deleting openCohortPolls['+cohortId+']')
-     delete openCohortPolls[cohortId]
+    console.log('deleting openCohortPolls['+cohortId+']');
+     delete openCohortPolls[cohortId];
 }
