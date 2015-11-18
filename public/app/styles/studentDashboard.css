@@ -63,8 +63,10 @@ student-flash-poll a{
   margin:.75em;
 }
 
-student-flash-poll div{
-  background-color: #FAFAFA;
+student-flash-poll > div{
+  background-color: mintcream;
+  border: 1px solid #aaa;
+  box-shadow: 5px 5px 20px rgb(0,0,0,.5);
 }
 
 @media only screen and (min-width: 992px){

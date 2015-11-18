@@ -81,9 +81,13 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
     onModelUpdated: onModelUpdated,
     rowHeight: 22,
     enableColResize: true,
+    onReady: refreshView,
 
   };
-
+    
+    function refreshView () {
+        $scope.gridOptions.api.sizeColumnsToFit();
+    }
 
   var rowData = [];
 
