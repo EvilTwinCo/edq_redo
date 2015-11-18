@@ -4,7 +4,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
   var aCount, bCount, cCount, scale;
 
   socket.on('flashPoll', flashPoll);
-    
+
   function flashPoll (data) {
       $scope.dataSet = data;
       updateResults();
@@ -57,6 +57,8 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
   };
 
   function updateResults() {
+    var ColorInterpolater = d3.interpolateRgb("black", "blue");
+
     aCount = $scope.dataSet.filter(function(item) {
       return (item === "A" ? true : false);
     }).length;
@@ -86,7 +88,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
         return 90 - scale(d);
       })
       .attr("fill", function(d) {
-        return "rgb(0, 0, " + (d * 2) + ")";
+        return ColorInterpolater(d/$scope.dataSet.length);
       });
 
     voteNumber = baseBox.selectAll(".voteNumbers")
@@ -104,7 +106,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
       .attr('font-size', "10")
       .attr("text-anchor", "middle");
   }
-    
+
     $element.on('$destroy', function () {
         socket.off('flashPoll', flashPoll);
     })
