@@ -2,8 +2,11 @@
 .askQuestion {
   position: absolute;
   z-index: 1;
-  left: 60%;
-  top: 0;
+  right:3px;
+  top: 3px;
+  font-size: .6em;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 

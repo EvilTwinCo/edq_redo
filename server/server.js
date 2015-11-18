@@ -128,9 +128,13 @@ ioServer.on('connection', function (socket) {
     // Flash poll Sockets
     socket.on('studentFlashPoll', FlashPollCtrl.handleFlashPollSubmit.bind(null, socket));
     socket.on('removeStudentFlashPollData', FlashPollCtrl.handleFlashPollRemoval.bind(null, socket));
+    socket.on('client request: get flash poll status', FlashPollCtrl.handleFlashPollGetStatus.bind(null, socket));
 
     //View Sockets
-    socket.on('request reset view data', function() {socket.emit('reset view data')});
+    socket.on('request reset view data', function() {
+        console.log('server emitting reset view data');
+        socket.emit('reset view data')
+    });
 
     //User Sockets
     socket.on('instructor login', UserCtrl.handleInstructorLogin.bind(null, socket));
@@ -149,7 +153,6 @@ ioServer.on('connection', function (socket) {
     socket.on('student Question', QuestionCtrl.handleStudentQuestionSubmit.bind(null, socket, ioServer));
     socket.on('mentor begins', QuestionCtrl.mentorBegins.bind(null, socket, ioServer));
     socket.on('question resolve', QuestionCtrl.questionResolve.bind(null, socket));
-    socket.on('add question and solution', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('mentor resolves question', QuestionCtrl.questionResolve.bind(null, socket));
     socket.on('add mentor notes', QuestionCtrl.addingQuestionAndSolution.bind(null, socket));
     socket.on('get questions asked', QuestionCtrl.getAllQuestionsAsked.bind(null, socket));
@@ -159,6 +162,7 @@ ioServer.on('connection', function (socket) {
     socket.on('request question removal', QuestionCtrl.handleQuestionRemovalRequest.bind(null, socket, ioServer));
     socket.on('request queue stats', QuestionCtrl.handleStatsQuery.bind(null, socket));
     socket.on('client request: initial live feed queue', QuestionCtrl.handleLiveFeedQueueRequest.bind(null, socket));
+    socket.on('mentor post: live feed', QuestionCtrl.handleMentorLiveFeed.bind(null, socket));
 
     //Attendance Sockets
     socket.on('postAttendance', AttendanceCtrl.postAttendance.bind(null, socket));
@@ -167,7 +171,7 @@ ioServer.on('connection', function (socket) {
 
 });
 
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
   console.log('Connected to MongoDB: ' + mongoURI);
 });

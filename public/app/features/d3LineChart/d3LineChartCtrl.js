@@ -54,7 +54,7 @@ var app = angular.module("theQ").controller("d3LineChartCtrl", function ($scope,
         
         chart.selectAll('line')
         .attr("x1", function(d,i) {
-            //console.log(new Date (d.timestamp1) + '__' + d.confidence1 + '||' + d.learningObj1 + '&&' + new Date (d.timestamp2) + '__' + d.confidence2 + '||' + d.learningObj2);
+            console.log(new Date (d.timestamp1) + '__' + d.confidence1 + '||' + d.learningObj1 + '&&' + new Date (d.timestamp2) + '__' + d.confidence2 + '||' + d.learningObj2);
             return timeScale(new Date (d.timestamp1));
         })
         .attr("y1", function(d,i) {
