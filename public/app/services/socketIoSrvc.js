@@ -5,13 +5,18 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
         return b ? b.pop() : '';
     }
 
-    var socket = io.connect('//'+window.location.host, {
-      query:'session_id='+readCookie('theQCookie.sid')
-    });
+    var socket;
+    this.connectSocket = function(){
+      socket = io.connect('//'+window.location.host, {
+        query:'session_id='+readCookie('theQCookie.sid')
+      });
+    };
+
+    this.connectSocket();
 
     this.getSocket = function() {
         return socket;
-    }
+    };
 
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {

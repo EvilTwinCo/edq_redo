@@ -44,7 +44,7 @@ module.exports = {
             if (err) {
                 console.log(err);
             }
-            getPositionInQueue(data.name, null, function (position) {
+            getPositionInQueue(data.name, data.cohortId, function (position) {
                 socket.emit('position in queue', position);
             });
             socket.server.to('instructors').emit('questionForQueue', newQuestion);
@@ -82,7 +82,7 @@ module.exports = {
                 result.save();
             });
     },
-    qetMyCurrentQuestion: function (socket) {
+    getMyCurrentQuestion: function (socket) {
         var that = this;
         Question.findOne({
                 studentId: socket.request.user.devMtn.id,
@@ -91,7 +91,7 @@ module.exports = {
             .exec(function (err, result) {
                 if (result) {
                     socket.emit('my current question is', result);
-                    getPositionInQueue(result.name, null, function (position) {
+                    getPositionInQueue(result.name, result.cohortId, function (position) {
                         socket.emit('position in queue', position);
                     });
                 }
@@ -216,10 +216,12 @@ module.exports = {
 function getPositionInQueue(student, cohort, callback) {
     //TODO include logic to limit to your cohort/track
     Question.find({
-            timeQuestionAnswered: null
+            timeQuestionAnswered: null,
+            cohortId:cohort
         })
         .select('name')
         .exec(function (err, result) {
+          console.log(result);
             var names = _.pluck(result, 'name');
             callback(_.indexOf(names, student));
         });
@@ -229,10 +231,11 @@ function emitAllPositionsInQueue(ioServer, cohort) {
     //TODO include logic to limit to cohort/track
 
     Question.find({
-            timeQuestionAnswered: null
+            timeQuestionAnswered: null,
+            cohortId:cohort
         }).select('studentId')
         .exec(function (err, result) {
-
+          console.log(result);
             result.forEach(function (item, index) {
 
                 passportSocketIo.filterSocketsByUser(ioServer, function (user) {

@@ -11,7 +11,7 @@ var fakeUsers = [
         "lastName" : "Mars",
         "devMtn" : {
         "cohortId" : "28",
-        "roles" : [ 
+        "roles" : [
             {
                 "id" : 6,
                 "role" : "student"
@@ -26,7 +26,7 @@ var fakeUsers = [
         "lastName" : "Smith",
         "devMtn" : {
             "cohortId" : "27",
-            "roles" : [ 
+            "roles" : [
                 {
                     "id" : 6,
                     "role" : "student"
@@ -41,7 +41,7 @@ var fakeUsers = [
         "lastName" : "Mark",
         "devMtn" : {
             "cohortId" : "28",
-            "roles" : [ 
+            "roles" : [
                 {
                     "id" : 6,
                     "role" : "student"
@@ -56,7 +56,7 @@ var fakeUsers = [
         "lastName" : "Baggins",
         "devMtn" : {
             "cohortId" : "26",
-            "roles" : [ 
+            "roles" : [
                 {
                     "id" : 6,
                     "role" : "student"
@@ -71,7 +71,7 @@ var fakeUsers = [
         "lastName" : "Princess",
         "devMtn" : {
             "cohortId" : "28",
-            "roles" : [ 
+            "roles" : [
                 {
                     "id" : 6,
                     "role" : "student"
@@ -80,14 +80,14 @@ var fakeUsers = [
             "id" : "0005"
         }
     },
-]
+];
 
 module.exports = {
     setup: passport.use(new PassportLocalStrategy(
         function (username, password, done) {
             var user = _.findWhere(fakeUsers, {email: username});
             //return done(null, _.findWhere(fakeUsers, {email: username}));
-            
+
             User.findOne({email: user.email}, function(err, result) {
                 if (err) {
                     return done(err)
@@ -124,6 +124,3 @@ module.exports = {
         }
     }
 }
-
-
-
