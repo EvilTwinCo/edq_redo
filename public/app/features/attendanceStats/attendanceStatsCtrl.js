@@ -13,12 +13,14 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
 
   $scope.$watch('is.cohortId', function() {
     if (self.cohortId) {
+      self.attendees = [];
+      self.countChartCall = 1;
+      d3.select("#targetContainer").selectAll("*").remove();
       socket.emit("getAllAttendanceOfCohort", self.cohortId);
     }
-  })
+  });
 
   socket.on('All attendance for a cohort', function(users) {
-
     self.attendees.push(users);
     $scope.$apply();
 
@@ -31,12 +33,12 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
       self.dataArray.forEach(function(item) {
         self.countChartCall += 1;
         newChart(item);
-      })
+      });
     }
     self.countChartCall += 1;
 
 
-  })
+  });
 
   ////????////////////////////
   //??%%%%    ag-grid start /////
@@ -115,13 +117,15 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
 
     for (var i = 0; i < attendanceObj.length; i++) {
 
-      if (attendanceObj[i].attendanceData.score != null) {
+      if (attendanceObj[i].attendanceData.score !== null) {
 
         total += attendanceObj[i].attendanceData.score;
       }
     }
     avScore = total / number;
-
+    if (isNaN(avScore)){
+      return 1;
+    }
     return avScore;
 
   }
@@ -134,8 +138,9 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
 
     for (var i = 0; i < attendanceObj.length; i++) {
 
-      if (attendanceObj[i].attendanceData.timeOut != null) {
-        var hours = attendanceObj[i].attendanceData.timeOut.slice(11, 13);
+      if (attendanceObj[i].attendanceData.timeOut !== null) {
+        
+        var hours = new Date(attendanceObj[i].attendanceData.timeOut).getHours();
 
         if (hours < 17) {
           total += 1;
@@ -143,6 +148,9 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
       }
     }
     avScore = Math.round((total / number) * 100);
+    if (isNaN(avScore)){
+      return 0;
+    }
 
     return avScore;
 
@@ -158,8 +166,8 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
 
     for (var i = 0; i < attendanceObj.length; i++) {
 
-      if (attendanceObj[i].attendanceData.timeIn != null) {
-        var hours = attendanceObj[i].attendanceData.timeIn.slice(11, 13);
+      if (attendanceObj[i].attendanceData.timeIn !== null) {
+        var hours = new Date(attendanceObj[i].attendanceData.timeIn).getHours();
         if (hours > 9) {
           total += 1;
         }
@@ -167,6 +175,9 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
     }
 
     avScore = Math.round((total / number) * 100);
+    if (isNaN(avScore)){
+      return 0;
+    }
 
     return avScore;
 
@@ -178,12 +189,16 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
     var total = 0;
 
     for (var i = 0; i < attendanceObj.length; i++) {
-      if (attendanceObj[i].attendanceData.timeIn != null) {
+      if (attendanceObj[i].attendanceData.timeIn !== null) {
         total += 1;
       }
     }
 
     avScore = Math.round((total / number) * 100);
+
+    if (isNaN(avScore)){
+      return 0;
+    }
 
     return avScore;
 
@@ -263,16 +278,16 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
     self.groupEarlyLeaving = 0;
 
     for (var i = 0; i < arr.length; i++) {
-      self.groupAttendance += arr[i]['attendence'];
+      self.groupAttendance += arr[i].attendence;
     }
-    for (var i = 0; i < arr.length; i++) {
-      self.groupScore += arr[i]['score'];
+    for ( i = 0; i < arr.length; i++) {
+      self.groupScore += arr[i].score;
     }
-    for (var i = 0; i < arr.length; i++) {
-      self.groupTardiness += arr[i]['tardiness'];
+    for ( i = 0; i < arr.length; i++) {
+      self.groupTardiness += arr[i].tardiness;
     }
-    for (var i = 0; i < arr.length; i++) {
-      self.groupEarlyLeaving += arr[i]['earlyLeft'];
+    for ( i = 0; i < arr.length; i++) {
+      self.groupEarlyLeaving += arr[i].earlyLeft;
     }
 
     self.groupAttendance = self.groupAttendance / arr.length;
@@ -284,7 +299,7 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
         "value": self.groupAttendanceOpposite
       },
       {
-      "label": "Classes Missed: " + self.groupAttendance + "%",
+      "label": "Attendance: " + self.groupAttendance + "%",
       "value": self.groupAttendance
     }
   ];
@@ -332,6 +347,8 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
   ///make a chart function
   function newChart(data) {
 
+
+
 var widthOfWindow = document.getElementById("sizeTester").clientWidth;
 
 var heightOfWindow = document.getElementById("sizeTester").clientHeight;
@@ -339,7 +356,10 @@ var heightOfWindow = document.getElementById("sizeTester").clientHeight;
     var w = widthOfWindow/4 -50;
     var h = w + 50;
     var r = Math.min(w, h) / 2;
-    var color = d3.scale.category10();
+    var color = function(i){
+      colors = ["#3E36A1","#7287C5"];
+      return colors[i];
+    };
     //builtin range of colors
     var vis = d3.select("#targetContainer")
       .append("svg:svg")
@@ -357,28 +377,32 @@ var heightOfWindow = document.getElementById("sizeTester").clientHeight;
         return d.value;
       });
 
-    var arcs = vis.selectAll("g.slice")
+
+
+     var arcs = vis.selectAll("g.slice")
       .data(pie)
       .enter()
-      .append("svg:g")
+      .append("g")
       .attr("class", "slice");
 
     arcs.append("svg:path")
       .attr("fill", function(d, i) {
-        console.log(i);
-        return color((i+2));
+        
+        return color(i);
       })
       .attr("d", arc);
 
-    vis.append("svg:text")
 
+
+
+    vis.append("svg:text")
       .attr("x", 0)
       .attr("y", w/2 + 40)
       .attr("class", "flow-text")
       .attr("class", 'pieT')
       .attr("text-anchor", "middle")
       .text(function(d, i) {
-        if(data[i].label != ""){
+        if(data[i].label !== ""){
         return data[i].label;
       }
       else{
@@ -386,6 +410,16 @@ var heightOfWindow = document.getElementById("sizeTester").clientHeight;
       }
       });
 
+      // vis.selectAll("svg:text")
+      // .text(function(d, i){
+      //     if(data[i].label !== ""){
+      //     return data[i].label;
+      //   }
+      //   else{
+      //     return data[i+1].label;
+      //   }
+      // });
+
   }
 
-})
+});
