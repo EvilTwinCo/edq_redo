@@ -1,6 +1,6 @@
 //console.log("The file is getting loaded at least?");
 var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($scope, $element, $interval) {
-  console.log("Chart Module Load");
+  //console.log("Chart Module Load");
   var self = this;
 
   var svg = $element.find('svg');
@@ -28,18 +28,20 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
     };
     var width = 1400 - margin.left - margin.right;
     var height = 1000 - margin.top - margin.bottom;
-
-    var groupedData = _.groupBy(self.chartData, function(item) {
+    var filterData = _.filter(self.chartData, function(item){
+      return !!item.timeQuestionAnswered;
+    });
+    var groupedData = _.groupBy(filterData, function(item) {
       return item.date;
     });
 
-    console.log(groupedData);
+    //console.log(groupedData);
 
     var x = d3.scale.ordinal()
       .rangeRoundBands([0, width], 0.1);
 
     x.domain(_.map(groupedData, function(d, key) {
-      console.log(d, key);
+      //console.log(d, key);
       return key;
     }));
 
@@ -52,7 +54,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
       .clamp(true);
 
       var maxRange = d3.max(groupedData, function(d){
-        console.log(d);
+        //console.log(d);
         var x = d;
         var y =2;
         y = y +2;
@@ -61,7 +63,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
         });
       });
 
-      console.log(maxRange);
+      //console.log(maxRange);
 
       y.domain([0, maxRange*1.1]);
 
@@ -71,15 +73,15 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
     // })]);
 
     var color = d3.scale.ordinal()
-      .range(["red", "yellow", "green"]);
+      .range(["#3E36A1", "#18116D", "#7287C5"]);
 
     var xAxis = d3.svg.axis().scale(x).orient("bottom");
 
     var yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(formatMili).ticks(10);
+    var legendArray = ["Wait Time", "Mentor Time", "Self Help"];
+    var legendObj = [{c:color[0],t:legendArray[0]},{c:color[1],t:legendArray[1]},{c:color[2],t:legendArray[2]}];
 
     chart = d3Svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
 
     chart.append("g")
       .attr("class", "x axis")
@@ -97,7 +99,7 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
       .text("Time");
 
 
-      console.log(groupedData);
+
 
       chart.selectAll(".day").data({}).exit().remove();
 
@@ -106,15 +108,16 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
       .enter().append("g")
       .attr("class", "g")
       .attr("transform", function(d, index) {
-        console.log("group", d);
+
         return "translate(" + x(d[0].date) + ")";
       });
 
-      console.log(state);
+
 
     var questions = state.selectAll("rect").data(function (d){
       var squareData = d.map(function(itm, ind, arr){
         itm.start = (ind===0?0:arr[ind-1].start+arr[ind-1].timeWait+arr[ind-1].timeHelped+arr[ind-1].timeSelfHelp);
+        //console.log(itm);
         return itm;
       });
       return squareData;
@@ -122,23 +125,51 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
       .enter().append("g")
       .attr("class", "question")
       .attr("height",function(d){
-        console.log("y",y(d.timeWait + d.timeHelped + d.timeSelfHelp),"---time",(d.timeWait + d.timeHelped + d.timeSelfHelp));
+
           return  y(d.start) - y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp);
       })
-      .attr("transform", function(d){return "translate(0,"+y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp)+")";});
+      .attr("transform", function(d){
+        //console.log(d.start, d.timeWait, d.timeHelped, d.timeSelfHelp);
+        return "translate(0,"+y(d.start +d.timeWait + d.timeHelped + d.timeSelfHelp)+")";});
 
       questions.selectAll("rect").data(function(d){
-        console.log(d);
+
           return [[0, d.timeWait], [d.timeWait,d.timeWait+d.timeHelped], [0,d.timeSelfHelp]];
       }).enter().append("rect")
+      .attr("data-legend", function(d,i){return legendArray[i];})
         .attr("width",x.rangeBand())
         .attr("height",function(d){
-          console.log(d);
-          return y(d[0])-y(d[1]);})
+          return y(d[0])-y(d[1]);
+        })
         .attr("y", function(d){
-          console.log("y(d[0]) - y(0)",  y(d[0]) , "-",  y(0));
-          return -y(d[0]) + y(0);})
+          return -y(d[0]) + y(0);
+        })
         .style("fill", function(d,i){return color(i);});
+
+        console.log("But I make it here!!!");
+        console.log(legendArray);
+        d3Svg.selectAll(".legend").data(legendArray)
+        .enter()
+        .append("text")
+        .attr("class","legend")
+        .text(function(d, i){
+          console.log("here");
+          console.log(d);
+          return d;})
+        .attr("x", 1000)
+        .attr("y", function(d, i){return 50+50*i;})
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "40px")
+        .attr("fill", function(d,i){return color(i);});
+
+        d3Svg.selectAll(".legend-box").data(legendArray)
+        .enter()
+        .append("rect")
+        .attr("x", 1000-40)
+        .attr("y", function(d,i){return 15+50*i;})
+        .attr("height", 40)
+        .attr("width", 40)
+        .attr("fill", function(d,i){return color(i);});
 
       //.style("fill", function(d){return d3.rgb(150,150,Math.floor(Math.random()*255));});
 
