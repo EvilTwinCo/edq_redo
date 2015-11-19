@@ -42,7 +42,6 @@ DevMountain is a coding school located in Provo, UT.  It is a comprehensive tech
 * Mentors have the ability to share common questions and answers so program leaders can make strategic decisions
 * Mentors will be able to view questions and answers students share
 
-
 ![alt text](http://i.imgur.com/dd4kSkX.png)
 
 ### Statistics Dashboard Features
@@ -51,8 +50,7 @@ DevMountain is a coding school located in Provo, UT.  It is a comprehensive tech
 * Admin can view learning objective confidence levels across all cohorts, single cohort, and by student
 * Admin can view student questions across all cohorts, single cohort, and by student
 
-
-![alt text](http://i.imgur.com/dd4kSkX.png)
+![alt text](http://i.imgur.com/BxDAr5u.png)
 
 ### Technologies
 * Angular JS
