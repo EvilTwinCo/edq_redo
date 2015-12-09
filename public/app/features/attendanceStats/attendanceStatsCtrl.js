@@ -21,7 +21,6 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
   });
 
   socket.on('All attendance for a cohort', function(users) {
-    console.log(users);
     self.attendees.push(users);
     $scope.$apply();
 
@@ -82,9 +81,13 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
     onModelUpdated: onModelUpdated,
     rowHeight: 22,
     enableColResize: true,
+    onReady: refreshView,
 
   };
-
+    
+    function refreshView () {
+        $scope.gridOptions.api.sizeColumnsToFit();
+    }
 
   var rowData = [];
 
@@ -140,7 +143,7 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
     for (var i = 0; i < attendanceObj.length; i++) {
 
       if (attendanceObj[i].attendanceData.timeOut !== null) {
-        console.log(new Date(attendanceObj[i].attendanceData.timeOut).getHours());
+        
         var hours = new Date(attendanceObj[i].attendanceData.timeOut).getHours();
 
         if (hours < 17) {
@@ -348,7 +351,7 @@ angular.module('theQ').controller('attendanceStatsCtrl', function(socketIoSrvc, 
   ///make a chart function
   function newChart(data) {
 
-    console.log("New Chart Data:", data);
+
 
 var widthOfWindow = document.getElementById("sizeTester").clientWidth;
 
@@ -388,7 +391,7 @@ var heightOfWindow = document.getElementById("sizeTester").clientHeight;
 
     arcs.append("svg:path")
       .attr("fill", function(d, i) {
-        console.log(i);
+        
         return color(i);
       })
       .attr("d", arc);

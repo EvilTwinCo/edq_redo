@@ -44,7 +44,7 @@
 
 </div>
 <div>
-  <attendance-tracker cohort-id="is.currentCohort"></attendance-tracker>
+    <attendance-tracker ng-if="is.currentCohort !== 'Select ID...'" cohort-id="is.currentCohort"></attendance-tracker>
 </div>
 <script>
   $('.dropdown-button').dropdown({
