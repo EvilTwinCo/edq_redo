@@ -36,7 +36,7 @@ var corsOptions = {
     if (corsWhiteList.indexOf(origin) !== -1) callback(null, true);
     else callback(null, false);
   }
-}
+};
 
 app.use(express.static(__dirname + '/../public'));
 app.use(cors());
@@ -53,7 +53,7 @@ var SessionStore = new MongoStore({
   collection: 'connect-mongoSessions',
   autoRemove: 'native',
   mongooseConnection: mongoose.connection
-})
+});
 var SESSION_SECRET = process.env.DM_SESSION;
 app.use(session({
   secret: SESSION_SECRET,
@@ -61,8 +61,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60 * 30
-  }, //30 minutes
+    maxAge: 1000 * 60 * 60 * 24 //24 hours cookie length
+  },
   store: SessionStore
 }));
 
@@ -70,7 +70,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // devMtn PASSPORT AUTH
-app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ })
+app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ });
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMtnPassportCtrl.authFailure), DevMtnPassportCtrl.authSuccess);
 app.get('/auth/devmtn/logout', DevMtnPassportCtrl.authLogout);
 passport.use('devmtn', new DevmtnStrategy({
@@ -143,7 +143,7 @@ ioServer.on('connection', function (socket) {
     //View Sockets
     socket.on('request reset view data', function() {
         console.log('server emitting reset view data');
-        socket.emit('reset view data')
+        socket.emit('reset view data');
     });
 
     //User Sockets
