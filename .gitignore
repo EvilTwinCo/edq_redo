@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io/api/node,osx,bower
 
+server/config.js
+
 ### Node ###
 # Logs
 logs

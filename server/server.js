@@ -15,8 +15,10 @@ var User = require('./models/User.js');
 var passportSocketIo = require("passport.socketio");
 var cookieParser = require("cookie-parser");
 
-var serverPort = process.env.PORT || 8080;
-var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost:27017/theQ';
+var configSettings = require("./config.js");
+
+var serverPort = 8003;
+var mongoURI = 'mongodb://localhost:27017/theQ';
 
 //Controllers
 var UserCtrl = require('./controllers/UserCtrl.js');
@@ -36,7 +38,7 @@ var corsOptions = {
     if (corsWhiteList.indexOf(origin) !== -1) callback(null, true);
     else callback(null, false);
   }
-}
+};
 
 app.use(express.static(__dirname + '/../public'));
 app.use(cors());
@@ -53,16 +55,16 @@ var SessionStore = new MongoStore({
   collection: 'connect-mongoSessions',
   autoRemove: 'native',
   mongooseConnection: mongoose.connection
-})
-var SESSION_SECRET = process.env.DM_SESSION;
+});
+var SESSION_SECRET = configSettings.DM_SESSION;
 app.use(session({
   secret: SESSION_SECRET,
   name: 'theQCookie.sid',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60 * 30
-  }, //30 minutes
+    maxAge: 1000 * 60 * 60 * 24 //24 hours cookie length
+  },
   store: SessionStore
 }));
 
@@ -70,14 +72,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // devMtn PASSPORT AUTH
-app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ })
+app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*redirects, not called*/ });
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMtnPassportCtrl.authFailure), DevMtnPassportCtrl.authSuccess);
 app.get('/auth/devmtn/logout', DevMtnPassportCtrl.authLogout);
 passport.use('devmtn', new DevmtnStrategy({
-  app: process.env.DM_APP,
-  client_token: process.env.DM_AUTH,
-  callbackURL: process.env.DM_CALLBACK,
-  jwtSecret: process.env.DM_SECRET
+  app: configSettings.DM_APP,
+  client_token: configSettings.DM_AUTH,
+  callbackURL: configSettings.DM_CALLBACK,
+  jwtSecret: configSettings.DM_SECRET
 }, DevMtnPassportCtrl.authLogin));
 
 //passportLocalCtrl.setup;
@@ -143,7 +145,7 @@ ioServer.on('connection', function (socket) {
     //View Sockets
     socket.on('request reset view data', function() {
         console.log('server emitting reset view data');
-        socket.emit('reset view data')
+        socket.emit('reset view data');
     });
 
     //User Sockets

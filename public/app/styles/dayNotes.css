@@ -1,10 +1,20 @@
-day-notes p {
-  text-align: center;
+day-notes p, day-notes h4 , day-notes a{
+  font-size: 14px;
+  margin: 3px;
 }
 
 div.col.s12.day-notes {
   background-color: #FAFAFA;
 }
-.curriculmTitle {
-  font-size: 20px;
+
+day-notes li{
+  list-style:disc;
+  position: relative;
+  left:16px;
+  padding-right: 16px;
+}
+
+day-notes a {
+  color:blue;
+  text-decoration: none;
 }
