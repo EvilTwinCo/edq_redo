@@ -13,7 +13,7 @@ module.exports = {
 
     var date = new Date();//TODO remove hardcoded date
     var userEmail = 'cleber.lop@gmail.com'; //socket.request.user.email;
-    console.log(userEmail);
+    //console.log(userEmail);
     var requestObj = {
       url: "http://class.devmounta.in/api/day-data/" + date + "/"+userEmail,
       method: "GET"
@@ -23,7 +23,7 @@ module.exports = {
       if (err){
         console.log(err);
       } else{
-        console.log("response from class", body);
+        //console.log("response from class", body);
         socket.emit('learning objectives are', JSON.parse(body));
       }
     });

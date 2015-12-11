@@ -33,6 +33,6 @@ module.exports = {
 };
 
 function removeOpenPoll(cohortId) {
-    console.log('deleting openCohortPolls['+cohortId+']');
+    //console.log('deleting openCohortPolls['+cohortId+']');
      delete openCohortPolls[cohortId];
 }

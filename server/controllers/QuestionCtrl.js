@@ -110,7 +110,7 @@ module.exports = {
             });
     },
     addingQuestionAndSolution: function (socket, data) {
-      console.log(data);
+      //console.log(data);
         dataToUpdate = {
             mentorSolution: data.mentorSolution,
             questionCategory: data.questionCategory
@@ -179,8 +179,8 @@ module.exports = {
         for (var i=0; i < liveFeedQueue[cohortId].length - numberToKeep; i++) {
             liveFeedQueue[cohortId].shift();
         }
-        console.log('submitting to student cohort:' + cohortId + 'the following:' + data);
-        console.log('handleStudentSolution called');
+        //console.log('submitting to student cohort:' + cohortId + 'the following:' + data);
+        //console.log('handleStudentSolution called');
         socket.server.to('student cohort:' + cohortId).emit('liveFeed', data);
     },
     handleLiveFeedQueueRequest: function (socket, adminSelectedCohortId) {
@@ -192,7 +192,7 @@ module.exports = {
         }
 
         if (liveFeedQueue[cohortId]) {
-            console.log('handleLiveFeedQueueRequest called', adminSelectedCohortId);
+            //console.log('handleLiveFeedQueueRequest called', adminSelectedCohortId);
             socket.emit('server response: initial live feed queue', liveFeedQueue[cohortId]);
         }
     },
@@ -221,7 +221,7 @@ function getPositionInQueue(student, cohort, callback) {
         })
         .select('name')
         .exec(function (err, result) {
-          console.log(result);
+          //console.log(result);
             var names = _.pluck(result, 'name');
             callback(_.indexOf(names, student));
         });
@@ -235,7 +235,7 @@ function emitAllPositionsInQueue(ioServer, cohort) {
             cohortId:cohort
         }).select('studentId')
         .exec(function (err, result) {
-          console.log(result);
+          //console.log(result);
             result.forEach(function (item, index) {
 
                 passportSocketIo.filterSocketsByUser(ioServer, function (user) {

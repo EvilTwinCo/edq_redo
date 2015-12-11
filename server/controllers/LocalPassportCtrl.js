@@ -116,7 +116,7 @@ module.exports = {
     }),
     setUser: function (req, res) {
         if (req.user) {
-            console.log(req.user);
+            //console.log(req.user);
             res.json('true');
         }
         else {
