@@ -81,7 +81,7 @@ module.exports = {
         var findObj;
         if (req.params.cohortId === 'all') findObj = {};
         else findObj = {cohortId: req.params.cohortId};
-        console.log('findObj', findObj);
+        //console.log('findObj', findObj);
         
         Confidence.find(findObj).populate({
                 path: 'user',
@@ -106,7 +106,7 @@ module.exports = {
                 }   
             } 
             else findObj = {user: req.params.userId};
-            console.log('findObj', findObj);
+            //console.log('findObj', findObj);
 
             Confidence.find(findObj).populate({
                 path: 'user',
@@ -146,7 +146,7 @@ function recordConfidence(obj) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log('Learning objective confidence added to the database: ', confidenceResult);
+                    //console.log('Learning objective confidence added to the database: ', confidenceResult);
                 }
             })
             
@@ -157,6 +157,6 @@ function recordConfidence(obj) {
 
 //TODO: Make this a reset at midnight instead of a reset every 24 hours.
 setInterval(function(){
-    console.log('clearing current confidence cache');
+    //console.log('clearing current confidence cache');
     currentConfidence = {};
 }, 1000 * 60 * 60 * 24);

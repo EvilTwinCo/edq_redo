@@ -2,7 +2,7 @@ var User = require('../models/User.js');
 
 module.exports = {
   create: function(req, res) {
-    console.log('create', req.body)
+    //console.log('create', req.body)
     User.create(req.body, function(err, result) {
       if (err) {
         res.status(500).json(err);

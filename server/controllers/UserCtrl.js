@@ -11,7 +11,7 @@ module.exports = {
             }
         }
         if (!found) {
-            console.log("Instructor Logging In");
+            //console.log("Instructor Logging In");
             socket.join('instructors'); 
         }
     },
@@ -24,20 +24,20 @@ module.exports = {
             }
         }
         if (!found) {
-            console.log("Student Logging In");
+            //console.log("Student Logging In");
             socket.join('student cohort:'+socket.request.user.devMtn.cohortId);
         }
     },
     handleGetAuthRequest: function (socket, obj) {
         var role;
-        console.log(socket.request.user.devMtn.roles);
+        //console.log(socket.request.user.devMtn.roles);
         var rawRolesArray = socket.request.user.devMtn.roles;
         var rolesOnlyArray = _.pluck(rawRolesArray, 'role');
         if (rolesOnlyArray.indexOf('mentor') !== -1 || rolesOnlyArray.indexOf('instructor') !== -1) {
-            console.log(socket.request.user.devMtn.id + ' is joining as an admin.');
+            //console.log(socket.request.user.devMtn.id + ' is joining as an admin.');
             role = 'admin';
         } else {
-            console.log(socket.request.user.devMtn.id + ' is joining as a student for cohort ' + socket.request.user.devMtn.cohortId);
+            //console.log(socket.request.user.devMtn.id + ' is joining as a student for cohort ' + socket.request.user.devMtn.cohortId);
             role = 'student';
             
         }

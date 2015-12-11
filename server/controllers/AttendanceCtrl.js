@@ -6,7 +6,7 @@ var _ = require('underscore');
 module.exports = {
     getAllAttendanceOfCohort: function (socket, data) {
         var cohortAttendance = [];
-        console.log(data);
+        //console.log(data);
         if (data == "all") {
             User.find({}).exec(function (err, users) {
                 users.forEach(function (item) {
@@ -38,8 +38,8 @@ module.exports = {
         }
     },
     postAttendance: function (socket, data) {
-        
-        
+
+
         Attendance.findOne({
             'user': data.user,
             'attendanceData.dateOfAttendance': {
@@ -52,16 +52,16 @@ module.exports = {
                     if (err) {
                         console.log(err);
                     }
-                    console.log('Saving attendance', attendance);
+                    //console.log('Saving attendance', attendance);
                     socket.emit('attendanceUpdate', attendance);
                 });
             } else {
-                console.log(data);
+                //console.log(data);
                 new Attendance(data).save(function (error, data) {
                     if (error) {
                         console.log(error);
                     } else {
-                        console.log("New attendance record from server", data);
+                        //console.log("New attendance record from server", data);
                         socket.emit("attendanceUpdateWithNewAttenance", data);
                     }
                 });
@@ -97,10 +97,10 @@ module.exports = {
                                 // append.attendanceData = item.attendanceData;   old
                             item.attendanceData = append.attendanceData;
                             // append._id = item._id;
-                            // console.log("asdkfaksjdjjjjjjjjj", item)
+                            // //console.log("asdkfaksjdjjjjjjjjj", item)
                         }
                     })
-                    // console.log("daysAttendance", daysAttendance);
+                    // //console.log("daysAttendance", daysAttendance);
                     socket.emit('getInitialAttendance', daysAttendance)
                 })
         })
@@ -108,10 +108,10 @@ module.exports = {
     getRecordedAttendanceForDateByCohort: function(req, res) {
         var targetDate = req.params.date;
         var targetCohortId = req.params.cohortId;
-         
-        console.log('targetDate', targetDate);
-        console.log('targetCohortId', targetCohortId);
-        
+
+        //console.log('targetDate', targetDate);
+        //console.log('targetCohortId', targetCohortId);
+
         Attendance.find({
             'attendanceData.dateOfAttendance': targetDate,
             cohortId: targetCohortId
@@ -123,16 +123,16 @@ module.exports = {
                 console.log(err);
                 res.send(err);
             } else {
-                console.log('result',result);
+                //console.log('result',result);
                 var userIdArray = _.map(result, function(item) {
                     return item.user._id;
                 });
-                console.log('userIdArray',userIdArray);
+                //console.log('userIdArray',userIdArray);
                 User.find({'devMtn.cohortId': targetCohortId}).where('_id').nin(userIdArray).exec(function (err, users) {
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log('users',users);
+                        //console.log('users',users);
                         users = users.map(function(item) {
                             return {
                                 user: {
@@ -150,7 +150,7 @@ module.exports = {
                             }
                         })
                         var union = _.union(result, users);
-                        console.log('union', union);
+                        //console.log('union', union);
                         res.json(union);
                     }
                 })

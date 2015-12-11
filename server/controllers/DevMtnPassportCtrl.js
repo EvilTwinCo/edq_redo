@@ -72,7 +72,7 @@ module.exports = {
         });
     },
     serializeUser: function(user, done) {
-        console.log('serializeUser', user);
+        //console.log('serializeUser', user);
         done(null, user.id)
     },
     deserializeUser: function(user, done) {

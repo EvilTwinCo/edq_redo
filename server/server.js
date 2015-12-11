@@ -87,11 +87,11 @@ passport.use('devmtn', new DevmtnStrategy({
 //app.get('/auth/passportLocal/setUser', passportLocalCtrl.setUser);
 
 app.get('/logout', function(req, res){
-  console.log('Logging out user', req.user);
+  //console.log('Logging out user', req.user);
   req.logout();
-  console.log('req.session', req.session);
-  req.session.destroy(function(err){console.log('this be err', err);});
-  console.log('req.session', req.session);
+  //console.log('req.session', req.session);
+  req.session.destroy(function(err){//console.log('this be err', err);});
+  //console.log('req.session', req.session);
   res.redirect('/#/logout');
 
 });
@@ -131,10 +131,10 @@ app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendan
 
 ioServer.on('connection', function (socket) {
     var devMtnId = socket.request.user.devMtn.id;
-    console.log('user ' + devMtnId + ' connected');
+    //console.log('user ' + devMtnId + ' connected');
 
     socket.on('disconnect', function () {
-    console.log('user ' + devMtnId + ' disconnected');
+    //console.log('user ' + devMtnId + ' disconnected');
     });
 
     // Flash poll Sockets
@@ -144,7 +144,7 @@ ioServer.on('connection', function (socket) {
 
     //View Sockets
     socket.on('request reset view data', function() {
-        console.log('server emitting reset view data');
+        //console.log('server emitting reset view data');
         socket.emit('reset view data');
     });
 
@@ -185,9 +185,9 @@ ioServer.on('connection', function (socket) {
 
 //mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
-  console.log('Connected to MongoDB: ' + mongoURI);
+  //console.log('Connected to MongoDB: ' + mongoURI);
 });
 
 httpServer.listen(serverPort, function() {
-  console.log("Server listening on port: " + serverPort);
+  //console.log("Server listening on port: " + serverPort);
 });
