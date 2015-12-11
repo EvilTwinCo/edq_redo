@@ -15,8 +15,10 @@ var User = require('./models/User.js');
 var passportSocketIo = require("passport.socketio");
 var cookieParser = require("cookie-parser");
 
-var serverPort = process.env.PORT || 8080;
-var mongoURI = process.env.MONGO_LAB_URI || 'mongodb://localhost:27017/theQ';
+var configSettings = require("./config.js");
+
+var serverPort = 8003;
+var mongoURI = 'mongodb://localhost:27017/theQ';
 
 //Controllers
 var UserCtrl = require('./controllers/UserCtrl.js');
@@ -54,7 +56,7 @@ var SessionStore = new MongoStore({
   autoRemove: 'native',
   mongooseConnection: mongoose.connection
 });
-var SESSION_SECRET = process.env.DM_SESSION;
+var SESSION_SECRET = configSettings.DM_SESSION;
 app.use(session({
   secret: SESSION_SECRET,
   name: 'theQCookie.sid',
@@ -74,10 +76,10 @@ app.get('/auth/devmtn', passport.authenticate('devmtn'), function(req, res) { /*
 app.get('/auth/devmtn/callback', passport.authenticate('devmtn', DevMtnPassportCtrl.authFailure), DevMtnPassportCtrl.authSuccess);
 app.get('/auth/devmtn/logout', DevMtnPassportCtrl.authLogout);
 passport.use('devmtn', new DevmtnStrategy({
-  app: process.env.DM_APP,
-  client_token: process.env.DM_AUTH,
-  callbackURL: process.env.DM_CALLBACK,
-  jwtSecret: process.env.DM_SECRET
+  app: configSettings.DM_APP,
+  client_token: configSettings.DM_AUTH,
+  callbackURL: configSettings.DM_CALLBACK,
+  jwtSecret: configSettings.DM_SECRET
 }, DevMtnPassportCtrl.authLogin));
 
 //passportLocalCtrl.setup;

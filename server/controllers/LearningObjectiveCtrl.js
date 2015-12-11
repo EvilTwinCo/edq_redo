@@ -11,11 +11,11 @@ module.exports = {
     // getFakeObjectives(socket);
     // return false;
 
-    var date = new Date('Tue Dec 1 2015 17:00:00 GMT-0700 (MST)');//TODO remove hardcoded date
+    var date = new Date();//TODO remove hardcoded date
     var userEmail = 'cleber.lop@gmail.com'; //socket.request.user.email;
     console.log(userEmail);
     var requestObj = {
-      url: "https://localhost:8001/api/day-data/" + date + "/"+userEmail,
+      url: "http://class.devmounta.in/api/day-data/" + date + "/"+userEmail,
       method: "GET"
     };
 
