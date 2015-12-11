@@ -29,7 +29,6 @@ var QuestionCtrl = require('./controllers/QuestionCtrl');
 var AttendanceCtrl = require('./controllers/AttendanceCtrl');
 var FlashPollCtrl = require('./controllers/FlashPollCtrl');
 var CohortCtrl = require('./controllers/CohortCtrl');
-//var passportLocalCtrl = require('./controllers/LocalPassportCtrl');
 
 
 var corsWhiteList = ['http://localhost:' + serverPort];
@@ -42,7 +41,6 @@ var corsOptions = {
 
 app.use(express.static(__dirname + '/../public'));
 app.use(cors());
-//app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -90,7 +88,7 @@ app.get('/logout', function(req, res){
   //console.log('Logging out user', req.user);
   req.logout();
   //console.log('req.session', req.session);
-  req.session.destroy(function(err){//console.log('this be err', err);});
+  req.session.destroy(function(err){console.log('this be err', err);});
   //console.log('req.session', req.session);
   res.redirect('/#/logout');
 
@@ -98,9 +96,6 @@ app.get('/logout', function(req, res){
 
 passport.serializeUser(DevMtnPassportCtrl.serializeUser);
 passport.deserializeUser(DevMtnPassportCtrl.deserializeUser);
-
-// passport.serializeUser(function(user, done) {done(null, user);});
-// passport.deserializeUser(function(obj, done) {done(null, obj);});
 
 // SOCKET.IO EVENT LISTENERS/DISPATCHERS
 ioServer.use(passportSocketIo.authorize({
@@ -113,7 +108,6 @@ ioServer.use(passportSocketIo.authorize({
 }));
 
 function onAuthorizeSuccess(data, accept) {
-  //console.log("Authorized", data)
   accept();
 }
 
@@ -144,7 +138,6 @@ ioServer.on('connection', function (socket) {
 
     //View Sockets
     socket.on('request reset view data', function() {
-        //console.log('server emitting reset view data');
         socket.emit('reset view data');
     });
 
@@ -185,9 +178,9 @@ ioServer.on('connection', function (socket) {
 
 //mongoose.set('debug', true);
 mongoose.connect(mongoURI, function() {
-  //console.log('Connected to MongoDB: ' + mongoURI);
+  console.log('Connected to MongoDB: ' + mongoURI);
 });
 
 httpServer.listen(serverPort, function() {
-  //console.log("Server listening on port: " + serverPort);
+  console.log("Server listening on port: " + serverPort);
 });

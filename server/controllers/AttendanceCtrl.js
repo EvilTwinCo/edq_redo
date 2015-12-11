@@ -71,7 +71,7 @@ module.exports = {
     getAttendance: function (socket, data) {
         var today = function () {
             return new Date();
-        }
+        };
         var morning = today();
         morning.setHours(0, 0, 0, 0);
         User.find({}).exec(function (err, users) {
@@ -85,25 +85,25 @@ module.exports = {
                             cohortId: item.devMtn.cohortId,
                             firstName: item.firstName,
                             lastName: item.lastName
-                        }
-                    })
+                        };
+                    });
                     attendances.forEach(function (item, index, arrrrr) {
                         if (_.findWhere(daysAttendance, {
                                 user: item.user
                             })) {
                             var append = _.findWhere(users, {
                                     user: item.user
-                                })
+                                });
                                 // append.attendanceData = item.attendanceData;   old
                             item.attendanceData = append.attendanceData;
                             // append._id = item._id;
                             // //console.log("asdkfaksjdjjjjjjjjj", item)
                         }
-                    })
+                    });
                     // //console.log("daysAttendance", daysAttendance);
-                    socket.emit('getInitialAttendance', daysAttendance)
-                })
-        })
+                    socket.emit('getInitialAttendance', daysAttendance);
+                });
+        });
     },
     getRecordedAttendanceForDateByCohort: function(req, res) {
         var targetDate = req.params.date;
@@ -123,16 +123,16 @@ module.exports = {
                 console.log(err);
                 res.send(err);
             } else {
-                //console.log('result',result);
+                
                 var userIdArray = _.map(result, function(item) {
                     return item.user._id;
                 });
-                //console.log('userIdArray',userIdArray);
+
                 User.find({'devMtn.cohortId': targetCohortId}).where('_id').nin(userIdArray).exec(function (err, users) {
                     if (err) {
                         console.log(err);
                     } else {
-                        //console.log('users',users);
+
                         users = users.map(function(item) {
                             return {
                                 user: {
@@ -147,14 +147,14 @@ module.exports = {
                                     score: null,
                                     dateOfAttendance: targetDate
                                 }
-                            }
-                        })
+                            };
+                        });
                         var union = _.union(result, users);
-                        //console.log('union', union);
+
                         res.json(union);
                     }
-                })
+                });
             }
-        })
+        });
     }
 };
