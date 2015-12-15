@@ -3,10 +3,11 @@ angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc,
 
     socket.emit('student login');
     socket.emit('get all learning objectives');
-    
+
     socket.on('learning objectives are', learningObjectivesAre);
-    
+
     function learningObjectivesAre (data){
+      console.log(data);
         $scope.objectives = data.objectives.map(function(item){
             item.percentage = 0
             return item;
@@ -14,8 +15,8 @@ angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc,
         $scope.trackables = data.trackables;
         $scope.$apply();
     }
-    
+
     $element.on('$destroy', function() {
-        socket.off('learning objectives are', learningObjectivesAre); 
+        socket.off('learning objectives are', learningObjectivesAre);
     })
 });

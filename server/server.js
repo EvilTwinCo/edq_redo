@@ -17,7 +17,7 @@ var cookieParser = require("cookie-parser");
 
 var configSettings = require("./config.js");
 
-var serverPort = 8003;
+var serverPort = configSettings.port || 8003;
 var mongoURI = 'mongodb://localhost:27017/theQ';
 
 //Controllers

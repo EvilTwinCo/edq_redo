@@ -1,6 +1,7 @@
 var LearningObjective = require('../models/LearningObjective.js');
 var request = require('ajax-request');
 var dummyData = require('../../dummyData');
+var _ = require('underscore');
 
 module.exports = {
   handleCreateObjective: function(ioServer, socket, data) {
@@ -23,8 +24,20 @@ module.exports = {
       if (err){
         console.log(err);
       } else{
-        //console.log("response from class", body);
-        socket.emit('learning objectives are', JSON.parse(body));
+        body = JSON.parse(body);
+        body.trackables = _.uniq(body.trackables, false, function(item){
+          //console.log(item);
+          console.log(item.sectionContent)
+          console.log(item.sectionContent.match(/>([^<>]+)</))
+            return item.sectionContent.match(/>([^<>]+)</)[1];
+        });
+
+        body.trackables.map(function(item){
+          item.sectionContent =  item.sectionContent.replace(/<a /,"<a target = '_blank' ");
+          return item;
+        });
+
+        socket.emit('learning objectives are', body);
       }
     });
   },
