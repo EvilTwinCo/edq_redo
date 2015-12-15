@@ -13,6 +13,7 @@ module.exports = {
     // return false;
 
     var date = new Date();//TODO remove hardcoded date
+    console.log(date.setDate(3));
     var userEmail = 'cleber.lop@gmail.com'; //socket.request.user.email;
     //console.log(userEmail);
     var requestObj = {
