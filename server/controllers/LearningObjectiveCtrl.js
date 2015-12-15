@@ -27,8 +27,6 @@ module.exports = {
         body = JSON.parse(body);
         body.trackables = _.uniq(body.trackables, false, function(item){
           //console.log(item);
-          console.log(item.sectionContent)
-          console.log(item.sectionContent.match(/>([^<>]+)</))
             return item.sectionContent.match(/>([^<>]+)</)[1];
         });
 
