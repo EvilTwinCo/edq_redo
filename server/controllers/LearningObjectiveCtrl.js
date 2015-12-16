@@ -13,9 +13,8 @@ module.exports = {
     // return false;
 
     var date = new Date();//TODO remove hardcoded date
-    console.log(date.setDate(3));
+
     var userEmail = 'cleber.lop@gmail.com'; //socket.request.user.email;
-    //console.log(userEmail);
     var requestObj = {
       url: "http://class.devmounta.in/api/day-data/" + date + "/"+userEmail,
       method: "GET"
@@ -32,7 +31,8 @@ module.exports = {
         });
 
         body.trackables.map(function(item){
-          item.sectionContent =  item.sectionContent.replace(/<a /,"<a target = '_blank' ");
+          item.sectionContent =  item.sectionContent.replace(/<a /g,"<a target=\"_blank\" ");
+          console.log(item.sectionContent);
           return item;
         });
 
