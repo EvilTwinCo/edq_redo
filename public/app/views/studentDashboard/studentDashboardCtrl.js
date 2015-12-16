@@ -12,7 +12,9 @@ angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc,
             item.percentage = 0
             return item;
         });
-        $scope.trackables = data.trackables;
+        $scope.trackables = _.groupBy(data.trackables,function (item){
+          return item.sectionTitle;
+        });
         $scope.$apply();
     }
 
