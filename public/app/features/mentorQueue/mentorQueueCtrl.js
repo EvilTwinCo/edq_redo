@@ -21,6 +21,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
 
     function getAllQuestionsAsked (data) {
         self.questions = data;
+        updateTitle();
         $scope.$apply();
     }
 
@@ -33,6 +34,8 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
       },0)
       if(activeQuestions>0){
           document.title = "("+activeQuestions+") Questions";
+      }else{
+        document.title = "Queue Clear!";
       }
     }
 
@@ -40,6 +43,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         console.log(socket);
         console.log('resetting data view - liveFeed');
         resetData();
+        updateTitle();
         $scope.$apply();
     }
 
@@ -47,6 +51,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         self.questions = _.filter(self.questions, function (item) {
             return item.studentId !== question.studentId;
         });
+        updateTitle();
         $scope.$apply();
     });
 
