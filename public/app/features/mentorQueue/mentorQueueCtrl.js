@@ -3,9 +3,8 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     var self = this;
 
     $scope.$watch('mq.cohortId', function() {
-        console.log('watch cohortId seen');
+
         resetData();
-        //$scope.$apply();
     });
 
     socket.on('getAllQuestionsAsked', getAllQuestionsAsked);
@@ -40,8 +39,6 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     }
 
     function resetViewData () {
-        console.log(socket);
-        console.log('resetting data view - liveFeed');
         resetData();
         updateTitle();
         $scope.$apply();
