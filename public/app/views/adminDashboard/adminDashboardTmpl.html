@@ -19,17 +19,22 @@
     </div>
   </div>
   <div class="col s12 m4 l6">
-    <div class="col hide-on-small-only m12 l6" style = "padding-left:0px;">
-      <div class="row confidenceContainer" ng-if="is.currentCohort !== 'Select ID...'">
+    <div class="col hide-on-small-only m12 l6">
+      <div class="confidenceContainer" ng-if="is.currentCohort !== 'Select ID...'">
+        <div class = "adminItemBlock">
           <p class = "flashPollTitle"><bold>Confidence Live Chart</bold></p>
-        <confidence-live-chart cohort-id="is.currentCohort"></confidence-live-chart>
-        <div class="colorBlock redBackground"></div>
+          <confidence-live-chart cohort-id="is.currentCohort"></confidence-live-chart>
+          <div class="colorBlock redBackground"></div>
+        </div>
       </div>
     </div>
-    <div class="col hide-on-small-only m12 l6" style="max-height:220px">
-      <div class="row" ng-if="is.currentCohort !== 'Select ID...'">
-        <flash-poll-monitor cohort-id="is.currentCohort"></flash-poll-monitor>
+    <div class="col hide-on-small-only m12 l6" style="">
+      <div ng-if="is.currentCohort !== 'Select ID...'">
+        <div class ="adminItemBlock">
+          <p class = "flashPollTitle">Flash Poll</p>
+          <flash-poll-monitor cohort-id="is.currentCohort"></flash-poll-monitor>
           <div class="colorBlock purpleBackground"></div>
+        </div>
       </div>
     </div>
     <div class="row">

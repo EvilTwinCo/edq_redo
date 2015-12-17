@@ -10,14 +10,12 @@
 }
 
 .flashPollTitle {
-  position: absolute;
   z-index: 1;
-  left:3px;
-  top: -55px;
   font-size: 20px;
   font-weight: bold;
-  padding-left: 3px;
-  padding-right: 3px;
+  text-align: center;
+  margin: 0px;
+
 }
 
 /*.containers {

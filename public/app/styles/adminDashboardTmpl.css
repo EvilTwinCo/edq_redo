@@ -17,5 +17,9 @@ confidence-live-chart {
 }
 
 admin-dashboard .confidenceSvg {
-  height:80%
+  height:80%;
+}
+
+.adminItemBlock{
+  background-color: #f9f9f9;
 }
