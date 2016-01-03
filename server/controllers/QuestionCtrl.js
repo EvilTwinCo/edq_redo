@@ -1,6 +1,6 @@
 var Question = require('../models/Question');
 var _ = require('underscore');
-passportSocketIo = require('passport.socketio');
+var passportSocketIo = require('passport.socketio');
 var liveFeedQueue = {
 //    28: [
 //        {

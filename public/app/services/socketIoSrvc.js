@@ -32,9 +32,14 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
     });
 
     socket.on('error', function(message) {
-      if(message === "No session found"){
-        $location.path('login');
-      }
         console.log('connection error', message);
+        if(message === "No session found"){
+          $location.path('/login');
+        }
     });
+
+    socket.on('notAdmin', function(message){
+      console.log('No admin privilages');
+      $location.path('/login');
+    })
 });
