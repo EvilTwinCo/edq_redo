@@ -1,11 +1,10 @@
 angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $scope, $element) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
-    
+
     $scope.$watch('mq.cohortId', function() {
-        console.log('watch cohortId seen');
+
         resetData();
-        //$scope.$apply();
     });
 
     socket.on('getAllQuestionsAsked', getAllQuestionsAsked);
@@ -14,19 +13,34 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     socket.on('questionForQueue', function (data) {
       if( data.cohortId === self.cohortId){
         self.questions.push(data);
+        updateTitle();
         $scope.$apply();
       }
     });
 
     function getAllQuestionsAsked (data) {
         self.questions = data;
+        updateTitle();
         $scope.$apply();
     }
-    
+
+    function updateTitle(){
+      var activeQuestions = self.questions.reduce(function(prev,cur){
+        if(!cur.mentorName){
+          return prev+1;
+        }
+        return prev;
+      },0)
+      if(activeQuestions>0){
+          document.title = "("+activeQuestions+") Questions";
+      }else{
+        document.title = "Queue Clear!";
+      }
+    }
+
     function resetViewData () {
-        console.log(socket);
-        console.log('resetting data view - liveFeed');
         resetData();
+        updateTitle();
         $scope.$apply();
     }
 
@@ -34,15 +48,15 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         self.questions = _.filter(self.questions, function (item) {
             return item.studentId !== question.studentId;
         });
+        updateTitle();
         $scope.$apply();
     });
 
     socket.on('mentorBegins', function(updatedQuestion){
-      console.log('mentor identify',updatedQuestion);
-      console.log('1',_.findWhere(self.questions, {studentId:updatedQuestion.studentId}));
       _.findWhere(self.questions, {studentId:updatedQuestion.studentId}).mentorName  = updatedQuestion.mentorName;
+      updateTitle();
       $scope.$apply();
-      console.log('2',_.findWhere(self.questions, {studentId:updatedQuestion.studentId}));
+
     });
 
     this.ObjectEntersQ = function (object) {
@@ -72,7 +86,7 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         self.questions = [];
         socket.emit('get questions asked', {cohortId: self.cohortId});
     }
-    
+
     $element.on('$destroy', function() {
         socket.off('getAllQuestionsAsked', getAllQuestionsAsked);
         socket.off('reset view data', resetViewData);
@@ -83,4 +97,3 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     };
 
 });
-

@@ -2,10 +2,13 @@
   <div class="row" style = 'margin-bottom:0'>
     <div class="col s12 day-notes">
       <div class="curriculmTitle"style="text-align:center"><b>Curriculum</b></div>
-        <ul>
-          <li ng-repeat = "trackable in is.trackables |orderBy:trackable.preclass" class = "row" style = "margin-bottom:0">
-              <div ng-bind-html = 'trackable.sectionContent'></div>
-          </li>
-        </ul>
+
+          <ul ng-repeat = "trackable in is.trackables" class = "row" style = "margin-bottom:0">
+            <strong>{{trackable[0].sectionTitle}}</strong>
+            <li ng-repeat ="item in trackable">
+              <div ng-bind-html = 'item.sectionContent'></div>
+            </li>
+          </ul>
+
     </div>
   </div>
