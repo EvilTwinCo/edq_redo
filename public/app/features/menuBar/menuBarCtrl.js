@@ -3,8 +3,6 @@ angular.module('theQ').controller('menuBarCtrl', function(socketIoSrvc, $scope, 
     var self = this;
     self.showAdminTags = false;
 
-    socket.emit('client request: get auth level');
-
     socket.on('server response: get auth level', serverResponseGetAuthLevel);
 
     function serverResponseGetAuthLevel (data) {
@@ -14,6 +12,7 @@ angular.module('theQ').controller('menuBarCtrl', function(socketIoSrvc, $scope, 
             $scope.$apply();
             $window.location.href = '#/adminDashboard';
         }
+        socket.off('server response: get auth level', serverResponseGetAuthLevel);
     }
 
     self.logoutUser = function(){
@@ -24,8 +23,4 @@ angular.module('theQ').controller('menuBarCtrl', function(socketIoSrvc, $scope, 
         console.log(err);
       });
     };
-
-    $element.on('$destroy', function () {
-        socket.on('server response: get auth level', serverResponseGetAuthLevel);
-    });
 });

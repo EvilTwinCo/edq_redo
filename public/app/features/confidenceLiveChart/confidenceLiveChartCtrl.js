@@ -3,13 +3,12 @@ var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function 
     var self = this;
 
     $scope.$watch('is.cohortId', function() {
-        console.log('watch cohortId seen');
         resetData();
     })
-    
+
     socket.on('report confidence single', reportConfidenceSingle);
     socket.on('reset view data', resetViewData);
-    
+
     function reportConfidenceSingle (data) {
         if (data.cohortId === self.cohortId) {
             if (self.objData[data.objective_topic]) {
@@ -22,10 +21,8 @@ var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function 
             cleanData();
         }
     }
-    
+
     function resetViewData () {
-        console.log(socket);
-        console.log('resetting data view');
         resetData();
         $scope.$apply();
     }
@@ -43,7 +40,7 @@ var app = angular.module("theQ").controller("confidenceLiveChartCtrl", function 
         self.data = {};
         socket.emit('get current confidences', self.cohortId);
     }
-    
+
     $element.on('$destroy', function() {
         socket.off('report confidence single', reportConfidenceSingle);
         socket.off('reset view data', resetViewData);

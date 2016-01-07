@@ -5,7 +5,6 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope,
     this.feed = [];
 
     $scope.$watch('lF.cohortId', function() {
-        console.log('watch cohortId seen');
         resetData();
     });
 
@@ -14,8 +13,6 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope,
     socket.on('server response: initial live feed queue', serverResponseInitialLiveFeedQueue);
 
     function resetViewData () {
-        console.log(socket);
-        console.log('resetting data view - liveFeed');
         resetData();
         $scope.$apply();
     }
@@ -37,7 +34,6 @@ angular.module('theQ').controller('liveFeedCtrl', function(socketIoSrvc, $scope,
     }
 
     function resetData () {
-        console.log('client request: initial live feed queue', self.cohortId);
         socket.emit('client request: initial live feed queue', self.cohortId);
     }
 

@@ -21,10 +21,12 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
     // GENERAL SOCKET.IO EVENT COMMUNCATION
     socket.on('connect', function() {
         console.log('connected');
+        socket.emit('client request: get auth level');
     });
 
     socket.on('reconnect', function() {
         console.log('reconnecting');
+        socket.emit('client request: get auth level');
     });
 
     socket.on('disconnect', function() {
@@ -38,8 +40,17 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
         }
     });
 
+    socket.on('server response: get auth level', function(data){
+      console.log('server response on auth:', data);
+      if (data === 'admin') {
+          socket.emit('instructor login');
+      }
+    });
+
     socket.on('notAdmin', function(message){
       console.log('No admin privilages');
       $location.path('/login');
     })
+
+
 });
