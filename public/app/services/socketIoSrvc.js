@@ -26,7 +26,6 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
 
     socket.on('reconnect', function() {
         console.log('reconnecting');
-        socket.emit('client request: get auth level');
     });
 
     socket.on('disconnect', function() {
