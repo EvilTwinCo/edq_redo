@@ -24,9 +24,19 @@ module.exports = {
       if (err){
         console.log(err);
       } else{
+
         body = JSON.parse(body);
+        console.log(body);
+        body.trackables = _.filter(body.trackables, function(item){
+          console.log(item);
+          return item.sectionContent;
+        })
+        console.log(body.trackables);
         body.trackables = _.uniq(body.trackables, false, function(item){
-          //console.log(item);
+          console.log(item);
+          if (!item.sectionContent){
+            return "";
+          }
             return item.sectionContent.match(/>([^<>]+)</)[1];
         });
 
