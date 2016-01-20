@@ -148,7 +148,7 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function (socketIoSrv
 
     function getAttendanceData() {
        attendanceSrvc.getRecordedAttendanceForToday(self.cohortId).then(function(res) {
-           
+
            self.users = res.map(function(item) {
                item.firstName = item.user.firstName;
                item.lastName = item.user.lastName;
@@ -161,7 +161,7 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function (socketIoSrv
 
     $element.on('$destroy', function () {
         socket.off('attendanceUpdateWithNewAttenance', attendanceUpdateWithNewAttenance);
-        socket.off('getInitialAttendance', getInitialAttendance);
+        //socket.off('getInitialAttendance', getInitialAttendance);
     })
 
 });
