@@ -50,7 +50,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
     .classed('labels', true);
 
   this.clearData = function() {
-    console.log(self.cohortId);
+    
     socket.emit('removeStudentFlashPollData', self.cohortId);
     $scope.dataSet = [];
     updateResults();

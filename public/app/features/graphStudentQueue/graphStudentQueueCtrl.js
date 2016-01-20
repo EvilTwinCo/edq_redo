@@ -11,7 +11,6 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
 
 
   $scope.$watch('is.chartData', function() {
-    console.log(self.chartData);
     if (self.chartData.length) {
       svg.empty();
       draw();
@@ -146,15 +145,11 @@ var app = angular.module("theQ").controller("graphStudentQueueCtrl", function($s
         })
         .style("fill", function(d,i){return color(i);});
 
-        console.log("But I make it here!!!");
-        console.log(legendArray);
         d3Svg.selectAll(".legend").data(legendArray)
         .enter()
         .append("text")
         .attr("class","legend")
         .text(function(d, i){
-          console.log("here");
-          console.log(d);
           return d;})
         .attr("x", 1100)
         .attr("y", function(d, i){return 30+40*i;})

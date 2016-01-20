@@ -6,7 +6,6 @@ angular.module('theQ').controller('menuBarCtrl', function(socketIoSrvc, $scope, 
     socket.on('server response: get auth level', serverResponseGetAuthLevel);
 
     function serverResponseGetAuthLevel (data) {
-        console.log('server response on auth:', data);
         if (data === 'admin') {
             self.showAdminTags = true;
             $scope.$apply();

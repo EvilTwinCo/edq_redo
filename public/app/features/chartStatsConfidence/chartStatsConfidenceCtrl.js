@@ -61,7 +61,7 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
 
         self.dataSet = confidenceValuesArray;
         self.dataLabels = confidenceLabelsArray;
-        console.log(self.dataLabels);
+
     }
 
     var columnDefs = [
@@ -132,14 +132,14 @@ var app = angular.module("theQ").controller("chartStatsConfidenceCtrl", function
     }
 
     function beforeFilterChanged() {
-        console.log('before filter changed');
+
         filteredData = [];
     }
 
     function afterFilterChanged() {
-        console.log('after filter changed');
+
         $scope.gridOptions.api.forEachNodeAfterFilter(filteredDataAggregator);
-        console.log(filteredData);
+
         updateChart(filteredData);
     }
 

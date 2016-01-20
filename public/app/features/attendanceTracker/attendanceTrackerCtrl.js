@@ -1,5 +1,5 @@
 angular.module('theQ').controller('attendanceTrackerCtrl', function (socketIoSrvc, $scope, $element, attendanceSrvc) {
-    
+
     var socket = socketIoSrvc.getSocket();
     var self = this;
     this.hideMenu = true;
@@ -88,7 +88,7 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function (socketIoSrv
             return new Date();
         }
         var zeroOclock = new Date(new Date().setHours(0, 0, 0, 0));
-        console.log('zeroOclock', zeroOclock);
+
         return zeroOclock;
     }
 
@@ -110,7 +110,7 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function (socketIoSrv
                 break;
             }
         }
-        console.log(user);
+
         socket.emit("postAttendance", user);
     }
 
@@ -145,10 +145,10 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function (socketIoSrv
         })
         $scope.$apply();
     }*/
-    
+
     function getAttendanceData() {
        attendanceSrvc.getRecordedAttendanceForToday(self.cohortId).then(function(res) {
-           console.log(res);
+           
            self.users = res.map(function(item) {
                item.firstName = item.user.firstName;
                item.lastName = item.user.lastName;
@@ -156,7 +156,7 @@ angular.module('theQ').controller('attendanceTrackerCtrl', function (socketIoSrv
            })
        }, function (err) {
            console.log(err);
-       }) 
+       })
     }
 
     $element.on('$destroy', function () {

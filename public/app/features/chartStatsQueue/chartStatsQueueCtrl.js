@@ -4,7 +4,7 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
   var filteredData = [];
 
   $scope.$watch('is.cohortId', function(newValue, oldValue){
-    console.log('cohortId:', newValue);
+
     $scope.gridOptions.api.onFilterChanged();
   });
 
@@ -65,12 +65,10 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
   };
 
   function isExternalFilterPresent(){
-    console.log($scope.is.cohortId !== 'all' && $scope.is.cohortId !== undefined && $scope.is.cohortId !== null);
       return $scope.is.cohortId !== 'all' && $scope.is.cohortId !== undefined && $scope.is.cohortId !== null;
   }
 
   function doesExternalFilterPass(node){
-    console.log(node);
     return $scope.is.cohortId == node.data.cohortId;
   }
 
@@ -121,7 +119,6 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
         return prev;
       }, {category:key, data:[0,0,0]});
     });
-    console.log(chartData);
     $scope.chartData = queueData;
     $scope.gridOptions.api.setRowData(queueData);
     $scope.gridOptions.api.sizeColumnsToFit();
@@ -130,14 +127,11 @@ var app = angular.module("theQ").controller("chartStatsQueueCtrl", function($sco
   });
 
   function afterFilterChanged(){
-    console.log('after filter changed');
     $scope.gridOptions.api.forEachNodeAfterFilter(filteredDataAggregator);
-    console.log(filteredData);
     $scope.chartData = filteredData;
   }
 
   function beforeFilterChanged() {
-        console.log('before filter changed');
         filteredData = [];
     }
 

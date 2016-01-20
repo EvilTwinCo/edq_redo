@@ -12,37 +12,30 @@ module.exports = {
     // getFakeObjectives(socket);
     // return false;
 
-    var date = new Date();//TODO remove hardcoded date
+    var date = new Date();
 
     var userEmail = 'cleber.lop@gmail.com'; //socket.request.user.email;
     var requestObj = {
-      url: "http://class.devmounta.in/api/day-data/" + date + "/"+userEmail,
+      url: "http://class.devmounta.in/api/day-data/" + date + "/" + userEmail,
       method: "GET"
     };
 
-    request(requestObj, function(err, res, body){
-      if (err){
+    request(requestObj, function(err, res, body) {
+      if (err) {
         console.log(err);
-      } else{
-
+      } else {
         body = JSON.parse(body);
-        console.log(body);
-        body.trackables = _.filter(body.trackables, function(item){
-          console.log(item);
+
+        body.trackables = _.filter(body.trackables, function(item) {
           return item.sectionContent;
         })
-        console.log(body.trackables);
-        body.trackables = _.uniq(body.trackables, false, function(item){
-          console.log(item);
-          if (!item.sectionContent){
-            return "";
-          }
-            return item.sectionContent.match(/>([^<>]+)</)[1];
+
+        body.trackables = _.uniq(body.trackables, false, function(item) {
+          return item.sectionContent.match(/>([^<>]+)</)[1];
         });
 
-        body.trackables.map(function(item){
-          item.sectionContent =  item.sectionContent.replace(/<a /g,"<a target=\"_blank\" ");
-          console.log(item.sectionContent);
+        body.trackables.map(function(item) {
+          item.sectionContent = item.sectionContent.replace(/<a /g, "<a target=\"_blank\" ");
           return item;
         });
 
@@ -59,17 +52,17 @@ module.exports = {
 };
 
 
-function getFakeObjectives(socket){
+function getFakeObjectives(socket) {
   var timestamp = new Date();
-  var number = timestamp.getHours()*timestamp.getDay()*timestamp.getYear();
+  var number = timestamp.getHours() * timestamp.getDay() * timestamp.getYear();
 
   var objToReturn = {
-    trackables:[],
-    objectives:[]
+    trackables: [],
+    objectives: []
   };
-  for(var i=0;i<5;i++){
-    objToReturn.trackables.push(dummyData.trackables[(number-i) % dummyData.trackables.length ]);
-    objToReturn.objectives.push(dummyData.objectives[(number-i) % dummyData.objectives.length ]);
+  for (var i = 0; i < 5; i++) {
+    objToReturn.trackables.push(dummyData.trackables[(number - i) % dummyData.trackables.length]);
+    objToReturn.objectives.push(dummyData.objectives[(number - i) % dummyData.objectives.length]);
   }
   socket.emit('learning objectives are', objToReturn);
 }
