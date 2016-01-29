@@ -24,6 +24,9 @@ module.exports = {
       if (err) {
         console.log(err);
       } else {
+        if (!body){
+          return;
+        }
         body = JSON.parse(body);
 
         body.trackables = _.filter(body.trackables, function(item) {
