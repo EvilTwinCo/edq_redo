@@ -14,7 +14,7 @@ module.exports = {
 
     var date = new Date();
 
-    var userEmail = 'cleber.lop@gmail.com'; //socket.request.user.email;
+    var userEmail = socket.request.user.email;
     var requestObj = {
       url: "http://class.devmounta.in/api/day-data/" + date + "/" + userEmail,
       method: "GET"
