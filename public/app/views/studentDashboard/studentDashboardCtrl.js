@@ -6,6 +6,8 @@ angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc,
 
     socket.on('learning objectives are', learningObjectivesAre);
 
+    $scope.defaultObjectives = [{objectiveName:"Javascript"}, {objectiveName:"Angular"},{objectiveName:"Express"},{objectiveName:"Mongo"}];
+
     function learningObjectivesAre (data){
       console.log(data);
         $scope.objectives = data.objectives.map(function(item){

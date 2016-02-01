@@ -36,5 +36,7 @@ module.exports = {
                 })
             }
         })
-    }
+    },
+    getCohortById:function (req, res){}
+
 }

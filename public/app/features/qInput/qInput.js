@@ -8,6 +8,7 @@ angular.module('theQ').directive('qInput', function () {
         scope: {
             objectives:"=",
             question: '=',
+            defaultObjectives:"=",
             done: '&'
         }
     }
