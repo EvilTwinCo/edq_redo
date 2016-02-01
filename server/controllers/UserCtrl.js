@@ -47,7 +47,7 @@ module.exports = {
         //console.log(socket.request.user.devMtn.roles);
         var rawRolesArray = socket.request.user.devMtn.roles;
         var rolesOnlyArray = _.pluck(rawRolesArray, 'role');
-        if (rolesOnlyArray.indexOf('mentor') !== -1 || rolesOnlyArray.indexOf('instructor') !== -1) {
+        if (rolesOnlyArray.indexOf('mentor') !== -1 || rolesOnlyArray.indexOf('instructor') !== -1 || rolesOnlyArray.indexOf('lead_instructor') !== -1) {
             //console.log(socket.request.user.devMtn.id + ' is joining as an admin.');
             role = 'admin';
         } else {
