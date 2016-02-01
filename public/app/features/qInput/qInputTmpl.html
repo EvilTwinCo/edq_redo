@@ -6,7 +6,12 @@
       <input name="group1" type="radio" ng-model = "is.question.directive" value = "{{part.objectiveName}}" id= "{{part.objectiveName}}"/>
       <label for="{{part.objectiveName}}">{{part.objectiveName}}</label>
     </p>
-
+    <div ng-hide ="is.objectives">
+      <p ng-repeat = "part in is.defaultObjectives">
+        <input name="group1" type="radio" ng-model = "is.question.directive" value = "{{part.objectiveName}}" id= "{{part.objectiveName}}"/>
+        <label for="{{part.objectiveName}}">{{part.objectiveName}}</label>
+      </p>
+    </div>
     <p>
       <input name="group1" type="radio" ng-model = "is.question.directive" value ="none" id ="none"/>
       <label for="none">None the Above!</label>

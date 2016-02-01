@@ -3,7 +3,7 @@
 
         <div class="col s12 m8 l8">
 
-            <div class="row col s12">
+            <div class="row" ng-show = "objectives">
                 <div class="hide-on-large-only col s12" style="height:1.5em"></div>
                 <div class="learningObjectives">
                     <learning-objective objectives="objectives"></learning-objective>
@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <div class="row col s12">
+            <div class="row">
 
                     <student-question-form objectives="objectives"></student-question-form>
                     <div class="colorBlock greenBackground"></div>
@@ -20,7 +20,7 @@
         </div>
 
         <div class="col s12 m4 l4">
-            <div class="row">
+            <div class="row"  ng-show = "trackables">
                 <div class="dayNotes">
                     <day-notes trackables="trackables"></day-notes>
                     <div class="colorBlock yellowBackground"></div>
