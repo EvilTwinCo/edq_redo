@@ -14,5 +14,10 @@ angular.module('theQ').controller('adminDashboardCtrl', function (socketIoSrvc, 
         this.currentCohort = cohort;
         //console.log(this.currentCohort);
         socket.emit('request reset view data');
-    }  
+    }
+
+  this.changeSettings = function(
+    this.cohort.cohortId = this.currentCohort;
+    socket.emit('put cohort settings', this.cohort);
+  )
 });

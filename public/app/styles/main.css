@@ -162,3 +162,10 @@ student-flash-poll h2{
   display:flex;
   justify-content: space-between;
 }
+
+.cohortSettings{
+  padding: 10px;
+  background-color: red;
+  width:50%;
+  float:right;
+}

@@ -149,6 +149,9 @@ ioServer.on('connection', function (socket) {
     //Learning Objective Sockets
     socket.on('get all learning objectives', LearningObjectiveCtrl.getAllObjectives.bind(null, socket));
 
+    //Cohort Settings Endpoints
+    socket.on('put cohort settings', CohortCtrl.setCohortSettings.bind(null, socket));
+
     //Confidence Sockets
     socket.on('submit confidence', ConfidenceCtrl.handleSubmitConfidence.bind(null, socket, ioServer));
 

@@ -5,6 +5,7 @@ angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc,
     socket.emit('get all learning objectives');
 
     socket.on('learning objectives are', learningObjectivesAre);
+    socket.on('default objectives are', setDefaultObjectives);
 
     $scope.defaultObjectives = [{objectiveName:"Javascript"}, {objectiveName:"Angular"},{objectiveName:"Express"},{objectiveName:"Mongo"}];
 
@@ -20,7 +21,12 @@ angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc,
         $scope.$apply();
     }
 
+    function setDefaultObjectives(data){
+      $scope.defaultObjectives = data
+    }
+
     $element.on('$destroy', function() {
         socket.off('learning objectives are', learningObjectivesAre);
+        socket.off('default objectives are', setDefaultObjectives);
     })
 });

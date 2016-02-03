@@ -42,10 +42,20 @@
     </div>
   </div>
 
+  <div class = "cohortSettings">
+    <input ng-model = "is.cohort.name">
+    <input ng-model = "is.cohort.courseType">
+    <input ng-model = "is.cohort.defaultObjectives[0]">
+    <input ng-model = "is.cohort.defaultObjectives[1]">
+    <input ng-model = "is.cohort.defaultObjectives[2]">
+    <input ng-model = "is.cohort.defaultObjectives[3]">
+  </div>
+
 </div>
 <div>
     <attendance-tracker ng-if="is.currentCohort !== 'Select ID...'" cohort-id="is.currentCohort"></attendance-tracker>
 </div>
+
 <script>
   $('.dropdown-button').dropdown({
     inDuration: 300,

@@ -18,4 +18,4 @@ var schema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Confidence', schema);
+module.exports = mongoose.model('Cohort', schema);
