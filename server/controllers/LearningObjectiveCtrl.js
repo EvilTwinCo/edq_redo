@@ -14,11 +14,20 @@ module.exports = {
 
     var date = new Date();
 
-    var userEmail = socket.request.user.email;
+    // TODO Swap below to work on userEmail at future date once cohorts has a students array.
+    // =======================
+    var userCohortId = socket.request.user.devMtn.cohortId;
     var requestObj = {
-      url: "http://class.devmounta.in/api/day-data/" + date + "/" + userEmail,
+      url: "http://class.devmounta.in/api/day-data/" + date + "/" + userCohortId,
       method: "GET"
     };
+
+    // var userEmail = socket.request.user.email;
+    // var requestObj = {
+    //   url: "http://class.devmounta.in/api/day-data/" + date + "/" + userEmail,
+    //   method: "GET"
+    // };
+    // =======================
 
     request(requestObj, function(err, res, body) {
       if (err) {
