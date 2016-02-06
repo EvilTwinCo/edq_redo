@@ -14,6 +14,7 @@ var DevmtnStrategy = Devmtn.Strategy;
 var User = require('./models/User.js');
 var passportSocketIo = require("passport.socketio");
 var cookieParser = require("cookie-parser");
+var _ = require('underscore');
 
 var configSettings = require("./config.js");
 
@@ -119,9 +120,24 @@ function onAuthorizeFail(data, message, error, accept) {
 }
 
 app.get('/admin/confidences/:cohortId', ConfidenceCtrl.getDatabaseConfidences);
-app.get('/admin/cohorts', CohortCtrl.getCohortIdOptions);
+app.get('/admin/cohorts', isAdmin, CohortCtrl.getCohortIdOptions);
 app.get('/admin/confidences/user/:userId/:learningObjId', ConfidenceCtrl.getUserLearningObjConfidences);
 app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendanceForDateByCohort);
+
+function isAdmin(req, res, next) {
+    var roles = _.pluck(req.user.devMtn.roles, 'role');
+    //console.log(roles);
+    if (roles.indexOf('admin') !== -1 ||
+        roles.indexOf('mentor') !== -1 ||
+        roles.indexOf('instructor') !== -1 ||
+        roles.indexOf('lead_instructor') !== -1)  {
+        //console.log(req.user.firstName + ' ' + req.user.lastName + ' is authorized for admin pages and has the following roles: ' + roles);
+        next();
+    } else {
+        console.log(req.user.firstName + ' ' + req.user.lastName + ' tried to view admin pages but is not authorized.  He/She has the following roles: ' + roles);
+        res.json({redirect: '/#/studentDashboard'});
+    }
+}
 
 ioServer.on('connection', function (socket) {
     var devMtnId = socket.request.user.devMtn.id;

@@ -66,7 +66,7 @@ angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $
     ];
 
     cohortSrvc.getCohortIds().then(function (res) {
-        console.log(res);
+        //console.log(res);
         self.specificTypeOptions = [];
         res.forEach(function (item) {
             self.specificTypeOptions.push({label: item, value: item});
