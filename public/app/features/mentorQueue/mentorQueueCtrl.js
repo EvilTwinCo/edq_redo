@@ -3,20 +3,22 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     var self = this;
 
     $scope.$watch('mq.cohortId', function() {
-
         resetData();
     });
 
     socket.on('getAllQuestionsAsked', getAllQuestionsAsked);
     socket.on('reset view data', resetViewData)
+    socket.on('questionForQueue', questionForQueue);
+    socket.on('remove question from queue', removeQuestionFromQueue);
+    socket.on('mentorBegins', mentorBegins);
 
-    socket.on('questionForQueue', function (data) {
+    function questionForQueue (data) {
       if( data.cohortId === self.cohortId){
         self.questions.push(data);
         updateTitle();
         $scope.$apply();
       }
-    });
+    };
 
     function getAllQuestionsAsked (data) {
         self.questions = data;
@@ -44,20 +46,19 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
         $scope.$apply();
     }
 
-    socket.on('remove question from queue', function (question) {
+    function removeQuestionFromQueue (question) {
         self.questions = _.filter(self.questions, function (item) {
             return item.studentId !== question.studentId;
         });
         updateTitle();
         $scope.$apply();
-    });
+    };
 
-    socket.on('mentorBegins', function(updatedQuestion){
-      _.findWhere(self.questions, {studentId:updatedQuestion.studentId}).mentorName  = updatedQuestion.mentorName;
-      updateTitle();
-      $scope.$apply();
-
-    });
+    function mentorBegins (updatedQuestion) {
+        _.findWhere(self.questions, {studentId:updatedQuestion.studentId}).mentorName  = updatedQuestion.mentorName;
+        updateTitle();
+        $scope.$apply();
+    };
 
     this.ObjectEntersQ = function (object) {
         object.timeWhenEnteredQ = new Date();
@@ -90,6 +91,9 @@ angular.module('theQ').controller('mentorQueueCtrl', function (socketIoSrvc, $sc
     $element.on('$destroy', function() {
         socket.off('getAllQuestionsAsked', getAllQuestionsAsked);
         socket.off('reset view data', resetViewData);
+        socket.off('questionForQueue', questionForQueue);
+        socket.off('remove question from queue', removeQuestionFromQueue);
+        socket.off('mentorBegins', mentorBegins);
     })
 
     this.initSelect = function(){
