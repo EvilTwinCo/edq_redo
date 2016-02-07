@@ -1,10 +1,13 @@
 
 .askQuestion {
   position: absolute;
+  width: 90%;
   z-index: 1;
   right:3px;
   top: 3px;
-  font-size: .6em;
+  left: 3px;
+  margin: 0 auto;
+  font-size: .8em;
   padding-left: 3px;
   padding-right: 3px;
 }
@@ -12,7 +15,7 @@
 .flashPollTitle {
   position: absolute;
   z-index: 1;
-  left:3px;
+  left: 3px;
   top: -55px;
   font-size: 20px;
   font-weight: bold;

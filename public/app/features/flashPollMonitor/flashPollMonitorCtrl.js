@@ -50,7 +50,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
     .classed('labels', true);
 
   this.clearData = function() {
-    
+
     socket.emit('removeStudentFlashPollData', self.cohortId);
     $scope.dataSet = [];
     updateResults();
@@ -73,7 +73,7 @@ var app = angular.module("theQ").controller("flashPollMonitorCtrl", function(soc
 
     scale = d3.scale.linear()
       .domain([0, $scope.dataSet.length])
-      .range([0, 80]);
+      .range([0, 60]);
 
     bars = baseBox.selectAll(".bars")
       .data(resultSet)
