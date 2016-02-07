@@ -15,6 +15,12 @@ angular.module('theQ').controller('studentDashboardCtrl', function(socketIoSrvc,
         $scope.trackables = _.groupBy(data.trackables,function (item){
           return item.sectionTitle;
         });
+
+        // if ($scope.objectives.length === 0) {
+        //     for (var i = 1; i < 8; i++) {
+        //         $scope.objectives.push({objectiveTopic: 'Test Topic #' + i, objectiveName: 'This is a test - #' + i});
+        //     }
+        // }
         $scope.$apply();
     }
 

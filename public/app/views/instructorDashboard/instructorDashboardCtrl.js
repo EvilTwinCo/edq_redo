@@ -1,4 +1,4 @@
-angular.module('theQ').controller('adminDashboardCtrl', function (socketIoSrvc, cohortSrvc) {
+angular.module('theQ').controller('instructorDashboardCtrl', function (socketIoSrvc, cohortSrvc) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
     this.currentCohort = "Select ID...";
