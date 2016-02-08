@@ -125,17 +125,23 @@ app.get('/admin/confidences/user/:userId/:learningObjId', ConfidenceCtrl.getUser
 app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendanceForDateByCohort);
 
 function isAdmin(req, res, next) {
-    console.log(req.user);
-    var roles = _.pluck(req.user.devMtn.roles, 'role');
-    //console.log(roles);
-    if (roles.indexOf('admin') !== -1 ||
-        roles.indexOf('mentor') !== -1 ||
-        roles.indexOf('instructor') !== -1 ||
-        roles.indexOf('lead_instructor') !== -1)  {
-        //console.log(req.user.firstName + ' ' + req.user.lastName + ' is authorized for admin pages and has the following roles: ' + roles);
-        next();
+    //console.log(req.user);
+    if (req.user.devMtn) {
+        var roles = _.pluck(req.user.devMtn.roles, 'role');
+        //console.log(roles);
+        if (roles.indexOf('admin') !== -1 ||
+            roles.indexOf('mentor') !== -1 ||
+            roles.indexOf('instructor') !== -1 ||
+            roles.indexOf('lead_instructor') !== -1)  {
+            //console.log(req.user.firstName + ' ' + req.user.lastName + ' is authorized for admin pages and has the following roles: ' + roles);
+            next();
+        } else {
+            console.log(req.user.firstName + ' ' + req.user.lastName + ' tried to view admin pages but is not authorized.  He/She has the following roles: ' + roles);
+            res.json({redirect: '/#/studentDashboard'});
+        }
     } else {
-        console.log(req.user.firstName + ' ' + req.user.lastName + ' tried to view admin pages but is not authorized.  He/She has the following roles: ' + roles);
+        console.log(req.user.firstName + " " + req.user.lastName + " doesn't have a req.user.devMtn property so he/she cannot be authorized.");
+        console.log('Their user object is as follows: ', req.user);
         res.json({redirect: '/#/studentDashboard'});
     }
 }
