@@ -40,7 +40,7 @@ angular.module('theQ').service('socketIoSrvc', function($location) {
     });
 
     socket.on('server response: get auth level', function(data){
-      console.log('server response on auth:', data);
+      //console.log('server response on auth:', data);
       if (data === 'admin') {
           socket.emit('instructor login');
       }

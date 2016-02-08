@@ -1,5 +1,9 @@
 
-.row .col.l12 {
+admin-dashboard .row .col.l12 {
+  padding-left: 0px;
+}
+
+admin-dashboard .row .col.m12 {
   padding-left: 0px;
 }
 
@@ -18,4 +22,21 @@ confidence-live-chart {
 
 admin-dashboard .confidenceSvg {
   height:80%
+}
+
+admin-dashboard .flashPollDiv {
+    padding-left: 0px;
+    max-height: 220px;
+}
+
+@media (max-width: 993px) {
+
+    admin-dashboard .flashPollDiv {
+        margin-top: 20px;
+    }
+
+    admin-dashboard live-feed {
+        margin-top: 30px;
+    }
+
 }

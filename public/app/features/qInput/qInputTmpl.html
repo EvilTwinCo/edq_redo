@@ -1,12 +1,15 @@
 <form ng-submit="is.submitQuestion(is.question)">
 
   <div class = "row">
-    <div class="questionStyle" style= "text-align:center"><b>What does your question concern?</b></div>
+    <div class="questionStyle" style="text-align:center">
+        <b>Questions?</b>
+        <p class="subtitle">(Select your question topic & submit your question below)</p>
+    </div>
     <p ng-repeat = "part in is.objectives">
       <input name="group1" type="radio" ng-model = "is.question.directive" value = "{{part.objectiveName}}" id= "{{part.objectiveName}}"/>
       <label for="{{part.objectiveName}}">{{part.objectiveName}}</label>
     </p>
-    <div ng-hide ="is.objectives">
+    <div ng-show ="is.objectives.length === 0">
       <p ng-repeat = "part in is.defaultObjectives">
         <input name="group1" type="radio" ng-model = "is.question.directive" value = "{{part.objectiveName}}" id= "{{part.objectiveName}}"/>
         <label for="{{part.objectiveName}}">{{part.objectiveName}}</label>
@@ -14,18 +17,18 @@
     </div>
     <p>
       <input name="group1" type="radio" ng-model = "is.question.directive" value ="none" id ="none"/>
-      <label for="none">None the Above!</label>
+      <label for="none">Other</label>
     </p>
   </div>
 
 
 <div class = 'row' style = "margin-bottom:0">
-  <div class="input-field col s6">
+  <div class="input-field col s10">
     <input id="questionText" type="text" ng-model = "is.question.question" class="validate" >
     <label for="questionText">What is your question?</label>
   </div>
 
-  <div ng-if= "is.question.question" class = "col s6">
+  <div ng-if= "is.question.question" class = "col s2">
     <a class="waves-effect waves-light btn blue-grey darken-1" ng-click = "is.submitQuestion(is.question)" >Ask!</a>
   </div>
 </div>

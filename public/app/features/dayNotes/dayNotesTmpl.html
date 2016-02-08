@@ -1,14 +1,16 @@
-
-  <div class="row" style = 'margin-bottom:0'>
+<div class="row" style='margin-bottom:0'>
     <div class="col s12 day-notes">
-      <div class="curriculmTitle"style="text-align:center"><b>Curriculum</b></div>
-
-          <ul ng-repeat = "trackable in is.trackables" class = "row" style = "margin-bottom:0">
+        <div class="curriculumTitle" style="text-align:center">
+            <b>Curriculum</b>
+        </div>
+        <ul ng-show="is.noTrackables" class="col s12">
+            <li class="noNotes"> Note: No curriculum content for today.</li>
+        </ul>
+        <ul ng-repeat="trackable in is.trackables" class="row" style="margin-bottom:0">
             <strong>{{trackable[0].sectionTitle}}</strong>
-            <li ng-repeat ="item in trackable">
-              <div ng-bind-html = 'item.sectionContent'></div>
+            <li ng-repeat="item in trackable">
+                <div ng-bind-html='item.sectionContent'></div>
             </li>
-          </ul>
-
+        </ul>
     </div>
-  </div>
+</div>

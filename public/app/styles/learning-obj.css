@@ -51,3 +51,11 @@ learning-objective .current-percentage {
 learning-objective .current-percentage p {
     color: black;
 }
+
+learning-objective .noLearningObjs {
+    color: gray;
+}
+
+learning-objective .subtitle {
+    font-size: .6em;
+}
