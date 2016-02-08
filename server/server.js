@@ -125,6 +125,7 @@ app.get('/admin/confidences/user/:userId/:learningObjId', ConfidenceCtrl.getUser
 app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendanceForDateByCohort);
 
 function isAdmin(req, res, next) {
+    console.log(req.user);
     var roles = _.pluck(req.user.devMtn.roles, 'role');
     //console.log(roles);
     if (roles.indexOf('admin') !== -1 ||
