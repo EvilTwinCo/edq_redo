@@ -87,9 +87,10 @@ passport.use('devmtn', new DevmtnStrategy({
 
 app.get('/logout', function(req, res){
   //console.log('Logging out user', req.user);
+  console.log(req.user.firstName + ' ' + req.user.lastName + ' is logging out.');
   req.logout();
   //console.log('req.session', req.session);
-  req.session.destroy(function(err){console.log('this be err', err);});
+  req.session.destroy(function(err){console.log('session destroyed.', err);});
   //console.log('req.session', req.session);
   res.redirect('/#/logout');
 
@@ -126,7 +127,7 @@ app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendan
 
 function isAdmin(req, res, next) {
     //console.log(req.user);
-    if (req.user.devMtn) {
+    if (req.user) {
         var roles = _.pluck(req.user.devMtn.roles, 'role');
         //console.log(roles);
         if (roles.indexOf('admin') !== -1 ||
@@ -140,8 +141,7 @@ function isAdmin(req, res, next) {
             res.json({redirect: '/#/studentDashboard'});
         }
     } else {
-        console.log(req.user.firstName + " " + req.user.lastName + " doesn't have a req.user.devMtn property so he/she cannot be authorized.");
-        console.log('Their user object is as follows: ', req.user);
+        console.log('A user without a req.user session tried to access admin pages.');
         res.json({redirect: '/#/studentDashboard'});
     }
 }
