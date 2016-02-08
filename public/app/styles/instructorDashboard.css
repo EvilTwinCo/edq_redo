@@ -2,6 +2,10 @@ instructor-dashboard .row .col.l12 {
   padding-left: 0px;
 }
 
+instructor-dashboard .row .col.m12 {
+  padding-left: 0px;
+}
+
 instructor-dashboard confidence-live-chart {
   margin-right: 100px;
   width: 100%;
@@ -27,4 +31,15 @@ instructor-dashboard .graphs {
 instructor-dashboard .row {
     margin-left: 5px;
     margin-bottom: 10px;
+}
+
+@media (max-width: 993px) {
+
+    instructor-dashboard .flashPollDiv {
+        margin-top: 40px;
+    }
+
+    instructor-dashboard .mentorQueueView {
+        margin-top: 180px;
+    }
 }

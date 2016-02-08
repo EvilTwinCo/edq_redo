@@ -18,3 +18,11 @@ day-notes a {
   color:blue;
   text-decoration: none;
 }
+
+day-notes .noNotes {
+    color: gray;
+}
+
+day-notes .curriculumTitle {
+    font-size: 20px;
+}
