@@ -46,7 +46,7 @@ angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, co
           , avgWaitTimeInQueue:0
           , cohortId:item[0].cohortId}
           statsObj = item.reduce(function(prev, cur){
-            if (cur.mentorBegins){
+            if (cur.timeMentorBegins){
               prev.studentsBeingHelped++;
             }else{
               prev.studentsInQueue++;
