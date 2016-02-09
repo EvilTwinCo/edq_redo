@@ -128,6 +128,8 @@ app.get('/admin/cohorts', isAdmin, CohortCtrl.getCohortIdOptions);
 app.get('/admin/confidences/user/:userId/:learningObjId', ConfidenceCtrl.getUserLearningObjConfidences);
 app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendanceForDateByCohort);
 
+app.get('/admin/questions', QuestionCtrl.getQuestionsByQuery);
+
 function isAdmin(req, res, next) {
     //console.log(req.user);
     if (req.user) {

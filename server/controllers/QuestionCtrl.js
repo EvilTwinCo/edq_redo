@@ -97,6 +97,15 @@ module.exports = {
                 }
             });
     },
+    getQuestionsByQuery:function(req, res){
+      Question.find({timeQuestionAnswered:null}).exec(function(err, result){
+        if (err){
+          console.log(err)
+          res.sendStatus(500);
+        }
+        res.send(result);
+      })
+    },
     getAllQuestionsAsked: function (socket, data) {
         Question.find({
                 timeQuestionAnswered: null,

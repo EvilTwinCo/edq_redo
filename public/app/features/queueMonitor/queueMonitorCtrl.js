@@ -1,4 +1,4 @@
-angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, cohortSrvc, $scope) {
+angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, cohortSrvc, $scope, $interval) {
 
     //this.question = this.question;
     var day = [];
@@ -8,21 +8,17 @@ angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, co
     self.questionsByCohort = {};
     self.statsByCohort = {};
 
-    cohortSrvc.getCohortIds().then(function(res) {
-        //console.log(res);
-        self.cohortOptions = res;
-        getQuestions();
-        setInterval(getQuestions, 10000);
-    }, function(err) {
-        console.log(err);
-    });
+    getQuestions();
+    $interval(getQuestions, 10000);
 
     function getQuestions(){
-      self.cohortOptions.forEach(function(item){
-        if (item){
-          socket.emit('get questions asked', {cohortId:item});
-        }
-      });
+        cohortSrvc.getAllQuestions().then(function(result){
+          console.log(result);
+          self.questionsByCohort = _.groupBy(result, function(item){
+            return item.cohortId;
+          })
+          calcStats();
+        })
     }
 
 

@@ -1,5 +1,11 @@
 angular.module('theQ').service('cohortSrvc', function($q, $http, $window) {
 
+    this.getAllQuestions = function(){
+      return $http.get('admin/questions?timeQuestionAnswered=null').then(function(res){
+        return res.data;
+      })
+    }
+
     this.getCohortIds = function() {
         var deferred = $q.defer();
         $http.get('admin/cohorts').then(function (res) {
