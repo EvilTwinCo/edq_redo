@@ -10,6 +10,7 @@ app.config(function($routeProvider, $mdThemingProvider) {
     .when("/statsDashboard", {template: '<stats-dashboard></stats-dashboard>'})
     .when("/adminDashboard", {template: '<admin-dashboard></admin-dashboard>'})
     .when("/instructorDashboard", {template: '<instructor-dashboard></instructor-dashboard>'})
+    .when("/queueDashboard", {template: '<queue-dashboard></queue-dashboard>'})
     .when("/logout", {template: '<login></login>'})
     .otherwise({redirectTo: '/'});
 

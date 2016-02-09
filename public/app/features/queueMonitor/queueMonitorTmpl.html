@@ -1,0 +1,21 @@
+I be the master queue monitor.
+
+<div ng-repeat = "stats in is.statsByCohort">
+  <div class = "stats">
+    <div class="">
+      <span>
+      Cohort
+      </span>{{stats.cohortId}}
+    </div>
+    <div class="">
+      <span>Waiting</span> {{stats.studentsInQueue}}
+    </div>
+    <div class="">
+      <span>Getting Help</span> {{stats.studentsBeingHelped}}
+    </div>
+    <div class="">
+      <span>Wait (Minutes)</span> {{stats.avgWaitTimeInQueue | number :1}}
+    </div>
+</div>
+  <hr>
+</div>
