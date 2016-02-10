@@ -88,10 +88,13 @@ passport.use('devmtn', new DevmtnStrategy({
 
 app.get('/logout', function(req, res){
   //console.log('Logging out user', req.user);
-  console.log(req.user.firstName + ' ' + req.user.lastName + ' is logging out.');
-  req.logout();
-  //console.log('req.session', req.session);
-  req.session.destroy(function(err){console.log('session destroyed.', err);});
+  if(req.user){
+    console.log(req.user.firstName + ' ' + req.user.lastName + ' is logging out.');
+    req.logout();
+    //console.log('req.session', req.session);
+    req.session.destroy(function(err){console.log('session destroyed.', err);});
+  }
+
   //console.log('req.session', req.session);
   res.redirect('/#/logout');
 
@@ -135,6 +138,8 @@ app.post('/admin/overrides', isAdmin, OverrideCtrl.create);
 app.get('/admin/overrides/:id', isAdmin, OverrideCtrl.readOne);
 app.put('/admin/overrides/:id', isAdmin, OverrideCtrl.update);
 app.delete('/admin/overrides/:id', isAdmin, OverrideCtrl.delete);
+
+app.get('/admin/questions', QuestionCtrl.getQuestionsByQuery);
 
 function isAdmin(req, res, next) {
     //console.log(req.user);

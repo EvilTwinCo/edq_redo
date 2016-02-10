@@ -162,3 +162,24 @@ student-flash-poll h2{
   display:flex;
   justify-content: space-between;
 }
+
+queue-monitor .stats{
+  display: flex;
+}
+
+queue-monitor .stats div{
+  display: flex;
+  flex:1;
+  background-color: #ddd;
+  color:#121212;
+  margin: 5px;
+}
+
+queue-monitor .stats span{
+  background-color: #121212;
+  display: block;
+  width:50%;
+  color:#ddd;
+  text-align: right;
+  padding-right: 5px;
+}
