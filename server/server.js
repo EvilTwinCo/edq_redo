@@ -24,13 +24,14 @@ var mongoURI = 'mongodb://localhost:27017/theQ';
 //Controllers
 var UserCtrl = require('./controllers/UserCtrl.js');
 var LearningObjectiveCtrl = require('./controllers/LearningObjectiveCtrl.js');
-var ConfidenceCtrl = require('./controllers/ConfidenceCtrl');
+var ConfidenceCtrl = require('./controllers/ConfidenceCtrl.js');
 var DevMtnPassportCtrl = require('./controllers/DevMtnPassportCtrl.js');
-var QuestionCtrl = require('./controllers/QuestionCtrl');
-var AttendanceCtrl = require('./controllers/AttendanceCtrl');
-var FlashPollCtrl = require('./controllers/FlashPollCtrl');
-var CohortCtrl = require('./controllers/CohortCtrl');
-
+var QuestionCtrl = require('./controllers/QuestionCtrl.js');
+var AttendanceCtrl = require('./controllers/AttendanceCtrl.js');
+var FlashPollCtrl = require('./controllers/FlashPollCtrl.js');
+var CohortCtrl = require('./controllers/CohortCtrl.js');
+var AliasCtrl = require('./controllers/AliasCtrl.js');
+var OverrideCtrl = require('./controllers/OverrideCtrl.js');
 
 var corsWhiteList = ['http://localhost:' + serverPort];
 var corsOptions = {
@@ -124,6 +125,16 @@ app.get('/admin/confidences/:cohortId', ConfidenceCtrl.getDatabaseConfidences);
 app.get('/admin/cohorts', isAdmin, CohortCtrl.getCohortIdOptions);
 app.get('/admin/confidences/user/:userId/:learningObjId', ConfidenceCtrl.getUserLearningObjConfidences);
 app.get('/admin/attendances/:date/:cohortId', AttendanceCtrl.getRecordedAttendanceForDateByCohort);
+app.get('/admin/aliases', isAdmin, AliasCtrl.readAll);
+app.post('/admin/aliases', isAdmin, AliasCtrl.create);
+app.get('/admin/aliases/:id', isAdmin, AliasCtrl.readOne);
+app.put('/admin/aliases/:id', isAdmin, AliasCtrl.update);
+app.delete('/admin/aliases/:id', isAdmin, AliasCtrl.delete);
+app.get('/admin/overrides', isAdmin, OverrideCtrl.readAll);
+app.post('/admin/overrides', isAdmin, OverrideCtrl.create);
+app.get('/admin/overrides/:id', isAdmin, OverrideCtrl.readOne);
+app.put('/admin/overrides/:id', isAdmin, OverrideCtrl.update);
+app.delete('/admin/overrides/:id', isAdmin, OverrideCtrl.delete);
 
 function isAdmin(req, res, next) {
     //console.log(req.user);
@@ -137,11 +148,11 @@ function isAdmin(req, res, next) {
             //console.log(req.user.firstName + ' ' + req.user.lastName + ' is authorized for admin pages and has the following roles: ' + roles);
             next();
         } else {
-            console.log(req.user.firstName + ' ' + req.user.lastName + ' tried to view admin pages but is not authorized.  He/She has the following roles: ' + roles);
+            console.log(req.user.firstName + ' ' + req.user.lastName + ' tried to view admin pages or use admin endpoints but is not authorized.  He/She has the following roles: ' + roles);
             res.json({redirect: '/#/studentDashboard'});
         }
     } else {
-        console.log('A user without a req.user session tried to access admin pages.');
+        console.log('A user without a req.user session tried to access admin pages or use admin endpoints.');
         res.json({redirect: '/#/studentDashboard'});
     }
 }

@@ -1,0 +1,26 @@
+
+
+admin-controls .aliasRow p {
+    display: inline-block;
+    font-weight: bold;
+}
+
+admin-controls .aliasRow input {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+admin-controls .aliasRow button {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+admin-controls input.small-size {
+    width: 150px;
+}
+
+admin-controls input.med-size {
+    width: 300px;
+}
+
+admin-controls

@@ -1,4 +1,4 @@
-angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $scope, cohortSrvc) {
+angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $scope, cohortSrvc, aliasSrvc) {
     var socket = socketIoSrvc.getSocket();
     var self = this;
 
@@ -68,9 +68,29 @@ angular.module('theQ').controller('statsDashboardCtrl', function(socketIoSrvc, $
     cohortSrvc.getCohortIds().then(function (res) {
         //console.log(res);
         self.specificTypeOptions = [];
-        res.forEach(function (item) {
-            self.specificTypeOptions.push({label: item, value: item});
-        });
+        aliasSrvc.getAll().then(function(aliases) {
+            if (aliases.length !== 0) {
+                var aliasIds = _.pluck(aliases, 'cohortId');
+
+                res.forEach(function (item) {
+                    var matchIndex = aliasIds.indexOf(item);
+                    if (matchIndex !== -1) {
+                        self.specificTypeOptions.push({label: aliases[matchIndex].alias, value: item});
+                    } else {
+                        self.specificTypeOptions.push({label: item, value: item});
+                    }
+                });
+            } else {
+                res.forEach(function (item) {
+                    self.specificTypeOptions.push({label: item, value: item});
+                });
+            }
+        }, function(err2) {
+            this.specificTypeOptions = [{
+                label: 'Error loading.',
+                value: undefined
+            }];
+        })
     }, function (err) {
         this.specificTypeOptions = [{
             label: 'Error loading.',

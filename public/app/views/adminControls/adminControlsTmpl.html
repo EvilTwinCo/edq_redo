@@ -1,0 +1,24 @@
+<div class="row">
+    <h4>Cohort Aliases</h4>
+    <button ng-click="vm.addCohortAlias()">Add</i></button>
+</div>
+<div class="row">
+    <div ng-repeat="cohort in vm.cohortAliases track by $index" class="aliasRow">
+        <input ng-model="vm.cohortAliases[$index].cohortId" class="small-size" type="text" placeholder="Cohort ID..." />
+        <input ng-model="vm.cohortAliases[$index].alias" class="small-size" type="text" placeholder="Alias..." />
+        <button ng-click="vm.updateCohortAlias($index)">Save/Update</button>
+        <button ng-click="vm.deleteCohortAlias($index)">Delete</button>
+    </div>
+</div>
+<div class="row">
+    <h4>Student Cohort ID Overrides</h4>
+    <button ng-click="vm.addCohortIdOverride()">Add</i></button>
+</div>
+<div class="row">
+    <div ng-repeat="override in vm.cohortIdOverrides track by $index" class="aliasRow">
+        <input ng-model="vm.cohortIdOverrides[$index].studentEmail" class="med-size" type="text" placeholder="Student email..." />
+        <input ng-model="vm.cohortIdOverrides[$index].cohortIdOverride" class="small-size" type="text" placeholder="Override Cohort ID..." />
+        <button ng-click="vm.updateCohortIdOverride($index)">Save/Update</button>
+        <button ng-click="vm.deleteCohortIdOverride($index)">Delete</button>
+    </div>
+</div>
