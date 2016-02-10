@@ -1,4 +1,4 @@
-angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, cohortSrvc, $scope, $interval) {
+angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, cohortSrvc, $scope, $interval, aliasSrvc) {
 
     //this.question = this.question;
     var day = [];
@@ -8,15 +8,22 @@ angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, co
     self.questionsByCohort = {};
     self.statsByCohort = {};
 
+    self.aliases = [];
+    aliasSrvc.getAll().then(function(result){
+      self.aliases = result;
+    });
+
     getQuestions();
     $interval(getQuestions, 10000);
 
     function getQuestions(){
         cohortSrvc.getAllQuestions().then(function(result){
-          console.log(result);
+          //console.log(result);
+
           self.questionsByCohort = _.groupBy(result, function(item){
             return item.cohortId;
           })
+
           calcStats();
         })
     }
@@ -40,7 +47,8 @@ angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, co
           , studentsInQueue:0
           , waitTimes:[]
           , avgWaitTimeInQueue:0
-          , cohortId:item[0].cohortId}
+          , cohortId:item[0].cohortId
+          , cohortName:lookupAlias(item[0].cohortId)}
           statsObj = item.reduce(function(prev, cur){
             if (cur.timeMentorBegins){
               prev.studentsBeingHelped++;
@@ -56,6 +64,16 @@ angular.module('theQ').controller('queueMonitorCtrl', function (socketIoSrvc, co
           return statsObj;
       }
     })
+  }
+
+  function lookupAlias(cohortId){
+    var cohort = _.findWhere(self.aliases, function(item){
+      return item.cohortId == cohortId});
+
+    if (cohort){
+      return cohort.alias;
+    }
+    return cohortId;
   }
 
 

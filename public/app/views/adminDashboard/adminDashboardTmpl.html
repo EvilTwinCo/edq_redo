@@ -6,7 +6,9 @@
     </ul>
   </div>
 </div>
-<div class="row" ng-if="is.currentCohort !== 'Select ID...'">
+
+
+<div class="row" ng-if="is.currentCohort !== 'Select ID...' && is.currentCohort">
   <div class="col s12 m8 l6">
     <div class="row">
       <div class="mentorQueue col s12 m12 l12">
@@ -43,6 +45,8 @@
   </div>
 
 </div>
+<queue-monitor></queue-monitor>
+</br></br>
 <div>
     <attendance-tracker ng-if="is.currentCohort !== 'Select ID...'" cohort-id="is.currentCohort"></attendance-tracker>
 </div>

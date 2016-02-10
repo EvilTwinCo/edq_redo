@@ -165,6 +165,7 @@ student-flash-poll h2{
 
 queue-monitor .stats{
   display: flex;
+  flex-wrap: wrap;
 }
 
 queue-monitor .stats div{
@@ -180,6 +181,17 @@ queue-monitor .stats span{
   display: block;
   width:50%;
   color:#ddd;
-  text-align: right;
+  text-align: center;
   padding-right: 5px;
+  align-self: stretch;
+}
+queue-monitor .stats span:nth-child(2){
+  background-color: #ddd;
+  display: block;
+  width:50%;
+  min-width: 70px;
+  color:#121212;
+  text-align: center;
+  padding-right: 5px;
+
 }
